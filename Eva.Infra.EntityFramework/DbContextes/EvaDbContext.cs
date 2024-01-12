@@ -17,5 +17,8 @@ namespace Eva.Infra.EntityFramework.DbContextes
         public DbSet<User> Users { get; set; }
         public DbSet<Authentication> Authentications { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Company> Companies { get; set; }
     }
 }
