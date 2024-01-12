@@ -1,2 +1,2 @@
 # Eva
-A simple authentication based asp .Net Core Web Api Application
+An ASP.NET Core JWT authentication server.
