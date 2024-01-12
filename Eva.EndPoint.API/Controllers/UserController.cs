@@ -1,6 +1,8 @@
 ﻿using Eva.Core.ApplicationService.Services;
+using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Eva.EndPoint.API.Controllers
 {
@@ -11,6 +13,14 @@ namespace Eva.EndPoint.API.Controllers
         public UserController(IUserService service) : base(service)
         {
             _service = service;
+        }
+
+        // Users must be registered through authentication controller
+        // So insert action must be disbaled
+        [NonAction]
+        public override Task<SingleResultViewModel<User>> InsertAsync(User entity)
+        {
+            return base.InsertAsync(entity);
         }
     }
 }

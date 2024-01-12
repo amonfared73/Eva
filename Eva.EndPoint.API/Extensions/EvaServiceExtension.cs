@@ -41,7 +41,7 @@ namespace Eva.EndPoint.API.Extensions
             services.AddTransient(typeof(IBaseService<>), typeof(BaseService<>));
 
             // Get all services corresponding to Registration Required Attribute
-            var repositoryTypes = Assemblies.GetServices("ProcessMining.Core.ApplicationService", typeof(RegistrationRequiredAttribute));
+            var repositoryTypes = Assemblies.GetServices("Eva.Core.ApplicationService", typeof(RegistrationRequiredAttribute));
 
 
             // Register each service
