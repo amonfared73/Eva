@@ -1,4 +1,5 @@
-﻿using Eva.Core.Domain.Models;
+﻿using Eva.Core.Domain.BaseModels;
+using Eva.Core.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Eva.Infra.EntityFramework.DbContextes
@@ -15,5 +16,6 @@ namespace Eva.Infra.EntityFramework.DbContextes
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Authentication> Authentications { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
     }
 }
