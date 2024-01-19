@@ -9,7 +9,7 @@ namespace Eva.Core.Domain.Models
 {
     public class Company : DomainObject
     {
-        public string Name { get; set; }
-        public List<Department> Departments { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public List<Department>? Departments { get; set; }
     }
 }

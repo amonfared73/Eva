@@ -10,6 +10,6 @@ namespace Eva.Core.Domain.Models
     public class Department : DomainObject
     {
         public string Name { get; set; }
-        public List<Employee> Employees { get; set; }
+        public List<Employee>? Employees { get; set; }
     }
 }
