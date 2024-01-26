@@ -21,5 +21,13 @@ namespace Eva.EndPoint.API.Controllers
         {
             return base.InsertAsync(entity);
         }
+
+        // Users are not allowed to be updated manually
+        // They should be altered through their respective actions
+        [NonAction]
+        public override Task<ActionResultViewModel<User>> UpdateAsync(User entity)
+        {
+            return base.UpdateAsync(entity);
+        }
     }
 }
