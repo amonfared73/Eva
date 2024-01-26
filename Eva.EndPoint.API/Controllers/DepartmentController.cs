@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Eva.EndPoint.API.Controllers
 {
-    [Authorize]
     public class DepartmentController : EvaControllerBase<Department>
     {
         private readonly IDepartmentService _baseService;

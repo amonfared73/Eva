@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Eva.EndPoint.API.Controllers
 {
-    [Authorize]
     public class UserController : EvaControllerBase<User>
     {
         private readonly IUserService _service;

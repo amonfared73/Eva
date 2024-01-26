@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Eva.EndPoint.API.Controllers
 {
-    [Authorize]
     [DisableBaseOperations]
     public class RefreshTokenController : EvaControllerBase<RefreshToken>
     {

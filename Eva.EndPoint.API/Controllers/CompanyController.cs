@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Eva.EndPoint.API.Controllers
 {
-    [Authorize]
     public class CompanyController : EvaControllerBase<Company>
     {
         private readonly ICompanyService _baseService;

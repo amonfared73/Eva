@@ -10,7 +10,9 @@ using Eva.Core.Domain.ViewModels;
 using Eva.Infra.Tools.Hashers;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
+using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
+using HttpDeleteAttribute = Microsoft.AspNetCore.Mvc.HttpDeleteAttribute;
+using AllowAnonymousAttribute = Microsoft.AspNetCore.Authorization.AllowAnonymousAttribute;
 
 namespace Eva.EndPoint.API.Controllers
 {
@@ -33,6 +35,7 @@ namespace Eva.EndPoint.API.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> RegisterAsync(UserDto userDto)
         {
             // Check validity
@@ -64,6 +67,7 @@ namespace Eva.EndPoint.API.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> LoginAsync(LoginRequestViewModel login)
         {
             // Check validity
@@ -87,6 +91,7 @@ namespace Eva.EndPoint.API.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> RefreshAsync(RefreshReuqest refreshReuqest)
         {
             // Check validity
@@ -121,7 +126,6 @@ namespace Eva.EndPoint.API.Controllers
         }
 
         [HttpDelete]
-        [Authorize]
         public async Task<IActionResult> LogoutAsync()
         {
             string rawUserId = HttpContext.User.FindFirstValue("id");
