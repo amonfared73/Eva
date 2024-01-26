@@ -7,8 +7,8 @@ namespace Eva.Core.ApplicationService.Services
     {
         Task<PagedResultViewModel<T>> GetAllAsync(BaseRequestViewModel request);
         Task<SingleResultViewModel<T>> GetByIdAsync(int id);
-        Task<SingleResultViewModel<T>> InsertAsync(T entity);
-        Task<SingleResultViewModel<T>> UpdateAsync(T entity);
-        Task<SingleResultViewModel<T>> DeleteAsync(int id);
+        Task<ActionResultViewModel<T>> InsertAsync(T entity);
+        Task<ActionResultViewModel<T>> UpdateAsync(T entity);
+        Task<ActionResultViewModel<T>> DeleteAsync(int id);
     }
 }

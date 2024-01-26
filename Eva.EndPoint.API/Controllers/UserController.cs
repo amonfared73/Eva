@@ -18,7 +18,7 @@ namespace Eva.EndPoint.API.Controllers
         // Users must be registered through authentication controller
         // So insert action must be disbaled
         [NonAction]
-        public override Task<SingleResultViewModel<User>> InsertAsync(User entity)
+        public override Task<ActionResultViewModel<User>> InsertAsync(User entity)
         {
             return base.InsertAsync(entity);
         }

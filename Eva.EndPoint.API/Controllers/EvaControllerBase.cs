@@ -46,7 +46,7 @@ namespace Eva.EndPoint.API.Controllers
             }
         }
         [HttpPost]
-        public virtual async Task<SingleResultViewModel<T>> InsertAsync(T entity)
+        public virtual async Task<ActionResultViewModel<T>> InsertAsync(T entity)
         {
             try
             {
@@ -54,21 +54,21 @@ namespace Eva.EndPoint.API.Controllers
             }
             catch (CrudException<T> ex)
             {
-                return new SingleResultViewModel<T>()
+                return new ActionResultViewModel<T>()
                 {
                     ResponseMessage = new ResponseMessage(ex.Message)
                 };
             }
             catch (Exception ex)
             {
-                return new SingleResultViewModel<T>()
+                return new ActionResultViewModel<T>()
                 {
                     ResponseMessage = new ResponseMessage(ex.Message)
                 };
             }
         }
         [HttpPut]
-        public virtual async Task<SingleResultViewModel<T>> UpdateAsync(T entity)
+        public virtual async Task<ActionResultViewModel<T>> UpdateAsync(T entity)
         {
             try
             {
@@ -76,21 +76,21 @@ namespace Eva.EndPoint.API.Controllers
             }
             catch (CrudException<T> ex)
             {
-                return new SingleResultViewModel<T>()
+                return new ActionResultViewModel<T>()
                 {
                     ResponseMessage = new ResponseMessage(ex.Message)
                 };
             }
             catch (Exception ex)
             {
-                return new SingleResultViewModel<T>()
+                return new ActionResultViewModel<T>()
                 {
                     ResponseMessage = new ResponseMessage(ex.Message)
                 };
             }
         }
         [HttpDelete("{id}")]
-        public virtual async Task<SingleResultViewModel<T>> DeleteAsync(int id)
+        public virtual async Task<ActionResultViewModel<T>> DeleteAsync(int id)
         {
             try
             {
@@ -98,14 +98,14 @@ namespace Eva.EndPoint.API.Controllers
             }
             catch (CrudException<T> ex)
             {
-                return new SingleResultViewModel<T>()
+                return new ActionResultViewModel<T>()
                 {
                     ResponseMessage = new ResponseMessage(ex.Message)
                 };
             }
             catch (Exception ex)
             {
-                return new SingleResultViewModel<T>()
+                return new ActionResultViewModel<T>()
                 {
                     ResponseMessage = new ResponseMessage(ex.Message)
                 };

@@ -47,7 +47,7 @@ namespace Eva.Core.ApplicationService.Queries
             }
         }
 
-        public virtual async Task<SingleResultViewModel<T>> InsertAsync(T entity)
+        public virtual async Task<ActionResultViewModel<T>> InsertAsync(T entity)
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
@@ -55,7 +55,7 @@ namespace Eva.Core.ApplicationService.Queries
                     throw new CrudException<T>(string.Format("Sorry, can not insert null {0} entity", typeof(T).Name), BaseOperations.Insert);
                 await context.Set<T>().AddAsync(entity);
                 await context.SaveChangesAsync();
-                return new SingleResultViewModel<T>()
+                return new ActionResultViewModel<T>()
                 {
                     Entity = entity,
                     ResponseMessage = new ResponseMessage(string.Format("{0} inserted successfully", typeof(T).Name))
@@ -63,7 +63,7 @@ namespace Eva.Core.ApplicationService.Queries
             }
         }
 
-        public virtual async Task<SingleResultViewModel<T>> UpdateAsync(T entity)
+        public virtual async Task<ActionResultViewModel<T>> UpdateAsync(T entity)
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
@@ -72,14 +72,14 @@ namespace Eva.Core.ApplicationService.Queries
                     throw new CrudException<T>(string.Format("{0} not found", typeof(T).Name), BaseOperations.Update);
                 context.Entry(currentEntity).CurrentValues.SetValues(entity);
                 await context.SaveChangesAsync();
-                return new SingleResultViewModel<T>()
+                return new ActionResultViewModel<T>()
                 {
                     Entity = entity,
                     ResponseMessage = new ResponseMessage(string.Format("{0} updated successfully", typeof(T).Name))
                 };
             }
         }
-        public virtual async Task<SingleResultViewModel<T>> DeleteAsync(int id)
+        public virtual async Task<ActionResultViewModel<T>> DeleteAsync(int id)
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
@@ -88,7 +88,7 @@ namespace Eva.Core.ApplicationService.Queries
                     throw new CrudException<T>(string.Format("{0} not found", typeof(T).Name), BaseOperations.Delete);
                 context.Remove(entity);
                 await context.SaveChangesAsync();
-                return new SingleResultViewModel<T>()
+                return new ActionResultViewModel<T>()
                 {
                     Entity = entity,
                     ResponseMessage = new ResponseMessage(string.Format("{0} deleted successfully", typeof(T).Name))
