@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Eva.Core.Domain.BaseViewModels
 {
-    public class ActionResultViewModel<T> where T : DomainObjectModel
+    public class ActionResultViewModel<T> where T : DomainObject
     {
         public T? Entity { get; set; }
         public ResponseMessage ResponseMessage { get; set; }
