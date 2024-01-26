@@ -22,6 +22,7 @@ namespace Eva.Core.ApplicationService.TokenGenerators
             {
                 new Claim("id", user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
+                new Claim("isAdmin", user.IsAdmin.ToString())
             };
 
             return _tokenGenerator.GenerateToken(
