@@ -14,6 +14,12 @@ namespace Eva.EndPoint.API.Controllers
             _service = service;
         }
 
+        [HttpPut]
+        public async Task<ActionResultViewModel<User>> AlterAdminStateAsync(int userId)
+        {
+            return await _service.AlterAdminStateAsync(userId);
+        }
+
         // Users must be registered through authentication controller
         // So insert action must be disbaled
         [NonAction]

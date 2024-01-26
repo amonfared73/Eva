@@ -1,6 +1,8 @@
 ﻿using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.DTOs;
+using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Models;
 using Eva.Infra.EntityFramework.DbContextes;
 using Eva.Infra.Tools.Hashers;
@@ -47,6 +49,26 @@ namespace Eva.Core.ApplicationService.Queries
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
                 return await context.Users.Where(e => e.Id == id).FirstOrDefaultAsync();
+            }
+        }
+
+        public async Task<ActionResultViewModel<User>> AlterAdminStateAsync(int userId)
+        {
+            using (EvaDbContext context = _contextFactory.CreateDbContext())
+            {
+                var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+                if (user == null)
+                    throw new EvaNotFoundException(string.Format("{0} not found!", typeof(User).ToString()), typeof(User));
+
+                var isAdmin = user.IsAdmin;
+                user.IsAdmin = isAdmin ? false : true;
+                await context.SaveChangesAsync();
+                return new ActionResultViewModel<User>()
+                {
+                    Entity = user,
+                    ResponseMessage = new Domain.Responses.ResponseMessage("User Updated successfully!")
+                };
             }
         }
     }
