@@ -20,5 +20,6 @@ namespace Eva.Infra.EntityFramework.DbContextes
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<Role> Roles { get; set; }
     }
 }
