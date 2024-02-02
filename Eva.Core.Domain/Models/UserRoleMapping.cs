@@ -1,4 +1,5 @@
 ﻿using Eva.Core.Domain.BaseModels;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Eva.Core.Domain.Models
 {
