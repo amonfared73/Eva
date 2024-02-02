@@ -47,5 +47,14 @@ namespace Eva.Core.ApplicationService.Queries
                 };
             }
         }
+
+        public async Task<HashSet<string>> GetRolesForUserAsync(int userId)
+        {
+            using (EvaDbContext context = _contextFactory.CreateDbContext())
+            {
+                var roles = await context.UserRoleMappings.Where(e => e.UserId == userId).Select(r => r.Role).ToArrayAsync();
+                return roles.Select(r => r.Name).ToHashSet();
+            }
+        }
     }
 }

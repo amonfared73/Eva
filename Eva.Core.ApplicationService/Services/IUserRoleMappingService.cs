@@ -7,5 +7,6 @@ namespace Eva.Core.ApplicationService.Services
     public interface IUserRoleMappingService : IBaseService<UserRoleMapping>
     {
         Task<ActionResultViewModel<UserRoleMapping>> AddRoleToUserAsync(UserRoleMappingDto request);
+        Task<HashSet<string>> GetRolesForUserAsync(int userId);
     }
 }

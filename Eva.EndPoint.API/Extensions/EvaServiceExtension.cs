@@ -5,10 +5,12 @@ using Eva.Core.ApplicationService.TokenGenerators;
 using Eva.Core.ApplicationService.TokenValidators;
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseModels;
+using Eva.EndPoint.API.Authorization;
 using Eva.EndPoint.API.Conventions;
 using Eva.Infra.EntityFramework.DbContextes;
 using Eva.Infra.Tools.Reflections;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -22,6 +24,13 @@ namespace Eva.EndPoint.API.Extensions
         {
             services.AddDbContext<EvaDbContext>(options => options.UseSqlite(connectionString), optionsLifetime: ServiceLifetime.Singleton);
             services.AddDbContextFactory<EvaDbContext, EvaDbContextFactory>(options => options.UseSqlite(connectionString));
+            return services;
+        }
+
+        private static IServiceCollection AddEvaRoleBasedAuthorization(this IServiceCollection services)
+        {
+            services.AddSingleton<IAuthorizationHandler, RoleAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationPolicyProvider, RoleAuthorizationPolicyProvider>();
             return services;
         }
 
@@ -116,6 +125,9 @@ namespace Eva.EndPoint.API.Extensions
 
             // Add Access Token Generator
             builder.Services.AddAccessTokenGenerator();
+
+            // Add Role based authorization
+            builder.Services.AddEvaRoleBasedAuthorization();
 
             // Add Services
             builder.Services.AddEvaServices();
