@@ -3,6 +3,7 @@ using System;
 using Eva.Infra.EntityFramework.DbContextes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eva.Infra.EntityFramework.Migrations
 {
     [DbContext(typeof(EvaDbContext))]
-    partial class EvaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240202072105_userRoleMapping")]
+    partial class userRoleMapping
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.26");
@@ -167,25 +169,19 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Eva.Core.Domain.Models.UserRoleMapping", b =>
+            modelBuilder.Entity("RoleUser", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("RolesId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("RoleId")
+                    b.Property<int>("UsersId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("TEXT");
+                    b.HasKey("RolesId", "UsersId");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("INTEGER");
+                    b.HasIndex("UsersId");
 
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("UserRoleMappings");
+                    b.ToTable("RoleUser");
                 });
 
             modelBuilder.Entity("Eva.Core.Domain.Models.Department", b =>
@@ -202,23 +198,19 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasForeignKey("DepartmentId");
                 });
 
-            modelBuilder.Entity("Eva.Core.Domain.Models.UserRoleMapping", b =>
+            modelBuilder.Entity("RoleUser", b =>
                 {
-                    b.HasOne("Eva.Core.Domain.Models.Role", "Role")
-                        .WithMany("UserRoleMapping")
-                        .HasForeignKey("RoleId")
+                    b.HasOne("Eva.Core.Domain.Models.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RolesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Eva.Core.Domain.Models.User", "User")
-                        .WithMany("UserRoleMapping")
-                        .HasForeignKey("UserId")
+                    b.HasOne("Eva.Core.Domain.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Role");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Eva.Core.Domain.Models.Company", b =>
@@ -229,16 +221,6 @@ namespace Eva.Infra.EntityFramework.Migrations
             modelBuilder.Entity("Eva.Core.Domain.Models.Department", b =>
                 {
                     b.Navigation("Employees");
-                });
-
-            modelBuilder.Entity("Eva.Core.Domain.Models.Role", b =>
-                {
-                    b.Navigation("UserRoleMapping");
-                });
-
-            modelBuilder.Entity("Eva.Core.Domain.Models.User", b =>
-                {
-                    b.Navigation("UserRoleMapping");
                 });
 #pragma warning restore 612, 618
         }
