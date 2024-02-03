@@ -17,7 +17,7 @@ namespace Eva.EndPoint.API.Controllers
         }
 
         [HttpPut]
-        [EvaHasRole("Admin")]
+        [HasRole("Admin")]
         public async Task<ActionResultViewModel<User>> AlterAdminStateAsync(int userId)
         {
             try
