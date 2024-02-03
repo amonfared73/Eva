@@ -57,7 +57,7 @@ namespace Eva.EndPoint.API.Extensions
             foreach (var repositoryType in repositoryTypes)
             {
                 var repositoryInterface = repositoryType.GetInterfaces().Where(i => !i.IsGenericType).FirstOrDefault();
-                services.AddScoped(repositoryInterface, repositoryType);
+                services.AddSingleton(repositoryInterface, repositoryType);
             }
 
             // Return extension method value

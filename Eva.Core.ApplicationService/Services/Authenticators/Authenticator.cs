@@ -20,7 +20,7 @@ namespace Eva.Core.ApplicationService.Services.Authenticators
 
         public async Task<AuthenticatedUserResponse> Authenticate(User user)
         {
-            string accessToken = _accessTokenGenerator.GenerateToken(user);
+            string accessToken = await _accessTokenGenerator.GenerateTokenAsync(user);
             string refreshToken = _refreshTokenGenerator.GenerateToken();
 
             RefreshToken refreshTokenDTO = new RefreshToken()

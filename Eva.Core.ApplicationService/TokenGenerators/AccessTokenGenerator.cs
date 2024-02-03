@@ -1,4 +1,5 @@
-﻿using Eva.Core.Domain.BaseModels;
+﻿using Eva.Core.ApplicationService.Services;
+using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.Models;
 using System.Security.Claims;
 
@@ -8,14 +9,16 @@ namespace Eva.Core.ApplicationService.TokenGenerators
     {
         private readonly AuthenticationConfiguration _configuration;
         private readonly TokenGenerator _tokenGenerator;
+        private readonly IUserRoleMappingService _userRoleMappingService;
 
-        public AccessTokenGenerator(AuthenticationConfiguration configuration, TokenGenerator tokenGenerator)
+        public AccessTokenGenerator(AuthenticationConfiguration configuration, TokenGenerator tokenGenerator, IUserRoleMappingService userRoleMappingService)
         {
             _configuration = configuration;
             _tokenGenerator = tokenGenerator;
+            _userRoleMappingService = userRoleMappingService;
         }
 
-        public string GenerateToken(User user)
+        public async Task<string> GenerateTokenAsync(User user)
         {
 
             List<Claim> claims = new List<Claim>()
@@ -24,6 +27,13 @@ namespace Eva.Core.ApplicationService.TokenGenerators
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim("isAdmin", user.IsAdmin.ToString())
             };
+
+            HashSet<string> roles = await _userRoleMappingService.GetRolesForUserAsync(user.Id);
+
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(CustomClaims.Role, role));
+            }
 
             return _tokenGenerator.GenerateToken(
                 _configuration.AccessTokenSecret,

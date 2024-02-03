@@ -1,4 +1,5 @@
 ﻿using Eva.Core.ApplicationService.Services;
+using Eva.Core.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.JsonWebTokens;
 
@@ -11,23 +12,14 @@ namespace Eva.EndPoint.API.Authorization
         {
             _serviceScopeFactory = serviceScopeFactory;
         }
-        protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, RoleRequirement requirement)
+        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, RoleRequirement requirement)
         {
-            string? userId = context.User.Claims.FirstOrDefault(x => x.Type == "id")?.Value;
+            var roles = context.User.Claims.Where(x => x.Type == CustomClaims.Role).Select(x => x.Value).ToHashSet();
 
-            if(!int.TryParse(userId, out int parsedUserId))
-            {
-                return;
-            }
-            using (IServiceScope scope = _serviceScopeFactory.CreateScope())
-            {
-                IUserRoleMappingService userRoleMappingService = scope.ServiceProvider.GetRequiredService<IUserRoleMappingService>();
-                var roles = await userRoleMappingService.GetRolesForUserAsync(parsedUserId);
-                if (roles.Contains(requirement.Role))
-                {
-                    context.Succeed(requirement);
-                }
-            }
+            if (roles.Contains(requirement.Role))
+                context.Succeed(requirement);
+
+            return Task.CompletedTask;
         }
     }
 }
