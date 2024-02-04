@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eva.Core.Domain.Models
+namespace Eva.Core.Domain.BaseModels
 {
     public static class CustomClaims
     {

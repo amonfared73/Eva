@@ -1,5 +1,5 @@
 ﻿using Eva.Core.ApplicationService.Services;
-using Eva.Core.Domain.Models;
+using Eva.Core.Domain.BaseModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.JsonWebTokens;
 
