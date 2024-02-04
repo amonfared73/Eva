@@ -5,6 +5,7 @@ using Eva.Core.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Eva.Core.Domain.Responses;
 using Eva.EndPoint.API.Authorization;
+using Eva.Core.Domain.BaseModels;
 
 namespace Eva.EndPoint.API.Controllers
 {
@@ -17,7 +18,7 @@ namespace Eva.EndPoint.API.Controllers
         }
 
         [HttpPut]
-        [HasRole("Admin")]
+        [HasRole(ActiveRoles.Admin)]
         public async Task<ActionResultViewModel<User>> AlterAdminStateAsync(int userId)
         {
             try
