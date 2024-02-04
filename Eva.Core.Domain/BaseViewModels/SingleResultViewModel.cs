@@ -6,6 +6,7 @@ namespace Eva.Core.Domain.BaseViewModels
     public class SingleResultViewModel<T> where T : DomainObject
     {
         public T? Entity { get; set; }
+        public bool HasError { get; set; } = false;
         public ResponseMessage ResponseMessage { get; set; }
     }
 }

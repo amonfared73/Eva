@@ -6,5 +6,6 @@ namespace Eva.Core.Domain.BaseViewModels
     {
         public Pagination Pagination { get; set; }
         public IEnumerable<T> Data { get; set; }
+        public bool HasError { get; set; } = false;
     }
 }

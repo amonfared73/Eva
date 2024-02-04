@@ -36,6 +36,7 @@ namespace Eva.EndPoint.API.Controllers
             {
                 return new SingleResultViewModel<T>()
                 {
+                    HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message)
                 };
             }
@@ -43,6 +44,7 @@ namespace Eva.EndPoint.API.Controllers
             {
                 return new SingleResultViewModel<T>()
                 {
+                    HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message)
                 };
             }
@@ -58,6 +60,7 @@ namespace Eva.EndPoint.API.Controllers
             {
                 return new ActionResultViewModel<T>()
                 {
+                    HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message)
                 };
             }
@@ -65,6 +68,7 @@ namespace Eva.EndPoint.API.Controllers
             {
                 return new ActionResultViewModel<T>()
                 {
+                    HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message)
                 };
             }
@@ -80,6 +84,7 @@ namespace Eva.EndPoint.API.Controllers
             {
                 return new ActionResultViewModel<T>()
                 {
+                    HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message)
                 };
             }
@@ -87,6 +92,7 @@ namespace Eva.EndPoint.API.Controllers
             {
                 return new ActionResultViewModel<T>()
                 {
+                    HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message)
                 };
             }
@@ -102,6 +108,7 @@ namespace Eva.EndPoint.API.Controllers
             {
                 return new ActionResultViewModel<T>()
                 {
+                    HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message)
                 };
             }
@@ -109,6 +116,7 @@ namespace Eva.EndPoint.API.Controllers
             {
                 return new ActionResultViewModel<T>()
                 {
+                    HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message)
                 };
             }

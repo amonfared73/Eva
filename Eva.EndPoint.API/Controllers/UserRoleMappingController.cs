@@ -38,6 +38,7 @@ namespace Eva.EndPoint.API.Controllers
             {
                 return new ActionResultViewModel<UserRoleMapping>()
                 {
+                    HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message),
                 };
             }
@@ -45,6 +46,7 @@ namespace Eva.EndPoint.API.Controllers
             {
                 return new ActionResultViewModel<UserRoleMapping>()
                 {
+                    HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message),
                 };
             }

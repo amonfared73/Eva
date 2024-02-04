@@ -29,6 +29,7 @@ namespace Eva.EndPoint.API.Controllers
             {
                 return new ActionResultViewModel<User>()
                 {
+                    HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message),
                 };
             }
@@ -36,6 +37,7 @@ namespace Eva.EndPoint.API.Controllers
             {
                 return new ActionResultViewModel<User>()
                 {
+                    HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message),
                 };
             }
