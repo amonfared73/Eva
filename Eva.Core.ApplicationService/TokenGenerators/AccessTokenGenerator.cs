@@ -32,7 +32,7 @@ namespace Eva.Core.ApplicationService.TokenGenerators
 
             foreach (var role in roles)
             {
-                claims.Add(new Claim(CustomClaims.Role, role));
+                claims.Add(new Claim(CustomClaims.ActiveRoles, role));
             }
 
             return _tokenGenerator.GenerateToken(

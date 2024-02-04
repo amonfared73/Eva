@@ -8,6 +8,6 @@ namespace Eva.Core.Domain.Models
 {
     public static class CustomClaims
     {
-        public const string Role = "roles";
+        public const string ActiveRoles = "activeRoles";
     }
 }

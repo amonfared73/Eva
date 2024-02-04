@@ -14,7 +14,7 @@ namespace Eva.EndPoint.API.Authorization
         }
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, RoleRequirement requirement)
         {
-            var roles = context.User.Claims.Where(x => x.Type == CustomClaims.Role).Select(x => x.Value).ToHashSet();
+            var roles = context.User.Claims.Where(x => x.Type == CustomClaims.ActiveRoles).Select(x => x.Value).ToHashSet();
 
             if (roles.Contains(requirement.Role))
                 context.Succeed(requirement);
