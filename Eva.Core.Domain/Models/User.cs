@@ -10,6 +10,8 @@ namespace Eva.Core.Domain.Models
         public bool IsAdmin { get; set; }
         [JsonIgnore]
         public ICollection<UserRoleMapping> UserRoleMapping { get; set; }
+        [JsonIgnore]
+        public ICollection<EvaLog> EvaLogs { get; set; }
         public override string ToString() => Username;
     }
 }
