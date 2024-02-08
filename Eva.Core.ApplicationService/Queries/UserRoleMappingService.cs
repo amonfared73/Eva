@@ -7,6 +7,7 @@ using Eva.Core.Domain.Models;
 using Eva.Infra.EntityFramework.DbContextes;
 using Microsoft.EntityFrameworkCore;
 using Eva.Core.Domain.Responses;
+using Eva.Core.Domain.ViewModels;
 
 namespace Eva.Core.ApplicationService.Queries
 {
@@ -15,7 +16,7 @@ namespace Eva.Core.ApplicationService.Queries
     {
         private readonly IDbContextFactory<EvaDbContext> _contextFactory;
 
-        public UserRoleMappingService(IDbContextFactory<EvaDbContext> contextFactory) : base(contextFactory) 
+        public UserRoleMappingService(IDbContextFactory<EvaDbContext> contextFactory) : base(contextFactory)
         {
             _contextFactory = contextFactory;
         }
@@ -54,6 +55,26 @@ namespace Eva.Core.ApplicationService.Queries
             {
                 var roles = await context.UserRoleMappings.Where(e => e.UserId == userId).Select(r => r.Role).ToArrayAsync();
                 return roles.Select(r => r.Name).ToHashSet();
+            }
+        }
+
+        public async Task<IEnumerable<UserRolesViewModel>> UserRolesReport(int? userId)
+        {
+            using (EvaDbContext context = _contextFactory.CreateDbContext())
+            {
+                var users = await context.Users.Where(u => u.Id == userId || userId == null).ToListAsync();
+                var roles = await context.Roles.ToListAsync();
+                var userRoles = await context.UserRoleMappings.ToListAsync();
+
+                var query = from userRole in userRoles
+                            join user in users on userRole.UserId equals user.Id
+                            join role in roles on userRole.RoleId equals role.Id
+                            select new UserRolesViewModel()
+                            {
+                                Username = user.Username,
+                                RoleName = role.Name
+                            };
+                return query;
             }
         }
     }
