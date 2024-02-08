@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System.Text;
 
 namespace Eva.EndPoint.API.Extensions
@@ -66,10 +67,16 @@ namespace Eva.EndPoint.API.Extensions
 
         public static WebApplicationBuilder AddEva(this WebApplicationBuilder builder, out WebApplication app)
         {
-            // Authentication configuration
-            var authenticationConfiguration = new AuthenticationConfiguration();
+            // Connection string
             var configuration = builder.Services.BuildServiceProvider().GetRequiredService<IConfiguration>();
             var connectionString = configuration.GetConnectionString("sqlite");
+
+            // Seriog configuration
+            Log.Logger = new LoggerConfiguration().WriteTo.SQLite(sqliteDbPath: connectionString, tableName: "Logs").CreateLogger();
+            builder.Services.AddLogging(log => log.AddSerilog(dispose: true));
+
+            // Authentication configuration
+            var authenticationConfiguration = new AuthenticationConfiguration();
             configuration.Bind("Authentication", authenticationConfiguration);
             builder.Services.AddSingleton(authenticationConfiguration);
 
