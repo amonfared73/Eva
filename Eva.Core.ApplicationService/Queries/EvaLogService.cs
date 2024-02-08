@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Eva.Core.ApplicationService.Queries
 {
-    [DisableBaseOperations]
+    [RegistrationRequired]
     public class EvaLogService : BaseService<EvaLog>, IEvaLogService
     {
         private readonly IDbContextFactory<EvaDbContext> _contextFactory;
