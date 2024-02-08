@@ -7,6 +7,7 @@ using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseModels;
 using Eva.EndPoint.API.Authorization;
 using Eva.EndPoint.API.Conventions;
+using Eva.EndPoint.API.Logging;
 using Eva.Infra.EntityFramework.DbContextes;
 using Eva.Infra.Tools.Reflections;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -43,7 +44,6 @@ namespace Eva.EndPoint.API.Extensions
             services.AddSingleton<TokenGenerator>();
             return services;
         }
-
         private static IServiceCollection AddEvaServices(this IServiceCollection services)
         {
             // Register base services
@@ -143,6 +143,8 @@ namespace Eva.EndPoint.API.Extensions
                     o.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
                 });
             }
+
+            app.UseMiddleware<LoggingMiddleware>();
 
             app.UseHttpsRedirection();
 
