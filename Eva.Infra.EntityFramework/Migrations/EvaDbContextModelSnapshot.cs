@@ -160,7 +160,7 @@ namespace Eva.Infra.EntityFramework.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("EvaLog");
+                    b.ToTable("EvaLogs");
                 });
 
             modelBuilder.Entity("Eva.Core.Domain.Models.Role", b =>

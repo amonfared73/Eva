@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eva.Infra.EntityFramework.Migrations
 {
     [DbContext(typeof(EvaDbContext))]
-    [Migration("20240202083742_final_fix")]
-    partial class final_fix
+    [Migration("20240211064540_evaLogging")]
+    partial class evaLogging
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -126,6 +126,45 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.ToTable("Employees");
                 });
 
+            modelBuilder.Entity("Eva.Core.Domain.Models.EvaLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Payload")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RequestMethod")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RequestUrl")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Response")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("StatusCode")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("EvaLogs");
+                });
+
             modelBuilder.Entity("Eva.Core.Domain.Models.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -171,21 +210,25 @@ namespace Eva.Infra.EntityFramework.Migrations
 
             modelBuilder.Entity("Eva.Core.Domain.Models.UserRoleMapping", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("RoleId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Id")
+                    b.Property<int>("RoleId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("UserId", "RoleId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId", "RoleId")
+                        .IsUnique();
 
                     b.ToTable("UserRoleMappings");
                 });
@@ -202,6 +245,17 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.HasOne("Eva.Core.Domain.Models.Department", null)
                         .WithMany("Employees")
                         .HasForeignKey("DepartmentId");
+                });
+
+            modelBuilder.Entity("Eva.Core.Domain.Models.EvaLog", b =>
+                {
+                    b.HasOne("Eva.Core.Domain.Models.User", "User")
+                        .WithMany("EvaLogs")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Eva.Core.Domain.Models.UserRoleMapping", b =>
@@ -240,6 +294,8 @@ namespace Eva.Infra.EntityFramework.Migrations
 
             modelBuilder.Entity("Eva.Core.Domain.Models.User", b =>
                 {
+                    b.Navigation("EvaLogs");
+
                     b.Navigation("UserRoleMapping");
                 });
 #pragma warning restore 612, 618
