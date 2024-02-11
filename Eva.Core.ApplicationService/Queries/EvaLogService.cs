@@ -33,5 +33,12 @@ namespace Eva.Core.ApplicationService.Queries
                 await context.SaveChangesAsync();
             }
         }
+        public async Task<IEnumerable<EvaLog>> ViewAllLogsAsync()
+        {
+            using (EvaDbContext context = _contextFactory.CreateDbContext())
+            {
+                return await context.EvaLogs.ToListAsync();
+            }
+        }
     }
 }
