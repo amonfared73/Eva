@@ -21,19 +21,20 @@ namespace Eva.Core.ApplicationService.Queries
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
-
-                var evaLog = new EvaLog()
+                using (StreamReader streamReader = new StreamReader(httpContext.Request.Body, Encoding.UTF8))
                 {
-                    RequestUrl = httpContext.Request.Path,
-                    RequestMethod = httpContext.Request.Method,
-                    StatusCode = httpContext.Response.StatusCode.ToString(),
-                    Payload = "Paylod",
-                    UserId = 1,
-                    CreatedOn = DateTime.Now,
-                };
-                await context.EvaLogs.AddAsync(evaLog);
-                await context.SaveChangesAsync();
-
+                    var evaLog = new EvaLog()
+                    {
+                        RequestUrl = httpContext.Request.Path,
+                        RequestMethod = httpContext.Request.Method,
+                        StatusCode = httpContext.Response.StatusCode.ToString(),
+                        Payload = "Payload",
+                        UserId = 1,
+                        CreatedOn = DateTime.Now,
+                    };
+                    await context.EvaLogs.AddAsync(evaLog);
+                    await context.SaveChangesAsync();
+                }
             }
         }
         public async Task<IEnumerable<EvaLog>> ViewAllLogsAsync()

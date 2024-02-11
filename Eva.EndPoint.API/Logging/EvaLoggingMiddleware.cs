@@ -16,6 +16,7 @@ namespace Eva.EndPoint.API.Logging
         {
             await _logService.LogAsync(httpContext);
             await _next.Invoke(httpContext);
+            //httpContext.Response.Body.Seek(0, SeekOrigin.Begin);
         }
     }
 }
