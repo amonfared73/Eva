@@ -4,6 +4,7 @@ using Eva.Core.Domain.Models;
 using Eva.Infra.EntityFramework.DbContextes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 
 namespace Eva.Core.ApplicationService.Queries
 {
@@ -20,17 +21,19 @@ namespace Eva.Core.ApplicationService.Queries
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
+
                 var evaLog = new EvaLog()
                 {
                     RequestUrl = httpContext.Request.Path,
                     RequestMethod = httpContext.Request.Method,
                     StatusCode = httpContext.Response.StatusCode.ToString(),
-                    Payload = httpContext.Request.Body.ToString(),
-                    UserId = int.Parse(httpContext.User.Claims.Where(c => c.Type == "id").FirstOrDefault().ToString()),
+                    Payload = "Paylod",
+                    UserId = 1,
                     CreatedOn = DateTime.Now,
                 };
                 await context.EvaLogs.AddAsync(evaLog);
                 await context.SaveChangesAsync();
+
             }
         }
         public async Task<IEnumerable<EvaLog>> ViewAllLogsAsync()
