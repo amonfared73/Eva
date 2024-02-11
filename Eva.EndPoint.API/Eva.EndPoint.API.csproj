@@ -24,4 +24,8 @@
     <ProjectReference Include="..\Eva.Core.Domain\Eva.Core.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Logging\" />
+  </ItemGroup>
+
 </Project>
