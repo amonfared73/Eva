@@ -17,6 +17,7 @@ namespace Eva.Infra.EntityFramework.DbContextes
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRoleMapping> UserRoleMappings { get; set; }
+        public DbSet<EvaLog> EvaLogs { get; set; }
         public DbSet<Authentication> Authentications { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<Employee> Employees { get; set; }
