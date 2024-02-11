@@ -4,7 +4,7 @@ using System.Web;
 
 namespace Eva.Core.ApplicationService.Services
 {
-    public interface IEvaLogService : IBaseService<EvaLog>
+    public interface IEvaLogService
     {
         Task LogAsync(HttpContext httpContext);
     }

@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired]
-    public class EvaLogService : BaseService<EvaLog>, IEvaLogService
+    public class EvaLogService : IEvaLogService
     {
         private readonly IDbContextFactory<EvaDbContext> _contextFactory;
-        public EvaLogService(IDbContextFactory<EvaDbContext> contextFactory) : base(contextFactory)
+        public EvaLogService(IDbContextFactory<EvaDbContext> contextFactory)
         {
             _contextFactory = contextFactory;
         }

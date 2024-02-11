@@ -1,14 +1,18 @@
 ﻿using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.Attributes;
-using Eva.Core.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Eva.EndPoint.API.Controllers
 {
+    [Authorize]
+    [ApiController]
     [DisableBaseOperations]
-    public class EvaLogController : EvaControllerBase<EvaLog>
+    [Route("api/[controller]/[action]")]
+    public class EvaLogController 
     {
         private readonly IEvaLogService _service;
-        public EvaLogController(IEvaLogService service) : base(service)
+        public EvaLogController(IEvaLogService service) 
         {
             _service = service;
         }
