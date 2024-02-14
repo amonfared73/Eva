@@ -151,13 +151,13 @@ namespace Eva.EndPoint.API.Extensions
                 });
             }
 
-            app.UseMiddleware<EvaLoggingMiddleware>();
 
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseMiddleware<EvaLoggingMiddleware>();
 
             app.MapControllers();
 

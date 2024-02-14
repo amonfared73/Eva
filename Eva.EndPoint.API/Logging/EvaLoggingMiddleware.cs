@@ -14,9 +14,15 @@ namespace Eva.EndPoint.API.Logging
         }
         public async Task Invoke(HttpContext httpContext)
         {
-            await _logService.LogAsync(httpContext);
-            await _next.Invoke(httpContext);
-            //httpContext.Response.Body.Seek(0, SeekOrigin.Begin);
+            httpContext.Request.EnableBuffering();
+
+            var requestBody = await new StreamReader(httpContext.Request.Body).ReadToEndAsync();
+
+            httpContext.Request.Body.Position = 0;
+
+            await _next(httpContext);
+
+            await _logService.LogAsync(httpContext, requestBody);
         }
     }
 }

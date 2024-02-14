@@ -17,7 +17,7 @@ namespace Eva.Core.ApplicationService.Queries
             _contextFactory = contextFactory;
         }
 
-        public async Task LogAsync(HttpContext httpContext)
+        public async Task LogAsync(HttpContext httpContext, string requestBody)
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
@@ -28,7 +28,7 @@ namespace Eva.Core.ApplicationService.Queries
                         RequestUrl = httpContext.Request.Path,
                         RequestMethod = httpContext.Request.Method,
                         StatusCode = httpContext.Response.StatusCode.ToString(),
-                        Payload = "Payload",
+                        Payload = requestBody,
                         UserId = 1,
                         CreatedOn = DateTime.Now,
                     };
