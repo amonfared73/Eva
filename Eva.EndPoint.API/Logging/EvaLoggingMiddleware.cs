@@ -17,7 +17,7 @@ namespace Eva.EndPoint.API.Logging
             httpContext.Request.EnableBuffering();
             var requestBody = await new StreamReader(httpContext.Request.Body).ReadToEndAsync();
             httpContext.Request.Body.Position = 0;
-            await _logService.LogAsync(httpContext, requestBody);
+            await _logService.LogRequestAsync(httpContext, requestBody);
             await _next(httpContext);
         }
     }

@@ -22,7 +22,7 @@ namespace Eva.Core.ApplicationService.Queries
             _userService = userService;
         }
 
-        public async Task LogAsync(HttpContext httpContext, string requestBody)
+        public async Task LogRequestAsync(HttpContext httpContext, string requestBody)
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
