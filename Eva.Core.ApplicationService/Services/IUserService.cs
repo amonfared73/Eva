@@ -12,5 +12,6 @@ namespace Eva.Core.ApplicationService.Services
         Task<User> GetUserForLoginAsync(int id);
         Task Register(UserDto userDto);
         Task<int> ExtractUserIdFromToken(HttpContext httpContext);
+        Task<int> GetUserIdFromContext(HttpContext httpContext, string requestBody);
     }
 }

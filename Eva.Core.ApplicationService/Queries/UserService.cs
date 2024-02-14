@@ -78,5 +78,10 @@ namespace Eva.Core.ApplicationService.Queries
             var userClaimId = httpContext.User.Claims.Where(x => x.Type == "id").FirstOrDefault();
             return await Task.FromResult(int.TryParse(userClaimId.Value, out int userId) ? userId : 0);
         }
+
+        public async Task<int> GetUserIdFromContext(HttpContext httpContext, string requestBody)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
