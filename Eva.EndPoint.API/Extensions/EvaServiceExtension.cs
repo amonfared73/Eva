@@ -65,6 +65,12 @@ namespace Eva.EndPoint.API.Extensions
             return services;
         }
 
+        /// <summary>
+        /// Creates a WebApplicationBuilder to return Eva framework for asp.Net Core Web API application
+        /// </summary>
+        /// <param name="builder">WebApplicationBuilder extension method</param>
+        /// <param name="app">WebApplication out parameter</param>
+        /// <returns></returns>
         public static WebApplicationBuilder AddEva(this WebApplicationBuilder builder, out WebApplication app)
         {
             // Connection string
