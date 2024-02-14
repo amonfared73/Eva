@@ -32,7 +32,7 @@ namespace Eva.Core.ApplicationService.Queries
                     RequestMethod = httpContext.Request.Method,
                     StatusCode = httpContext.Response.StatusCode.ToString(),
                     Payload = requestBody,
-                    UserId = httpContext.Request.Path.Value == "/api/Authentication/Login" ? 1 : await _userService.ExtractUserIdFromToken(httpContext),
+                    UserId = await _userService.GetUserIdFromContext(httpContext, requestBody),
                     CreatedOn = DateTime.Now,
                 };
                 await context.EvaLogs.AddAsync(evaLog);

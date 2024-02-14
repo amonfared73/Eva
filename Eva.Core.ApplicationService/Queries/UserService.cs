@@ -4,14 +4,17 @@ using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.DTOs;
 using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Models;
+using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContextes;
 using Eva.Infra.Tools.Hashers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Eva.Core.ApplicationService.Queries
@@ -78,10 +81,18 @@ namespace Eva.Core.ApplicationService.Queries
             var userClaimId = httpContext.User.Claims.Where(x => x.Type == "id").FirstOrDefault();
             return await Task.FromResult(int.TryParse(userClaimId.Value, out int userId) ? userId : 0);
         }
+        public async Task<int> ExtractUserIdFromRequestBody(string requestBody)
+        {
+            var loginViewModel = JsonConvert.DeserializeObject<LoginRequestViewModel>(requestBody);
+            var user = await GetByUsername(loginViewModel.Username);
+            return user.Id;
+        }
 
         public async Task<int> GetUserIdFromContext(HttpContext httpContext, string requestBody)
         {
-            throw new NotImplementedException();
+            var isLoginRequest = httpContext.Request.Path.Value == Authentication.LoginUrl;
+            var userId = isLoginRequest ? await ExtractUserIdFromRequestBody(requestBody) : await ExtractUserIdFromToken(httpContext);
+            return userId;
         }
     }
 }
