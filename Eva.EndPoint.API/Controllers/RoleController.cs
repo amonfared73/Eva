@@ -19,7 +19,7 @@ namespace Eva.EndPoint.API.Controllers
             return base.InsertAsync(entity);
         }
         [HttpPost]
-        public async Task<ActionResultViewModel<Role>> CreateRole(string name)
+        public async Task<ActionResultViewModel<Role>> CreateRole([FromBody]string name)
         {
             return await _service.CreateRole(name);
         }
