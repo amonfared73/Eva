@@ -6,6 +6,7 @@ using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Models;
 using Eva.Infra.EntityFramework.DbContextes;
 using Eva.Infra.Tools.Hashers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -70,6 +71,12 @@ namespace Eva.Core.ApplicationService.Queries
                     ResponseMessage = new Domain.Responses.ResponseMessage("User Updated successfully!")
                 };
             }
+        }
+
+        public async Task<int> ExtractUserIdFromToken(HttpContext httpContext)
+        {
+            var userClaimId = httpContext.User.Claims.Where(x => x.Type == "id").FirstOrDefault();
+            return await Task.FromResult(int.TryParse(userClaimId.Value, out int userId) ? userId : 0);
         }
     }
 }

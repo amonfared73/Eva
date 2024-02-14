@@ -1,6 +1,7 @@
 ﻿using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.DTOs;
 using Eva.Core.Domain.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Eva.Core.ApplicationService.Services
 {
@@ -10,5 +11,6 @@ namespace Eva.Core.ApplicationService.Services
         Task<User> GetByUsername(string username);
         Task<User> GetUserForLoginAsync(int id);
         Task Register(UserDto userDto);
+        Task<int> ExtractUserIdFromToken(HttpContext httpContext);
     }
 }
