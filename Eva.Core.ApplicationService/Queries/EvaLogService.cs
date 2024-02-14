@@ -39,6 +39,12 @@ namespace Eva.Core.ApplicationService.Queries
                 await context.SaveChangesAsync();
             }
         }
+
+        public Task LogResponseAsync(HttpContext httpContext)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<EvaLog>> ViewAllLogsAsync()
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
