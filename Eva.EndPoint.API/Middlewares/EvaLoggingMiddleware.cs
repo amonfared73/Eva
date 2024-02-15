@@ -1,6 +1,6 @@
 ﻿using Eva.Core.ApplicationService.Services;
 
-namespace Eva.EndPoint.API.Logging
+namespace Eva.EndPoint.API.Middlewares
 {
     public class EvaLoggingMiddleware
     {

@@ -7,7 +7,7 @@ using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseModels;
 using Eva.EndPoint.API.Authorization;
 using Eva.EndPoint.API.Conventions;
-using Eva.EndPoint.API.Logging;
+using Eva.EndPoint.API.Middlewares;
 using Eva.Infra.EntityFramework.DbContextes;
 using Eva.Infra.Tools.Reflections;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
