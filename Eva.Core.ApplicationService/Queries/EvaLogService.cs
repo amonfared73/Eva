@@ -19,13 +19,13 @@ namespace Eva.Core.ApplicationService.Queries
             _contextFactory = contextFactory;
             _userService = userService;
         }
-        public async Task LogServiceAsync(HttpContext httpContext, string requestBody, string responseBody)
+        public async Task LogAsync(HttpContext httpContext, string evaLogType, string requestBody, string responseBody)
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
                 var evaLog = new EvaLog()
                 {
-                    LogTypeCode = EvaLogTypeCode.ServiceLog,
+                    LogTypeCode = evaLogType,
                     RequestUrl = httpContext.Request.Path,
                     RequestMethod = httpContext.Request.Method,
                     StatusCode = httpContext.Response.StatusCode.ToString(),
@@ -41,10 +41,11 @@ namespace Eva.Core.ApplicationService.Queries
 
         public async Task<IEnumerable<EvaLog>> ViewAllLogsAsync()
         {
-            using (EvaDbContext context = _contextFactory.CreateDbContext())
-            {
-                return await context.EvaLogs.ToListAsync();
-            }
+            //using (EvaDbContext context = _contextFactory.CreateDbContext())
+            //{
+            //    return await context.EvaLogs.ToListAsync();
+            //}
+            throw new NotImplementedException();
         }
         public async Task<IEnumerable<EvaLogReportViewModel>> EvaLogReportAsync(int? userId)
         {

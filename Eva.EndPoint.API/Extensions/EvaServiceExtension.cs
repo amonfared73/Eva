@@ -164,6 +164,7 @@ namespace Eva.EndPoint.API.Extensions
             app.UseAuthorization();
 
             app.UseMiddleware<EvaLoggingMiddleware>();
+            app.UseMiddleware<EvaExceptionMiddleware>();
 
             app.MapControllers();
 
