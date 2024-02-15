@@ -23,37 +23,19 @@ namespace Eva.Core.ApplicationService.Queries
             _userService = userService;
         }
 
-        public async Task LogRequestAsync(HttpContext httpContext, string requestBody)
+        public async Task LogServiceAsync(HttpContext httpContext, string requestBody, string responseBody)
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
                 var evaLog = new EvaLog()
                 {
-                    LogTypeCode = EvaLogTypeCode.Request,
+                    LogTypeCode = EvaLogTypeCode.ServiceLog,
                     RequestUrl = httpContext.Request.Path,
                     RequestMethod = httpContext.Request.Method,
                     StatusCode = httpContext.Response.StatusCode.ToString(),
                     Payload = requestBody,
-                    UserId = await _userService.GetUserIdFromContext(httpContext, requestBody),
-                    CreatedOn = DateTime.Now,
-                };
-                await context.EvaLogs.AddAsync(evaLog);
-                await context.SaveChangesAsync();
-            }
-        }
-
-        public async Task LogResponseAsync(HttpContext httpContext, string responseBody)
-        {
-            using (EvaDbContext context = _contextFactory.CreateDbContext())
-            {
-                var evaLog = new EvaLog()
-                {
-                    LogTypeCode = EvaLogTypeCode.Response,
-                    RequestUrl = httpContext.Request.Path,
-                    RequestMethod = httpContext.Request.Method,
-                    StatusCode = httpContext.Response.StatusCode.ToString(),
                     Response = responseBody,
-                    UserId = 1,
+                    UserId = await _userService.GetUserIdFromContext(httpContext, requestBody),
                     CreatedOn = DateTime.Now,
                 };
                 await context.EvaLogs.AddAsync(evaLog);

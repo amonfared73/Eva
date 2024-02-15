@@ -6,8 +6,7 @@ namespace Eva.Core.ApplicationService.Services
 {
     public interface IEvaLogService
     {
-        Task LogRequestAsync(HttpContext httpContext, string requestBody);
-        Task LogResponseAsync(HttpContext httpContext, string responseBody);
+        Task LogServiceAsync(HttpContext httpContext, string requestBody, string responseBody);
         Task<IEnumerable<EvaLog>> ViewAllLogsAsync();
     }
 }

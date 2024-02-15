@@ -8,7 +8,6 @@ namespace Eva.Core.Domain.BaseModels
 {
     public static class EvaLogTypeCode
     {
-        public const string Request = "Request";
-        public const string Response = "Response";
+        public const string ServiceLog = "ServiceLog";
     }
 }
