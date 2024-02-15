@@ -40,9 +40,22 @@ namespace Eva.Core.ApplicationService.Queries
             }
         }
 
-        public Task LogResponseAsync(HttpContext httpContext, string responseBody)
+        public async Task LogResponseAsync(HttpContext httpContext, string responseBody)
         {
-            throw new NotImplementedException();
+            using (EvaDbContext context = _contextFactory.CreateDbContext())
+            {
+                var evaLog = new EvaLog()
+                {
+                    RequestUrl = httpContext.Request.Path,
+                    RequestMethod = httpContext.Request.Method,
+                    StatusCode = httpContext.Response.StatusCode.ToString(),
+                    Response = responseBody,
+                    UserId = 1,
+                    CreatedOn = DateTime.Now,
+                };
+                await context.EvaLogs.AddAsync(evaLog);
+                await context.SaveChangesAsync();
+            }
         }
 
         public async Task<IEnumerable<EvaLog>> ViewAllLogsAsync()
