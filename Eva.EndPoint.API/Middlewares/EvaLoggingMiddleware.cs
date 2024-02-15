@@ -2,6 +2,9 @@
 
 namespace Eva.EndPoint.API.Middlewares
 {
+    /// <summary>
+    /// Custom middleware to log all requests and responses in database
+    /// </summary>
     public class EvaLoggingMiddleware
     {
         private readonly RequestDelegate _next;
