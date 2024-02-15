@@ -40,7 +40,7 @@ namespace Eva.Core.ApplicationService.Queries
             }
         }
 
-        public Task LogResponseAsync(HttpContext httpContext)
+        public Task LogResponseAsync(HttpContext httpContext, string responseBody)
         {
             throw new NotImplementedException();
         }
