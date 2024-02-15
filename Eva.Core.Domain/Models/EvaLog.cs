@@ -5,6 +5,7 @@ namespace Eva.Core.Domain.Models
 {
     public class EvaLog : DomainObject
     {
+        public string LogTypeCode { get; set; } = string.Empty;
         public string RequestUrl { get; set; } = string.Empty;
         public string RequestMethod { get; set; } = string.Empty;
         public string StatusCode { get; set; } = string.Empty;

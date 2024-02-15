@@ -1,5 +1,6 @@
 ﻿using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContextes;
@@ -28,6 +29,7 @@ namespace Eva.Core.ApplicationService.Queries
             {
                 var evaLog = new EvaLog()
                 {
+                    LogTypeCode = EvaLogTypeCode.Request,
                     RequestUrl = httpContext.Request.Path,
                     RequestMethod = httpContext.Request.Method,
                     StatusCode = httpContext.Response.StatusCode.ToString(),
@@ -46,6 +48,7 @@ namespace Eva.Core.ApplicationService.Queries
             {
                 var evaLog = new EvaLog()
                 {
+                    LogTypeCode = EvaLogTypeCode.Response,
                     RequestUrl = httpContext.Request.Path,
                     RequestMethod = httpContext.Request.Method,
                     StatusCode = httpContext.Response.StatusCode.ToString(),
