@@ -1,6 +1,7 @@
 ﻿using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.Models;
+using Eva.Core.Domain.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,11 @@ namespace Eva.EndPoint.API.Controllers
         public async Task<IEnumerable<EvaLog>> ViewAllLogsAsync()
         {
             return await _logService.ViewAllLogsAsync();
+        }
+        [HttpGet]
+        public async Task<IEnumerable<EvaLogReportViewModel>> EvaLogReportAsync(int? userId)
+        {
+            return await _logService.EvaLogReportAsync(userId);
         }
     }
 }

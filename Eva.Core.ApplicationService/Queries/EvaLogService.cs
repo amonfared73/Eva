@@ -2,6 +2,7 @@
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.Models;
+using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContextes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +19,6 @@ namespace Eva.Core.ApplicationService.Queries
             _contextFactory = contextFactory;
             _userService = userService;
         }
-
         public async Task LogServiceAsync(HttpContext httpContext, string requestBody, string responseBody)
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
@@ -44,6 +44,27 @@ namespace Eva.Core.ApplicationService.Queries
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
                 return await context.EvaLogs.ToListAsync();
+            }
+        }
+        public async Task<IEnumerable<EvaLogReportViewModel>> EvaLogReportAsync(int? userId)
+        {
+            using (EvaDbContext context = _contextFactory.CreateDbContext())
+            {
+                var users = await context.Users.Where(u => u.Id == userId || userId == null).ToListAsync();
+                var logs = await context.EvaLogs.ToListAsync();
+
+                var query = from log in logs
+                            join user in users on log.UserId equals user.Id
+                            select new EvaLogReportViewModel()
+                            {
+                                Username = user.Username,
+                                RequestUrl = log.RequestUrl,
+                                RequestMethod = log.RequestMethod,
+                                Payload = log.Payload,
+                                Response = log.Response,
+                                StatusCode = log.StatusCode
+                            };
+                return query;
             }
         }
     }
