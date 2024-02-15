@@ -2,13 +2,9 @@
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.Models;
-using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContextes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using System.Text;
-using System.Text.Json.Serialization;
 
 namespace Eva.Core.ApplicationService.Queries
 {
