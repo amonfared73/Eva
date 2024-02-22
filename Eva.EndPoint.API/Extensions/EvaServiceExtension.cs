@@ -49,6 +49,7 @@ namespace Eva.EndPoint.API.Extensions
         private static IServiceCollection AddCryptographyServices(this IServiceCollection services)
         {
             services.AddSingleton<AesEncryptor>();
+            services.AddSingleton<DesEncryptor>();
             return services;
         }
         private static IServiceCollection AddEvaServices(this IServiceCollection services)
@@ -96,6 +97,11 @@ namespace Eva.EndPoint.API.Extensions
             var aesEncryptionConfiguration = new AesEncryptionConfiguration();
             configuration.Bind("AesEncryptionConfiguration", aesEncryptionConfiguration);
             builder.Services.AddSingleton(aesEncryptionConfiguration);
+
+            // DES Cryptography Configuration
+            var desEncryptionConfiguration = new DesEncryptionConfiguration();
+            configuration.Bind("DesEncryptionConfiguration", desEncryptionConfiguration);
+            builder.Services.AddSingleton(desEncryptionConfiguration);
 
             builder.Services.AddControllers(s => s.Conventions.Add(new EvaControllerModelConvention()));
 
