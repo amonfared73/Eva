@@ -1,7 +1,7 @@
 ﻿using Eva.Core.ApplicationService.Encryptors;
 using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.Attributes;
-using Eva.Core.Domain.Models;
+using Eva.Core.Domain.Models.Cryptography;
 using Eva.Infra.EntityFramework.DbContextes;
 using Microsoft.EntityFrameworkCore;
 

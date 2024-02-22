@@ -1,4 +1,4 @@
-﻿using Eva.Core.Domain.Models;
+﻿using Eva.Core.Domain.Models.Cryptography;
 
 namespace Eva.Core.ApplicationService.Services
 {

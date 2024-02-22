@@ -1,6 +1,6 @@
 ﻿using Eva.Core.Domain.BaseModels;
 
-namespace Eva.Core.Domain.Models
+namespace Eva.Core.Domain.Models.Cryptography
 {
     public class AesCryptography : DomainObject
     {
