@@ -3,6 +3,7 @@ using System;
 using Eva.Infra.EntityFramework.DbContextes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eva.Infra.EntityFramework.Migrations
 {
     [DbContext(typeof(EvaDbContext))]
-    partial class EvaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240222054509_aesCryptography")]
+    partial class aesCryptography
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.26");
@@ -36,20 +38,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RefreshTokens");
-                });
-
-            modelBuilder.Entity("Eva.Core.Domain.Models.AesCryptography", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AesCryptographies");
                 });
 
             modelBuilder.Entity("Eva.Core.Domain.Models.Authentication", b =>

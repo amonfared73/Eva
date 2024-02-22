@@ -1,4 +1,5 @@
-﻿using Eva.Core.ApplicationService.Queries;
+﻿using Eva.Core.ApplicationService.Encryptors;
+using Eva.Core.ApplicationService.Queries;
 using Eva.Core.ApplicationService.Services;
 using Eva.Core.ApplicationService.Services.Authenticators;
 using Eva.Core.ApplicationService.TokenGenerators;
@@ -45,6 +46,11 @@ namespace Eva.EndPoint.API.Extensions
             services.AddSingleton<TokenGenerator>();
             return services;
         }
+        private static IServiceCollection AddCryptographyServices(this IServiceCollection services)
+        {
+            services.AddSingleton<AesEncryptor>();
+            return services;
+        }
         private static IServiceCollection AddEvaServices(this IServiceCollection services)
         {
             // Register base services
@@ -85,6 +91,11 @@ namespace Eva.EndPoint.API.Extensions
             var authenticationConfiguration = new AuthenticationConfiguration();
             configuration.Bind("Authentication", authenticationConfiguration);
             builder.Services.AddSingleton(authenticationConfiguration);
+
+            // AES Cryptography Configuration
+            var aesEncryptionConfiguration = new AesEncryptionConfiguration();
+            configuration.Bind("AesEncryptionConfiguration", aesEncryptionConfiguration);
+            builder.Services.AddSingleton(aesEncryptionConfiguration);
 
             builder.Services.AddControllers(s => s.Conventions.Add(new EvaControllerModelConvention()));
 
@@ -138,6 +149,9 @@ namespace Eva.EndPoint.API.Extensions
 
             // Add Access Token Generator
             builder.Services.AddAccessTokenGenerator();
+
+            // Add Cryptography 
+            builder.Services.AddCryptographyServices();
 
             // Add Role based authorization
             builder.Services.AddEvaRoleBasedAuthorization();
