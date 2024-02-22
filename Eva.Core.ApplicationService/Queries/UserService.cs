@@ -79,6 +79,8 @@ namespace Eva.Core.ApplicationService.Queries
         {
             var loginViewModel = JsonConvert.DeserializeObject<LoginRequestViewModel>(requestBody);
             var user = await GetByUsername(loginViewModel.Username);
+            if (user == null)
+                throw new EvaNotFoundException(typeof(User));
             return user.Id;
         }
 
