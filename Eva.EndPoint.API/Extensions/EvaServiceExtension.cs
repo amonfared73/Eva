@@ -6,6 +6,7 @@ using Eva.Core.ApplicationService.TokenGenerators;
 using Eva.Core.ApplicationService.TokenValidators;
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseModels;
+using Eva.Core.Domain.Models.Cryptography;
 using Eva.EndPoint.API.Authorization;
 using Eva.EndPoint.API.Conventions;
 using Eva.EndPoint.API.Middlewares;
@@ -50,6 +51,8 @@ namespace Eva.EndPoint.API.Extensions
         {
             services.AddSingleton<AesEncryptor>();
             services.AddSingleton<DesEncryptor>();
+            services.AddSingleton<RsaKeyPair>();
+            services.AddSingleton<RsaEncryptor>();
             return services;
         }
         private static IServiceCollection AddEvaServices(this IServiceCollection services)
