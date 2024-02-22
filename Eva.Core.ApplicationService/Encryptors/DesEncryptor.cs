@@ -13,41 +13,55 @@ namespace Eva.Core.ApplicationService.Encryptors
         }
         public async Task<string> Encrypt(string text)
         {
-            using (DESCryptoServiceProvider des = new DESCryptoServiceProvider())
+            try
             {
-                des.Key = Encoding.UTF8.GetBytes(_configuration.Key);
-                des.IV = Encoding.UTF8.GetBytes(_configuration.Key);
-
-                using (MemoryStream memoryStream = new MemoryStream())
+                using (DESCryptoServiceProvider des = new DESCryptoServiceProvider())
                 {
-                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, des.CreateEncryptor(), CryptoStreamMode.Write))
+                    des.Key = Encoding.UTF8.GetBytes(_configuration.Key);
+                    des.IV = Encoding.UTF8.GetBytes(_configuration.Key);
+
+                    using (MemoryStream memoryStream = new MemoryStream())
                     {
-                        using (StreamWriter streamWriter = new StreamWriter(cryptoStream))
+                        using (CryptoStream cryptoStream = new CryptoStream(memoryStream, des.CreateEncryptor(), CryptoStreamMode.Write))
                         {
-                            await streamWriter.WriteAsync(text);
+                            using (StreamWriter streamWriter = new StreamWriter(cryptoStream))
+                            {
+                                await streamWriter.WriteAsync(text);
+                            }
                         }
+                        return Convert.ToBase64String(memoryStream.ToArray());
                     }
-                    return Convert.ToBase64String(memoryStream.ToArray());
                 }
+            }
+            catch (Exception ex)
+            {
+                return string.Format("Unable to encrypt, {0}", ex.Message);
             }
         }
         public async Task<string> Decrypt(string cipherText)
         {
-            using (DESCryptoServiceProvider des = new DESCryptoServiceProvider())
+            try
             {
-                des.Key = Encoding.UTF8.GetBytes(_configuration.Key);
-                des.IV = Encoding.UTF8.GetBytes(_configuration.Key);
-
-                using (MemoryStream memoryStream = new MemoryStream(Convert.FromBase64String(cipherText)))
+                using (DESCryptoServiceProvider des = new DESCryptoServiceProvider())
                 {
-                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, des.CreateDecryptor(), CryptoStreamMode.Read))
+                    des.Key = Encoding.UTF8.GetBytes(_configuration.Key);
+                    des.IV = Encoding.UTF8.GetBytes(_configuration.Key);
+
+                    using (MemoryStream memoryStream = new MemoryStream(Convert.FromBase64String(cipherText)))
                     {
-                        using (StreamReader streamReader = new StreamReader(cryptoStream))
+                        using (CryptoStream cryptoStream = new CryptoStream(memoryStream, des.CreateDecryptor(), CryptoStreamMode.Read))
                         {
-                            return await streamReader.ReadToEndAsync();
+                            using (StreamReader streamReader = new StreamReader(cryptoStream))
+                            {
+                                return await streamReader.ReadToEndAsync();
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                return string.Format("Unable to decrypt, {0}", ex.Message);
             }
         }
     }

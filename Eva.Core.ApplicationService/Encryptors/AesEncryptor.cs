@@ -13,47 +13,61 @@ namespace Eva.Core.ApplicationService.Encryptors
         }
         public async Task<string> Encrypt(string text)
         {
-            using (Aes aes = Aes.Create())
+            try
             {
-                aes.Key = Encoding.UTF8.GetBytes(_configuration.Key);
-                aes.IV = Encoding.UTF8.GetBytes(_configuration.IV);
-
-                ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
-
-                using (MemoryStream memoryStream = new MemoryStream())
+                using (Aes aes = Aes.Create())
                 {
-                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
+                    aes.Key = Encoding.UTF8.GetBytes(_configuration.Key);
+                    aes.IV = Encoding.UTF8.GetBytes(_configuration.IV);
+
+                    ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+
+                    using (MemoryStream memoryStream = new MemoryStream())
                     {
-                        using (StreamWriter streamWriter = new StreamWriter(cryptoStream))
+                        using (CryptoStream cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
                         {
-                            await streamWriter.WriteAsync(text);
+                            using (StreamWriter streamWriter = new StreamWriter(cryptoStream))
+                            {
+                                await streamWriter.WriteAsync(text);
+                            }
                         }
+                        return Convert.ToBase64String(memoryStream.ToArray());
                     }
-                    return Convert.ToBase64String(memoryStream.ToArray());
                 }
+            }
+            catch (Exception ex)
+            {
+                return string.Format("Unable to encrypt, {0}", ex.Message);
             }
         }
 
         public async Task<string> Decrypt(string cipherText)
         {
-            byte[] cipherBytes = Convert.FromBase64String(cipherText);
-            using (Aes aes = Aes.Create())
+            try
             {
-                aes.Key = Encoding.UTF8.GetBytes(_configuration.Key);
-                aes.IV = Encoding.UTF8.GetBytes(_configuration.IV);
-
-                ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
-
-                using (MemoryStream memoryStream = new MemoryStream(cipherBytes))
+                byte[] cipherBytes = Convert.FromBase64String(cipherText);
+                using (Aes aes = Aes.Create())
                 {
-                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
+                    aes.Key = Encoding.UTF8.GetBytes(_configuration.Key);
+                    aes.IV = Encoding.UTF8.GetBytes(_configuration.IV);
+
+                    ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+
+                    using (MemoryStream memoryStream = new MemoryStream(cipherBytes))
                     {
-                        using (StreamReader streamReader = new StreamReader(cryptoStream))
+                        using (CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
                         {
-                            return await streamReader.ReadToEndAsync();
+                            using (StreamReader streamReader = new StreamReader(cryptoStream))
+                            {
+                                return await streamReader.ReadToEndAsync();
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                return string.Format("Unable to decrypt, {0}", ex.Message);
             }
         }
     }
