@@ -1,9 +1,11 @@
 ﻿using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseModels;
+using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContextes;
+using Eva.Infra.Tools.Extentions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,25 +48,42 @@ namespace Eva.Core.ApplicationService.Queries
                 return await context.EvaLogs.ToListAsync();
             }
         }
-        public async Task<IEnumerable<EvaLogReportOutputViewModel>> EvaLogReportAsync(int? userId)
+        public async Task<PagedResultViewModel<EvaLogReportOutputViewModel>> EvaLogReportAsync(EvaLogReportInputViewModel request)
         {
-            using (EvaDbContext context = _contextFactory.CreateDbContext())
+            try
             {
-                var users = await context.Users.Where(u => u.Id == userId || userId == null).ToListAsync();
-                var logs = await context.EvaLogs.ToListAsync();
+                using (EvaDbContext context = _contextFactory.CreateDbContext())
+                {
+                    var users = await context.Users.Where(u => u.Id == request.UserId || request.UserId == null).ToListAsync();
+                    var logs = await context.EvaLogs.ToListAsync();
 
-                var query = from log in logs
-                            join user in users on log.UserId equals user.Id
-                            select new EvaLogReportOutputViewModel()
-                            {
-                                Username = user.Username,
-                                RequestUrl = log.RequestUrl,
-                                RequestMethod = log.RequestMethod,
-                                Payload = log.Payload,
-                                Response = log.Response,
-                                StatusCode = log.StatusCode
-                            };
-                return query;
+                    var query = from log in logs
+                                join user in users on log.UserId equals user.Id
+                                select new EvaLogReportOutputViewModel()
+                                {
+                                    Username = user.Username,
+                                    RequestUrl = log.RequestUrl,
+                                    RequestMethod = log.RequestMethod,
+                                    Payload = log.Payload,
+                                    Response = log.Response,
+                                    StatusCode = log.StatusCode
+                                };
+                    var filteredQuery = query.ApplyBaseRequest(request);
+                    var totalRecords = query.Count();
+
+                    return new PagedResultViewModel<EvaLogReportOutputViewModel>()
+                    {
+                        Data = filteredQuery,
+                        Pagination = request.PaginationRequest.ToPagination(totalRecords)
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new PagedResultViewModel<EvaLogReportOutputViewModel>()
+                {
+                    HasError = true,
+                };
             }
         }
     }

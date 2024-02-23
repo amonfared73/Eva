@@ -1,4 +1,5 @@
-﻿using Eva.Core.Domain.Models;
+﻿using Eva.Core.Domain.BaseViewModels;
+using Eva.Core.Domain.Models;
 using Eva.Core.Domain.ViewModels;
 using Microsoft.AspNetCore.Http;
 
@@ -8,6 +9,6 @@ namespace Eva.Core.ApplicationService.Services
     {
         Task LogAsync(HttpContext httpContext, string evaLogType, string requestBody, string responseBody);
         Task<IEnumerable<EvaLog>> ViewAllLogsAsync();
-        Task<IEnumerable<EvaLogReportOutputViewModel>> EvaLogReportAsync(int? userId);
+        Task<PagedResultViewModel<EvaLogReportOutputViewModel>> EvaLogReportAsync(EvaLogReportInputViewModel request);
     }
 }
