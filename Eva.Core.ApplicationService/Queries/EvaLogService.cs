@@ -1,6 +1,6 @@
 ﻿using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.Attributes;
-using Eva.Core.Domain.BaseModels;
+using Eva.Core.Domain.Responses;
 using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.ViewModels;
@@ -82,6 +82,7 @@ namespace Eva.Core.ApplicationService.Queries
             {
                 return new PagedResultViewModel<EvaLogReportOutputViewModel>()
                 {
+                    ResponseMessage = new ResponseMessage(ex.Message),
                     HasError = true,
                 };
             }
