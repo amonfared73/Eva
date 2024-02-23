@@ -24,7 +24,7 @@ namespace Eva.EndPoint.API.Controllers
             return await _logService.ViewAllLogsAsync();
         }
         [HttpGet]
-        public async Task<IEnumerable<EvaLogReportViewModel>> EvaLogReportAsync(int? userId)
+        public async Task<IEnumerable<EvaLogReportOutputViewModel>> EvaLogReportAsync(int? userId)
         {
             return await _logService.EvaLogReportAsync(userId);
         }

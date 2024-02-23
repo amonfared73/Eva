@@ -46,7 +46,7 @@ namespace Eva.Core.ApplicationService.Queries
                 return await context.EvaLogs.ToListAsync();
             }
         }
-        public async Task<IEnumerable<EvaLogReportViewModel>> EvaLogReportAsync(int? userId)
+        public async Task<IEnumerable<EvaLogReportOutputViewModel>> EvaLogReportAsync(int? userId)
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
@@ -55,7 +55,7 @@ namespace Eva.Core.ApplicationService.Queries
 
                 var query = from log in logs
                             join user in users on log.UserId equals user.Id
-                            select new EvaLogReportViewModel()
+                            select new EvaLogReportOutputViewModel()
                             {
                                 Username = user.Username,
                                 RequestUrl = log.RequestUrl,

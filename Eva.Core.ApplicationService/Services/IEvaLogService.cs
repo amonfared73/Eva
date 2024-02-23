@@ -8,6 +8,6 @@ namespace Eva.Core.ApplicationService.Services
     {
         Task LogAsync(HttpContext httpContext, string evaLogType, string requestBody, string responseBody);
         Task<IEnumerable<EvaLog>> ViewAllLogsAsync();
-        Task<IEnumerable<EvaLogReportViewModel>> EvaLogReportAsync(int? userId);
+        Task<IEnumerable<EvaLogReportOutputViewModel>> EvaLogReportAsync(int? userId);
     }
 }
