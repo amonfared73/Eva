@@ -41,11 +41,10 @@ namespace Eva.Core.ApplicationService.Queries
 
         public async Task<IEnumerable<EvaLog>> ViewAllLogsAsync()
         {
-            //using (EvaDbContext context = _contextFactory.CreateDbContext())
-            //{
-            //    return await context.EvaLogs.ToListAsync();
-            //}
-            throw new NotImplementedException();
+            using (EvaDbContext context = _contextFactory.CreateDbContext())
+            {
+                return await context.EvaLogs.ToListAsync();
+            }
         }
         public async Task<IEnumerable<EvaLogReportViewModel>> EvaLogReportAsync(int? userId)
         {
