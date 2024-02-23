@@ -75,16 +75,14 @@ namespace Eva.Core.ApplicationService.Queries
             var userClaimId = httpContext.User.Claims.Where(x => x.Type == "id").FirstOrDefault();
             return await Task.FromResult(int.TryParse(userClaimId.Value, out int userId) ? userId : 0);
         }
-        public async Task<int> ExtractUserIdFromRequestBody(string requestBody)
+        public async Task<int?> ExtractUserIdFromRequestBody(string requestBody)
         {
             var loginViewModel = JsonConvert.DeserializeObject<LoginRequestViewModel>(requestBody);
             var user = await GetByUsername(loginViewModel.Username);
-            if (user == null)
-                throw new EvaNotFoundException(typeof(User));
-            return user.Id;
+            return user == null ? null : user.Id;
         }
 
-        public async Task<int> GetUserIdFromContext(HttpContext httpContext, string requestBody)
+        public async Task<int?> GetUserIdFromContext(HttpContext httpContext, string requestBody)
         {
             var isLoginRequest = httpContext.Request.Path.Value == Authentication.LoginUrl;
             var userId = isLoginRequest ? await ExtractUserIdFromRequestBody(requestBody) : await ExtractUserIdFromToken(httpContext);

@@ -11,7 +11,7 @@ namespace Eva.Core.Domain.Models
         public string StatusCode { get; set; } = string.Empty;
         public string? Payload { get; set; }
         public string? Response { get; set; }
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         [JsonIgnore]
         public User User { get; set; }
     }
