@@ -10,5 +10,6 @@ namespace Eva.Core.ApplicationService.Services
         Task<ActionResultViewModel<T>> InsertAsync(T entity);
         Task<ActionResultViewModel<T>> UpdateAsync(T entity);
         Task<ActionResultViewModel<T>> DeleteAsync(int id);
+        Task<CustomActionResultViewModel<byte[]>> ToByte(int id);
     }
 }

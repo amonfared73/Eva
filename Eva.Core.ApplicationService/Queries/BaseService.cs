@@ -6,6 +6,7 @@ using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Responses;
 using Eva.Infra.EntityFramework.DbContextes;
 using Eva.Infra.Tools.Extentions;
+using Eva.Infra.Tools.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace Eva.Core.ApplicationService.Queries
@@ -92,6 +93,21 @@ namespace Eva.Core.ApplicationService.Queries
                 {
                     Entity = entity,
                     ResponseMessage = new ResponseMessage(string.Format("{0} deleted successfully", typeof(T).Name))
+                };
+            }
+        }
+
+        public async Task<CustomActionResultViewModel<byte[]>> ToByte(int id)
+        {
+            using (EvaDbContext context = _contextFactory.CreateDbContext())
+            {
+                var entity = await context.Set<T>().Where(e => e.Id == id).FirstOrDefaultAsync();
+                if (entity == null)
+                    throw new CrudException<T>(string.Format("{0} not found", typeof(T).Name), BaseOperations.GetById);
+                return new CustomActionResultViewModel<byte[]>()
+                {
+                    Entity = entity.ToBytes(),
+                    ResponseMessage = new ResponseMessage(string.Format("Id: {0}, {1}", id.ToString(), entity.ToString()))
                 };
             }
         }

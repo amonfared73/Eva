@@ -14,6 +14,5 @@ namespace Eva.Core.ApplicationService.Services
         Task<int> ExtractUserIdFromToken(HttpContext httpContext);
         Task<int?> ExtractUserIdFromRequestBody(string requestBody);
         Task<int?> GetUserIdFromContext(HttpContext httpContext, string requestBody);
-        Task<CustomActionResultViewModel<byte[]>> ToByte(int userId);
     }
 }

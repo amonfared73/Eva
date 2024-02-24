@@ -121,5 +121,29 @@ namespace Eva.EndPoint.API.Controllers
                 };
             }
         }
+        [HttpPost("{id}")]
+        public virtual async Task<CustomActionResultViewModel<byte[]>> ToByteAsync(int id)
+        {
+            try
+            {
+                return await _baseService.ToByte(id);
+            }
+            catch (CrudException<T> ex)
+            {
+                return new CustomActionResultViewModel<byte[]>()
+                {
+                    HasError = true,
+                    ResponseMessage = new ResponseMessage(ex.Message)
+                };
+            }
+            catch (Exception ex)
+            {
+                return new CustomActionResultViewModel<byte[]>()
+                {
+                    HasError = true,
+                    ResponseMessage = new ResponseMessage(ex.Message)
+                };
+            }
+        }
     }
 }

@@ -89,19 +89,5 @@ namespace Eva.Core.ApplicationService.Queries
             var userId = isLoginRequest ? await ExtractUserIdFromRequestBody(requestBody) : await ExtractUserIdFromToken(httpContext);
             return userId;
         }
-
-        public async Task<CustomActionResultViewModel<byte[]>> ToByte(int userId)
-        {
-            using (EvaDbContext context = _contextFactory.CreateDbContext())
-            {
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Id == userId);
-                if (user == null)
-                    throw new EvaNotFoundException(string.Format("{0} not found!", typeof(User).ToString()), typeof(User));
-                return new CustomActionResultViewModel<byte[]>()
-                {
-                    Entity = user.ToBytes(),
-                };
-            }
-        }
     }
 }
