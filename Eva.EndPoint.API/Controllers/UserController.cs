@@ -25,7 +25,7 @@ namespace Eva.EndPoint.API.Controllers
             {
                 return await _service.AlterAdminStateAsync(userId);
             }
-            catch(EvaNotFoundException ex)
+            catch (EvaNotFoundException ex)
             {
                 return new ActionResultViewModel<User>()
                 {
@@ -57,6 +57,24 @@ namespace Eva.EndPoint.API.Controllers
         public override Task<ActionResultViewModel<User>> UpdateAsync(User entity)
         {
             return base.UpdateAsync(entity);
+        }
+
+        [HttpPost]
+        public async Task<CustomActionResultViewModel<byte[]>> ToByte(int userId)
+        {
+            try
+            {
+                return await _service.ToByte(userId);
+            }
+            catch(EvaNotFoundException ex)
+            {
+                return new CustomActionResultViewModel<byte[]>()
+                {
+                    Entity = null,
+                    HasError = true,
+                    ResponseMessage = new ResponseMessage($"{ex.Message}"),
+                };
+            }
         }
     }
 }

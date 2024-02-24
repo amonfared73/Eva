@@ -7,6 +7,7 @@ using Eva.Core.Domain.Models;
 using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContextes;
 using Eva.Infra.Tools.Hashers;
+using Eva.Infra.Tools.Serialization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -87,6 +88,20 @@ namespace Eva.Core.ApplicationService.Queries
             var isLoginRequest = httpContext.Request.Path.Value == Authentication.LoginUrl;
             var userId = isLoginRequest ? await ExtractUserIdFromRequestBody(requestBody) : await ExtractUserIdFromToken(httpContext);
             return userId;
+        }
+
+        public async Task<CustomActionResultViewModel<byte[]>> ToByte(int userId)
+        {
+            using (EvaDbContext context = _contextFactory.CreateDbContext())
+            {
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+                if (user == null)
+                    throw new EvaNotFoundException(string.Format("{0} not found!", typeof(User).ToString()), typeof(User));
+                return new CustomActionResultViewModel<byte[]>()
+                {
+                    Entity = user.ToBytes(),
+                };
+            }
         }
     }
 }
