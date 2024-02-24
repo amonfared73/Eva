@@ -1,4 +1,5 @@
 ﻿using Eva.Core.ApplicationService.Encryptors;
+using Eva.Core.ApplicationService.ExternalServices.OpenMeteo;
 using Eva.Core.ApplicationService.Queries;
 using Eva.Core.ApplicationService.Services;
 using Eva.Core.ApplicationService.Services.Authenticators;
@@ -152,6 +153,10 @@ namespace Eva.EndPoint.API.Extensions
                     }
                 });
             });
+
+            // Add HtppClients
+            // Open Meteo Service for weather forcast
+            builder.Services.AddHttpClient<IOpenMeteoService, OpenMeteoService>();
 
             // Add DbContext
             builder.Services.AddEvaDbContext(connectionString);
