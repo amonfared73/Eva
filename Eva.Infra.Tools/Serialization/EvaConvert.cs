@@ -14,5 +14,10 @@ namespace Eva.Infra.Tools.Serialization
         {
             return Encoding.UTF8.GetBytes(jsonString);
         }
+
+        public static byte[] ToBytes(this object obj)
+        {
+            return obj.ToJson().ToBytes();
+        }
     }
 }
