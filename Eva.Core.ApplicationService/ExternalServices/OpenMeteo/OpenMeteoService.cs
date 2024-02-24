@@ -6,7 +6,7 @@ using System;
 
 namespace Eva.Core.ApplicationService.ExternalServices.OpenMeteo
 {
-    [ExternalService("Open Meteo Weather Forcast")]
+    [ExternalService(typeof(OpenMeteoService))]
     public class OpenMeteoService : IOpenMeteoService
     {
         private readonly HttpClient _httpClient;

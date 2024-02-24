@@ -3,11 +3,10 @@
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     public class ExternalServiceAttribute : Attribute
     {
-        public string Name { get; }
-
-        public ExternalServiceAttribute(string name)
+        public Type Type { get; }
+        public ExternalServiceAttribute(Type type)
         {
-            Name = name;
+            Type = type;
         }
     }
 }
