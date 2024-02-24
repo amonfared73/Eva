@@ -15,6 +15,7 @@ namespace Eva.EndPoint.API.Conventions
                 "Insert",
                 "Update",
                 "Delete",
+                "ToByte"
             };
             bool disableCrud = controller.Attributes.Any(a => a.GetType() == typeof(DisableBaseOperationsAttribute));
             if (disableCrud)
