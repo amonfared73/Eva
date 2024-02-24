@@ -1,10 +1,12 @@
-﻿using Eva.Core.Domain.Models;
+﻿using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.Models;
 using Eva.Core.Domain.ViewModels;
 using Newtonsoft.Json;
 using System;
 
 namespace Eva.Core.ApplicationService.ExternalServices.OpenMeteo
 {
+    [ExternalService("Open Meteo Weather Forcast")]
     public class OpenMeteoService : IOpenMeteoService
     {
         private readonly HttpClient _httpClient;
