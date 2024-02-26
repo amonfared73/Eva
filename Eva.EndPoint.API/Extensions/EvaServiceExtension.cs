@@ -182,6 +182,7 @@ namespace Eva.EndPoint.API.Extensions
                 app.UseSwaggerUI(o =>
                 {
                     o.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
+                    o.DefaultModelExpandDepth(-1);
                 });
             }
 
