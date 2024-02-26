@@ -1,64 +1,83 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 
 namespace Eva.Core.Domain.BaseModels
 {
     public class Enumeration : IComparable
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        protected Enumeration(int id, string name)
+        private readonly int _id;
+        private readonly string _value;
+        public int Id { get { return _id; } }
+        public string Value { get { return _value; } }
+        protected Enumeration()
         {
-            Id = id;
-            Name = name;
+
+        }
+        protected Enumeration(int id, string value)
+        {
+            _id = id;
+            _value = value;
+        }
+        public int CompareTo(object? obj)
+        {
+            return Id.CompareTo(((Enumeration)obj).Value);
         }
         public override string ToString()
         {
-            return Name;
+            return Value;
         }
-        public static IEnumerable<T> GetAll<T>() where T : Enumeration =>
-        typeof(T).GetFields(BindingFlags.Public |
-                            BindingFlags.Static |
-                            BindingFlags.DeclaredOnly)
-                 .Select(f => f.GetValue(null))
-                 .Cast<T>();
-
-        public override bool Equals(object obj)
+        public override int GetHashCode()
         {
-            if (obj is not Enumeration otherValue)
-            {
+            return _id.GetHashCode();
+        }
+        public override bool Equals(object? obj)
+        {
+            var otherVlue = obj as Enumeration;
+
+            if (otherVlue == null)
                 return false;
-            }
 
             var typeMatches = GetType().Equals(obj.GetType());
-            var valueMatches = Id.Equals(otherValue.Id);
+            var idMatches = _id.Equals(otherVlue.Id);
+            var valueMatches = _value.Equals(otherVlue.Value);
 
-            return typeMatches && valueMatches;
+            return typeMatches && idMatches && valueMatches;
         }
-        public string GetName<T>() where T : Enumeration, new()
-        { 
+        public static IEnumerable<T> GetAll<T>() where T : Enumeration, new()
+        {
             var type = typeof(T);
             var fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly);
 
-            foreach (var info in fields)
+            foreach (var field in fields)
             {
                 var instance = new T();
-                var locatedValue = info.GetValue(instance) as T;
-                if (locatedValue?.Name == Name)
-                {
-                    return info.Name;
-                }
+                var locatedValue = field.GetValue(instance) as T;
+                if (locatedValue != null)
+                    yield return locatedValue;
             }
-            throw new Exception($"The enumeration value {Name} could not be found");
         }
-        public int CompareTo(object other) => Id.CompareTo(((Enumeration)other).Id);
-        public override int GetHashCode()
+        public static T FromId<T>(int id) where T : Enumeration, new()
         {
-            return base.GetHashCode();
+            var matchingItem = parse<T, int>(id, "id", item => item.Id == id);
+            return matchingItem;
+        }
+
+        public static T FromValue<T>(string value) where T : Enumeration, new()
+        {
+            var matchingItem = parse<T, string>(value, "value", item => item.Value == value);
+            return matchingItem;
+        }
+
+        private static T parse<T, K>(K value, string description, Func<T, bool> predicate) where T : Enumeration, new()
+        {
+            var matchingItem = GetAll<T>().FirstOrDefault(predicate);
+
+            if (matchingItem == null)
+            {
+                var message = string.Format("'{0}' is not a valid {1} in {2}", value, description, typeof(T));
+                throw new ApplicationException(message);
+            }
+
+            return matchingItem;
         }
     }
 }
