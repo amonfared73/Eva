@@ -11,6 +11,6 @@ namespace Eva.Core.Domain.BaseModels
         public const string Admin = "Admin";
         public const string User = "User";
         public const string ReadOnly = "ReadOnly Role";
-        public const string SystemDeveloper = "SystemDeveloper";
+        public const string SystemDeveloper = "System Developer";
     }
 }
