@@ -44,6 +44,35 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.ToTable("RefreshTokens");
                 });
 
+            modelBuilder.Entity("Eva.Core.Domain.Models.Account", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("AccountId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("BLOB");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.ToTable("Accounts");
+                });
+
             modelBuilder.Entity("Eva.Core.Domain.Models.Authentication", b =>
                 {
                     b.Property<int>("Id")
@@ -377,6 +406,13 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.ToTable("UserRoleMappings");
                 });
 
+            modelBuilder.Entity("Eva.Core.Domain.Models.Account", b =>
+                {
+                    b.HasOne("Eva.Core.Domain.Models.Account", null)
+                        .WithMany("Accounts")
+                        .HasForeignKey("AccountId");
+                });
+
             modelBuilder.Entity("Eva.Core.Domain.Models.Department", b =>
                 {
                     b.HasOne("Eva.Core.Domain.Models.Company", null)
@@ -417,6 +453,11 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Navigation("Role");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Eva.Core.Domain.Models.Account", b =>
+                {
+                    b.Navigation("Accounts");
                 });
 
             modelBuilder.Entity("Eva.Core.Domain.Models.Company", b =>
