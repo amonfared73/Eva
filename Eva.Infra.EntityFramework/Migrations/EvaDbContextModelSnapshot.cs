@@ -70,6 +70,30 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.ToTable("Companies");
                 });
 
+            modelBuilder.Entity("Eva.Core.Domain.Models.Complex", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FriendlyState")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("Imaginary")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("Real")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ComplexNumbers");
+                });
+
             modelBuilder.Entity("Eva.Core.Domain.Models.Cryptography.AesCryptography", b =>
                 {
                     b.Property<int>("Id")
@@ -197,7 +221,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -293,9 +317,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                 {
                     b.HasOne("Eva.Core.Domain.Models.User", "User")
                         .WithMany("EvaLogs")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
