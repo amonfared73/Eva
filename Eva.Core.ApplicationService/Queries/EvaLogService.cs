@@ -8,6 +8,7 @@ using Eva.Infra.EntityFramework.DbContextes;
 using Eva.Infra.Tools.Extentions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Eva.Core.Domain.Exceptions;
 
 namespace Eva.Core.ApplicationService.Queries
 {
@@ -77,6 +78,14 @@ namespace Eva.Core.ApplicationService.Queries
                         Pagination = request.PaginationRequest.ToPagination(totalRecords)
                     };
                 }
+            }
+            catch (EvaUnauthorizedException ex)
+            {
+                return new PagedResultViewModel<EvaLogReportOutputViewModel>()
+                {
+                    ResponseMessage = new ResponseMessage(ex.Message),
+                    HasError = true,
+                };
             }
             catch (Exception ex)
             {
