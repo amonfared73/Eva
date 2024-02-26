@@ -43,6 +43,16 @@ namespace Eva.EndPoint.API.Controllers
             }
         }
 
+        // Assign all available roles to a particullar user
+        // Only user with SystemDeveloper Role are allowed to use this endpoint
+        [HttpPost]
+        [HasRole(ActiveRoles.SystemDeveloper)]
+        public async Task<ActionResultViewModel<User>> AssignAllRolesAsync(int userId)
+        {
+            return await _service.AssignAllRolesAsync(userId);
+        }
+
+
         // Users must be registered through authentication controller
         // So insert action must be disbaled
         [NonAction]

@@ -7,7 +7,6 @@ using Eva.Core.Domain.Models;
 using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContextes;
 using Eva.Infra.Tools.Hashers;
-using Eva.Infra.Tools.Serialization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -88,6 +87,11 @@ namespace Eva.Core.ApplicationService.Queries
             var isLoginRequest = httpContext.Request.Path.Value == Authentication.LoginUrl;
             var userId = isLoginRequest ? await ExtractUserIdFromRequestBody(requestBody) : await ExtractUserIdFromToken(httpContext);
             return userId;
+        }
+
+        public Task<ActionResultViewModel<User>> AssignAllRolesAsync(int userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
