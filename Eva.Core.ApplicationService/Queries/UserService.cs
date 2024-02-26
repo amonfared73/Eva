@@ -113,6 +113,9 @@ namespace Eva.Core.ApplicationService.Queries
                                    where currentUserRole == null
                                    select role;
 
+                if (!missingRoles.Any())
+                    throw new EvaNotFoundException($"{user.Username} has all the existing roles, no roles added",typeof(User));
+
                 // Add roles to the mapping table
                 foreach (var role in missingRoles)
                 {
