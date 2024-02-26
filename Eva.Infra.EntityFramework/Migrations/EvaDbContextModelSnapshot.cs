@@ -50,9 +50,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("AccountId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
@@ -67,8 +64,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasColumnType("BLOB");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AccountId");
 
                     b.ToTable("Accounts");
                 });
@@ -410,7 +405,9 @@ namespace Eva.Infra.EntityFramework.Migrations
                 {
                     b.HasOne("Eva.Core.Domain.Models.Account", null)
                         .WithMany("Accounts")
-                        .HasForeignKey("AccountId");
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Eva.Core.Domain.Models.Department", b =>
