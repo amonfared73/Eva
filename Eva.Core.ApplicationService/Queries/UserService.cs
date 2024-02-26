@@ -4,6 +4,7 @@ using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.DTOs;
 using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Models;
+using Eva.Core.Domain.Responses;
 using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContextes;
 using Eva.Infra.Tools.Hashers;
@@ -135,7 +136,7 @@ namespace Eva.Core.ApplicationService.Queries
                 {
                     Entity = user,
                     HasError = false,
-                    ResponseMessage = new Domain.Responses.ResponseMessage($"Roles added successfully, roles: {addedRoles}")
+                    ResponseMessage = new ResponseMessage($"Roles added successfully, roles: {addedRoles}")
                 };
             }
         }
