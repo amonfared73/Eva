@@ -83,7 +83,7 @@ namespace Eva.Core.ApplicationService.Queries
             {
                 return new PagedResultViewModel<EvaLogReportOutputViewModel>()
                 {
-                    ResponseMessage = new ResponseMessage(ex.Message),
+                    ResponseMessage = new ResponseMessage($"You do not have permission to this particular endpoint , {ex.Message}"),
                     HasError = true,
                 };
             }
@@ -91,7 +91,7 @@ namespace Eva.Core.ApplicationService.Queries
             {
                 return new PagedResultViewModel<EvaLogReportOutputViewModel>()
                 {
-                    ResponseMessage = new ResponseMessage(ex.Message),
+                    ResponseMessage = new ResponseMessage($"Some error occured , {ex.Message}"),
                     HasError = true,
                 };
             }

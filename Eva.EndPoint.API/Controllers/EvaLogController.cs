@@ -2,7 +2,9 @@
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.BaseViewModels;
+using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Models;
+using Eva.Core.Domain.Responses;
 using Eva.Core.Domain.ViewModels;
 using Eva.EndPoint.API.Authorization;
 using Microsoft.AspNetCore.Authorization;
@@ -31,7 +33,26 @@ namespace Eva.EndPoint.API.Controllers
         [HasRole(ActiveRoles.SystemDeveloper)]
         public async Task<PagedResultViewModel<EvaLogReportOutputViewModel>> EvaLogReportAsync(EvaLogReportInputViewModel request)
         {
-            return await _logService.EvaLogReportAsync(request);
+            try
+            {
+                return await _logService.EvaLogReportAsync(request);
+            }
+            catch (EvaUnauthorizedException ex)
+            {
+                return new PagedResultViewModel<EvaLogReportOutputViewModel>()
+                {
+                    ResponseMessage = new ResponseMessage($"You do not have permission to this particular endpoint , {ex.Message}"),
+                    HasError = true,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new PagedResultViewModel<EvaLogReportOutputViewModel>()
+                {
+                    ResponseMessage = new ResponseMessage($"Some error occured , {ex.Message}"),
+                    HasError = true,
+                };
+            }
         }
     }
 }
