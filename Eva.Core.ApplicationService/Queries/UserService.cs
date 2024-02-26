@@ -17,9 +17,11 @@ namespace Eva.Core.ApplicationService.Queries
     public class UserService : BaseService<User>, IUserService
     {
         private readonly IDbContextFactory<EvaDbContext> _contextFactory;
-        public UserService(IDbContextFactory<EvaDbContext> contextFactory) : base(contextFactory)
+        private readonly IUserRoleMappingService _userRoleMappingService;
+        public UserService(IDbContextFactory<EvaDbContext> contextFactory, IUserRoleMappingService userRoleMappingService) : base(contextFactory)
         {
             _contextFactory = contextFactory;
+            _userRoleMappingService = userRoleMappingService;
         }
         public async Task<User> GetByUsername(string username)
         {
@@ -89,9 +91,49 @@ namespace Eva.Core.ApplicationService.Queries
             return userId;
         }
 
-        public Task<ActionResultViewModel<User>> AssignAllRolesAsync(int userId)
+        public async Task<ActionResultViewModel<User>> AssignAllMissingRolesAsync(int userId)
         {
-            throw new NotImplementedException();
+            using (EvaDbContext context = _contextFactory.CreateDbContext())
+            {
+                // Find the user
+                var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+                if (user == null)
+                    throw new EvaNotFoundException(string.Format("{0} not found!", typeof(User).ToString()), typeof(User));
+
+                // Find the roles that the user currently has
+                var userRoles = await context.UserRoleMappings.Where(u => u.UserId == userId).Select(r => new { r.Id, r.RoleId, r.UserId }).ToListAsync();
+
+                // Grab all roles
+                var roles = await context.Roles.Select(r => new { r.Id, r.Name }).ToListAsync();
+
+                // Find the missing roles need to be assigned to the user
+                var missingRoles = from role in roles
+                                   join userRole in userRoles on role.Id equals userRole.RoleId into currentUserRoles
+                                   from currentUserRole in currentUserRoles.DefaultIfEmpty()
+                                   where currentUserRole == null
+                                   select role;
+
+                // Add roles to the mapping table
+                foreach (var role in missingRoles)
+                {
+                    await _userRoleMappingService.AddRoleToUserAsync(new UserRoleMappingDto
+                    {
+                        RoleId = role.Id,
+                        UserId = user.Id
+                    });
+                }
+
+                // Concat all role names
+                var addedRoles = String.Join(",", roles);
+
+                // Return
+                return new ActionResultViewModel<User>()
+                {
+                    Entity = user,
+                    HasError = false,
+                    ResponseMessage = new Domain.Responses.ResponseMessage($"Roles added successfully, roles: {addedRoles}")
+                };
+            }
         }
     }
 }

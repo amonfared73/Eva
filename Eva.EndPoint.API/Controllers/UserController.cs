@@ -47,9 +47,30 @@ namespace Eva.EndPoint.API.Controllers
         // Only user with SystemDeveloper Role are allowed to use this endpoint
         [HttpPost]
         [HasRole(ActiveRoles.SystemDeveloper)]
-        public async Task<ActionResultViewModel<User>> AssignAllRolesAsync(int userId)
+        public async Task<ActionResultViewModel<User>> AssignAllMissingRolesAsync(int userId)
         {
-            return await _service.AssignAllRolesAsync(userId);
+            try
+            {
+                return await _service.AssignAllMissingRolesAsync(userId);
+            }
+            catch(EvaNotFoundException ex)
+            {
+                return new ActionResultViewModel<User>()
+                {
+                    Entity = null,
+                    HasError = true,
+                    ResponseMessage = new ResponseMessage($"{ex.Message}"),
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ActionResultViewModel<User>()
+                {
+                    Entity = null,
+                    HasError = true,
+                    ResponseMessage = new ResponseMessage($"{ex.Message}"),
+                };
+            }
         }
 
 
