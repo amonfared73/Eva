@@ -129,7 +129,7 @@ namespace Eva.Core.ApplicationService.Queries
                 }
 
                 // Concat all role names
-                var addedRoles = String.Join(",", roles);
+                var addedRoles = String.Join(",", missingRoles);
 
                 // Return
                 return new ActionResultViewModel<User>()
