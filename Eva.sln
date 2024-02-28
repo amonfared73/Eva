@@ -24,9 +24,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eva.UnitTest.xUnit", "Eva.UnitTest.xUnit\Eva.UnitTest.xUnit.csproj", "{19DD71CE-0D94-4429-87C5-AC86223653DE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WorkingDirectory", "WorkingDirectory", "{6C5C2CA6-D938-44CC-8142-343CC34D88F8}"
-	ProjectSection(SolutionItems) = preProject
-		WorkingDirectoryConfig.txt = WorkingDirectoryConfig.txt
-	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eva.WorkingLibrary.Publish", "Eva.WorkingLibrary.Publish\Eva.WorkingLibrary.Publish.csproj", "{3D65E8AF-DDA1-464A-B4A0-932FB9CBF340}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +57,10 @@ Global
 		{19DD71CE-0D94-4429-87C5-AC86223653DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19DD71CE-0D94-4429-87C5-AC86223653DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19DD71CE-0D94-4429-87C5-AC86223653DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D65E8AF-DDA1-464A-B4A0-932FB9CBF340}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D65E8AF-DDA1-464A-B4A0-932FB9CBF340}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D65E8AF-DDA1-464A-B4A0-932FB9CBF340}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D65E8AF-DDA1-464A-B4A0-932FB9CBF340}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +72,7 @@ Global
 		{3B98BDAF-427F-4E7C-92B6-FBF4552191AB} = {1DD1BF2E-11CD-4EF1-82DD-F1B920C3050C}
 		{40AE488A-0D18-4F2D-93BE-C216A7220CC7} = {0D6343CB-AE8D-4BE7-A21D-D8822BAF7A0A}
 		{19DD71CE-0D94-4429-87C5-AC86223653DE} = {C49AE4DF-5A07-46FF-A4B3-BE22CB861236}
+		{3D65E8AF-DDA1-464A-B4A0-932FB9CBF340} = {6C5C2CA6-D938-44CC-8142-343CC34D88F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {99A4D0BA-A421-432A-95D9-EDAE7BFAE392}
