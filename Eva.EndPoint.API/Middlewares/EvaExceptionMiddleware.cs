@@ -5,6 +5,9 @@ using System.Net;
 
 namespace Eva.EndPoint.API.Middlewares
 {
+    /// <summary>
+    /// Middleware to log all exceptions caught through the Eva application
+    /// </summary>
     public class EvaExceptionMiddleware
     {
         private readonly RequestDelegate _next;
