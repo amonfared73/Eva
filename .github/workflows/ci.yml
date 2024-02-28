@@ -26,7 +26,7 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release
-      working-directory: ./Eva.WorkingDirectory
+      working-directory: WorkingDirectory
     - name: Test
       run: dotnet test
-      working-directory: ./Eva.WorkingDirectory
+      working-directory: WorkingDirectory
