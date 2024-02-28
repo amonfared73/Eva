@@ -24,6 +24,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eva.UnitTest.xUnit", "Eva.UnitTest.xUnit\Eva.UnitTest.xUnit.csproj", "{19DD71CE-0D94-4429-87C5-AC86223653DE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WorkingDirectory", "WorkingDirectory", "{6C5C2CA6-D938-44CC-8142-343CC34D88F8}"
+	ProjectSection(SolutionItems) = preProject
+		WorkingDirectoryConfig.txt = WorkingDirectoryConfig.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
