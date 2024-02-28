@@ -23,8 +23,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest", "UnitTest", "{C4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eva.UnitTest.xUnit", "Eva.UnitTest.xUnit\Eva.UnitTest.xUnit.csproj", "{19DD71CE-0D94-4429-87C5-AC86223653DE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WorkingDirectory", "WorkingDirectory", "{211A9E3C-61EF-46D2-940E-FB054E3D2C49}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
