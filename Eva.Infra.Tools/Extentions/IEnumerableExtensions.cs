@@ -26,5 +26,17 @@ namespace Eva.Infra.Tools.Extentions
         {
             return source.ApplySearchTerm(request.SearchTermRequest).ApplySorting(request.SortingRequest).ApplyPagination(request.PaginationRequest);
         }
+        public static bool HasDuplicates<T>(this IEnumerable<T> source)
+        {
+            HashSet<T> knwonElements = new();
+            foreach (var element in source)
+            {
+                if (!knwonElements.Add(element))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
