@@ -32,9 +32,7 @@ namespace Eva.Infra.Tools.Extentions
             foreach (var element in source)
             {
                 if (!knwonElements.Add(element))
-                {
                     return true;
-                }
             }
             return false;
         }
