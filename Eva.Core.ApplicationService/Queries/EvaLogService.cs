@@ -60,6 +60,7 @@ namespace Eva.Core.ApplicationService.Queries
 
                     var query = from log in logs
                                 join user in users on log.UserId equals user.Id
+                                orderby log.CreatedOn descending
                                 select new EvaLogReportOutputViewModel()
                                 {
                                     Username = user.Username,
