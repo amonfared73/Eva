@@ -88,10 +88,6 @@ namespace Eva.EndPoint.API.Extensions
             var configuration = builder.Services.BuildServiceProvider().GetRequiredService<IConfiguration>();
             var connectionString = configuration.GetConnectionString("sqlite");
 
-            // Seriog configuration
-            Log.Logger = new LoggerConfiguration().WriteTo.SQLite(sqliteDbPath: connectionString, tableName: "Logs").CreateLogger();
-            builder.Services.AddLogging(log => log.AddSerilog(dispose: true));
-
             // Authentication configuration
             var authenticationConfiguration = new AuthenticationConfiguration();
             configuration.Bind("Authentication", authenticationConfiguration);
