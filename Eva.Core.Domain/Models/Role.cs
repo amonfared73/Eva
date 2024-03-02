@@ -1,4 +1,5 @@
-﻿using Eva.Core.Domain.BaseModels;
+﻿using Bogus;
+using Eva.Core.Domain.BaseModels;
 using System.Text.Json.Serialization;
 
 namespace Eva.Core.Domain.Models
@@ -11,6 +12,11 @@ namespace Eva.Core.Domain.Models
         public override string ToString()
         {
             return Name;
+        }
+        public static Faker<Role> FakeRoleGenerator()
+        {
+            return new Faker<Role>()
+                .RuleFor(r => r.Name, f => f.Name.JobTitle());
         }
     }
 }
