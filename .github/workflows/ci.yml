@@ -30,3 +30,5 @@ jobs:
     - name: Test
       run: dotnet test
       working-directory: Eva.WorkingLibrary.Publish
+    - name: Run unit test
+      run: Eva.UnitTest.xUnit
