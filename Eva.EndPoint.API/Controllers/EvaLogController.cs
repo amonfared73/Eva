@@ -54,5 +54,11 @@ namespace Eva.EndPoint.API.Controllers
                 };
             }
         }
+
+        [HttpPost]
+        public async Task<IEnumerable<SimpleUserLogReport>> SimpleUserLogReport()
+        {
+            return await _logService.SimpleUserLogReport();
+        }
     }
 }

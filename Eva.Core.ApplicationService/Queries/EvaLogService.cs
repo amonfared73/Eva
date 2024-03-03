@@ -97,5 +97,24 @@ namespace Eva.Core.ApplicationService.Queries
                 };
             }
         }
+
+        // Eager loading practice
+        public async Task<IEnumerable<SimpleUserLogReport>> SimpleUserLogReport()
+        {
+            using (EvaDbContext context = _contextFactory.CreateDbContext())
+            {
+                var logs = await context.EvaLogs
+                    .Include(log => log.User)
+                    .Select(log => new SimpleUserLogReport()
+                    {
+                        Username = log.User.Username,
+                        RequestUrl = log.RequestUrl,
+                        CreatedOn = log.CreatedOn
+                    })
+                    .ToListAsync();
+                return logs;
+
+            }
+        }
     }
 }
