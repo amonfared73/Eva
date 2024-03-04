@@ -19,10 +19,12 @@ namespace Eva.Core.ApplicationService.Queries
     {
         private readonly IDbContextFactory<EvaDbContext> _contextFactory;
         private readonly IUserRoleMappingService _userRoleMappingService;
-        public UserService(IDbContextFactory<EvaDbContext> contextFactory, IUserRoleMappingService userRoleMappingService) : base(contextFactory)
+        private readonly IAesCryptographyService _aesCryptographyService;
+        public UserService(IDbContextFactory<EvaDbContext> contextFactory, IUserRoleMappingService userRoleMappingService, IAesCryptographyService aesCryptographyService) : base(contextFactory)
         {
             _contextFactory = contextFactory;
             _userRoleMappingService = userRoleMappingService;
+            _aesCryptographyService = aesCryptographyService;
         }
         public async Task<User> GetByUsername(string username)
         {
@@ -141,14 +143,28 @@ namespace Eva.Core.ApplicationService.Queries
             }
         }
 
-        public Task<CustomActionResultViewModel<string>> CreateUserSignature(int userId)
+        public async Task<CustomActionResultViewModel<string>> CreateUserSignature(int userId)
         {
-            return Task.FromResult(new CustomActionResultViewModel<string>
+            using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
-                Entity = "To be implemented",
-                HasError = false,
-                ResponseMessage = new ResponseMessage("To be implemented")
-            });
+                var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+                if (user == null)
+                    throw new EvaNotFoundException("User no found", typeof(User));
+
+                var signature = $"{user.Id.ToString()} | {user.Username} | {DateTime.Now.ToString()}";
+                var encryptedSignature = await _aesCryptographyService.Encrypt(signature);
+
+                user.Signature = encryptedSignature;
+                await context.SaveChangesAsync();
+
+                return new CustomActionResultViewModel<string>()
+                {
+                    Entity = signature,
+                    HasError = false,
+                    ResponseMessage = new ResponseMessage("Signature created successfully!")
+                };
+
+            }
         }
     }
 }
