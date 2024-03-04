@@ -149,9 +149,9 @@ namespace Eva.Core.ApplicationService.Queries
             {
                 var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
                 if (user == null)
-                    throw new EvaNotFoundException("User no found", typeof(User));
+                    throw new EvaNotFoundException("User not found", typeof(User));
 
-                var signature = $"{user.Id.ToString()} | {user.Username} | {DateTime.Now.ToString()}";
+                var signature = $"{user.Id.ToString()} | {user.Username} | {user.CreatedOn.ToString()}";
                 var encryptedSignature = await _aesCryptographyService.Encrypt(signature);
 
                 user.Signature = encryptedSignature;
