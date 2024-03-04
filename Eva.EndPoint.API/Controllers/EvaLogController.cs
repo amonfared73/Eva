@@ -12,14 +12,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Eva.EndPoint.API.Controllers
 {
-    [Authorize]
-    [ApiController]
     [DisableBaseOperations]
-    [Route("api/[controller]/[action]")]
-    public class EvaLogController 
+    public class EvaLogController :EvaControllerBase<EvaLog>
     {
         private readonly IEvaLogService _logService;
-        public EvaLogController(IEvaLogService logService) 
+        public EvaLogController(IEvaLogService logService) : base(logService)
         {
             _logService = logService;
         }
