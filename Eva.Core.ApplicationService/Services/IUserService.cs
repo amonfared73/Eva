@@ -15,6 +15,6 @@ namespace Eva.Core.ApplicationService.Services
         Task<int?> ExtractUserIdFromRequestBody(string requestBody);
         Task<int?> GetUserIdFromContext(HttpContext httpContext, string requestBody);
         Task<ActionResultViewModel<User>> AssignAllMissingRolesAsync(int userId);
-        Task<CustomActionResultViewModel<string>> CreateUserSignature();
+        Task<CustomActionResultViewModel<string>> CreateUserSignature(int userId);
     }
 }

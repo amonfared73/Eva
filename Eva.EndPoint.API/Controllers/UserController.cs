@@ -53,7 +53,7 @@ namespace Eva.EndPoint.API.Controllers
             {
                 return await _service.AssignAllMissingRolesAsync(userId);
             }
-            catch(EvaNotFoundException ex)
+            catch (EvaNotFoundException ex)
             {
                 return new ActionResultViewModel<User>()
                 {
@@ -92,7 +92,32 @@ namespace Eva.EndPoint.API.Controllers
         [HttpPost]
         public async Task<CustomActionResultViewModel<string>> CreateUserSignature()
         {
-            return await _service.CreateUserSignature();
+            try
+            {
+                var userId = User.FindFirst(CustomClaims.UserId)?.Value;
+                if (userId is null)
+                    throw new EvaNotFoundException($"Unable to find current user", typeof(User));
+                int.TryParse(userId, out int parsedUserId);
+                return await _service.CreateUserSignature(parsedUserId);
+            }
+            catch (EvaNotFoundException ex)
+            {
+                return new CustomActionResultViewModel<string>()
+                {
+                    Entity = null,
+                    HasError = true,
+                    ResponseMessage = new ResponseMessage(ex.Message)
+                };
+            }
+            catch (Exception ex)
+            {
+                return new CustomActionResultViewModel<string>()
+                {
+                    Entity = null,
+                    HasError = true,
+                    ResponseMessage = new ResponseMessage(ex.Message)
+                };
+            }
         }
     }
 }

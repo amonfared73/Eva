@@ -141,9 +141,14 @@ namespace Eva.Core.ApplicationService.Queries
             }
         }
 
-        public Task<CustomActionResultViewModel<string>> CreateUserSignature()
+        public Task<CustomActionResultViewModel<string>> CreateUserSignature(int userId)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(new CustomActionResultViewModel<string>
+            {
+                Entity = "To be implemented",
+                HasError = false,
+                ResponseMessage = new ResponseMessage("To be implemented")
+            });
         }
     }
 }
