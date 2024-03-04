@@ -140,5 +140,10 @@ namespace Eva.Core.ApplicationService.Queries
                 };
             }
         }
+
+        public Task<CustomActionResultViewModel<string>> CreateUserSignature()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

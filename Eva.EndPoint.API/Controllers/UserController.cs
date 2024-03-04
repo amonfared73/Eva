@@ -89,5 +89,10 @@ namespace Eva.EndPoint.API.Controllers
         {
             return base.UpdateAsync(entity);
         }
+        [HttpPost]
+        public async Task<CustomActionResultViewModel<string>> CreateUserSignature()
+        {
+            return await _service.CreateUserSignature();
+        }
     }
 }
