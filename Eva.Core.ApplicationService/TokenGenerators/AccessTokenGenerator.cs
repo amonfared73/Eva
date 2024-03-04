@@ -23,7 +23,7 @@ namespace Eva.Core.ApplicationService.TokenGenerators
 
             List<Claim> claims = new List<Claim>()
             {
-                new Claim("id", user.Id.ToString()),
+                new Claim(CustomClaims.UserId, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(CustomClaims.IsAdmin, user.IsAdmin.ToString()),
                 new Claim(CustomClaims.Signature, user.Signature),
