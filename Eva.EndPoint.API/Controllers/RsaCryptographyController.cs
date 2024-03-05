@@ -12,8 +12,6 @@ namespace Eva.EndPoint.API.Controllers
         private readonly IRsaCryptographyService _service;
         /// <summary>
         /// This controller provides encryption and decryption of texts by means of RSA Cryptography
-        /// This encryption currently works in one session and an encrypted text will not be decrypted in an other session
-        /// I'm working on it :)
         /// </summary>
         /// <param name="service"></param>
         public RsaCryptographyController(IRsaCryptographyService service) : base(service)
