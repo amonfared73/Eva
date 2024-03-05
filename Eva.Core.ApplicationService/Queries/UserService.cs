@@ -144,7 +144,7 @@ namespace Eva.Core.ApplicationService.Queries
             }
         }
 
-        public async Task<CustomActionResultViewModel<string>> CreateUserSignature(int userId)
+        public async Task<CustomActionResultViewModel<string>> CreateUserSignature(int userId, string signatureBase)
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
@@ -159,7 +159,8 @@ namespace Eva.Core.ApplicationService.Queries
                 {
                     UserId = user.Id,
                     UserName = user.Username,
-                    CreatedOn = user.CreatedOn
+                    CreatedOn = user.CreatedOn,
+                    SignatureBase = signatureBase
                 }.ToJson();
                 var encryptedSignature = _rsaCryptographyService.Encrypt(signature);
 

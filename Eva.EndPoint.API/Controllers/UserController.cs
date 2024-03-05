@@ -90,7 +90,7 @@ namespace Eva.EndPoint.API.Controllers
             return base.UpdateAsync(entity);
         }
         [HttpPost]
-        public async Task<CustomActionResultViewModel<string>> CreateUserSignature()
+        public async Task<CustomActionResultViewModel<string>> CreateUserSignature(string signatureBase)
         {
             try
             {
@@ -98,7 +98,7 @@ namespace Eva.EndPoint.API.Controllers
                 if (userId is null)
                     throw new EvaNotFoundException($"Unable to find current user", typeof(User));
                 int.TryParse(userId, out int parsedUserId);
-                return await _service.CreateUserSignature(parsedUserId);
+                return await _service.CreateUserSignature(parsedUserId, signatureBase);
             }
             catch (EvaNotFoundException ex)
             {
