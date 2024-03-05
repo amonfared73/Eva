@@ -103,6 +103,11 @@ namespace Eva.EndPoint.API.Extensions
             configuration.Bind("DesEncryptionConfiguration", desEncryptionConfiguration);
             builder.Services.AddSingleton(desEncryptionConfiguration);
 
+            // RSA Cryptography Configuration
+            var rsaCryptographyConfiguration = new RsaCryptographyConfiguration();
+            configuration.Bind("RsaCryptographyConfiguration", rsaCryptographyConfiguration);
+            builder.Services.AddSingleton(rsaCryptographyConfiguration);
+
             builder.Services.AddControllers(s => s.Conventions.Add(new EvaControllerModelConvention()));
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
