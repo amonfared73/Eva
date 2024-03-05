@@ -26,5 +26,9 @@ namespace Eva.Core.ApplicationService.Queries
             return _encryptor.Decrypt(encryptedText);
         }
 
+        public bool Verify(string plainText, string encryptedText)
+        {
+            return plainText == _encryptor.Decrypt(encryptedText);
+        }
     }
 }

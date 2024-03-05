@@ -12,6 +12,8 @@ using Eva.Infra.Tools.Serialization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Text.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Eva.Core.ApplicationService.Queries
 {
@@ -148,13 +150,16 @@ namespace Eva.Core.ApplicationService.Queries
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
+                // Grab user
                 var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
                 if (user == null)
                     throw new EvaNotFoundException("User not found", typeof(User));
 
+                // Check if user already has a signature
                 if (!string.IsNullOrEmpty(user.Signature))
                     throw new Exception("You already have a predefined signature, if you need to change it, clear it first");
 
+                // Create signature
                 var signature = new UserSignatureViewModel()
                 {
                     UserId = user.Id,
@@ -162,8 +167,11 @@ namespace Eva.Core.ApplicationService.Queries
                     CreatedOn = user.CreatedOn,
                     SignatureBase = signatureBase
                 }.ToJson();
+
+                // Encrypt signature
                 var encryptedSignature = _rsaCryptographyService.Encrypt(signature);
 
+                // Assign signature
                 user.Signature = encryptedSignature;
                 await context.SaveChangesAsync();
 
@@ -177,14 +185,32 @@ namespace Eva.Core.ApplicationService.Queries
             }
         }
 
-        public async Task<CustomActionResultViewModel<string>> ClearUserSignature(int userId)
+        public async Task<CustomActionResultViewModel<string>> ClearUserSignature(int userId, string signatureBase)
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
+                // Grab user
                 var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
                 if (user == null)
                     throw new EvaNotFoundException("User not found", typeof(User));
 
+                // Check if user's signature is empty
+                if (string.IsNullOrEmpty(user.Signature))
+                    throw new Exception("User's signature is already empty");
+
+                // Validate signature
+                var encryptedSignature = user.Signature;
+                var incomingSignature = new UserSignatureViewModel()
+                {
+                    UserId = user.Id,
+                    UserName = user.Username,
+                    CreatedOn = user.CreatedOn,
+                    SignatureBase = signatureBase
+                }.ToJson();
+                if (!_rsaCryptographyService.Verify(incomingSignature, encryptedSignature))
+                    throw new Exception("Your signature credentials is not correct");
+
+                // Clear signature
                 user.Signature = string.Empty;
                 await context.SaveChangesAsync();
 

@@ -6,5 +6,6 @@ namespace Eva.Core.ApplicationService.Services
     {
         string Encrypt(string text);
         string Decrypt(string encryptedText);
+        bool Verify(string plainText, string encryptedText);
     }
 }

@@ -120,7 +120,7 @@ namespace Eva.EndPoint.API.Controllers
             }
         }
         [HttpPost]
-        public async Task<CustomActionResultViewModel<string>> ClearUserSignature()
+        public async Task<CustomActionResultViewModel<string>> ClearUserSignature(string signatureBase)
         {
             try
             {
@@ -128,7 +128,7 @@ namespace Eva.EndPoint.API.Controllers
                 if (userId is null)
                     throw new EvaNotFoundException($"Unable to find current user", typeof(User));
                 int.TryParse(userId, out int parsedUserId);
-                return await _service.ClearUserSignature(parsedUserId);
+                return await _service.ClearUserSignature(parsedUserId, signatureBase);
             }
             catch (EvaNotFoundException ex)
             {
