@@ -10,8 +10,8 @@ namespace Eva.Infra.EntityFramework.Configurations
         {
             builder.HasKey(i => i.Id);
             builder.HasIndex(i => new { i.UserId, i.RoleId }).IsUnique();
-            builder.HasOne(e => e.User).WithMany(u => u.UserRoleMapping).HasForeignKey(u => u.UserId);
-            builder.HasOne(e => e.Role).WithMany(u => u.UserRoleMapping).HasForeignKey(u => u.RoleId);
+            builder.HasOne(e => e.User).WithMany(u => u.UserRoleMappings).HasForeignKey(u => u.UserId);
+            builder.HasOne(e => e.Role).WithMany(u => u.UserRoleMappings).HasForeignKey(u => u.RoleId);
         }
     }
 }

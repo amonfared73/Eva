@@ -9,9 +9,10 @@ namespace Eva.Core.Domain.Models
         [JsonIgnore]
         public string PasswordHash { get; set; } = string.Empty;
         public bool IsAdmin { get; set; }
+        [JsonIgnore]
         public string Signature { get; set; } = string.Empty;
         [JsonIgnore]
-        public ICollection<UserRoleMapping> UserRoleMapping { get; set; }
+        public ICollection<UserRoleMapping> UserRoleMappings { get; set; }
         [JsonIgnore]
         public ICollection<EvaLog> EvaLogs { get; set; }
         public override string ToString() => Username;

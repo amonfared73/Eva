@@ -19,12 +19,12 @@ namespace Eva.Core.ApplicationService.Queries
     {
         private readonly IDbContextFactory<EvaDbContext> _contextFactory;
         private readonly IUserRoleMappingService _userRoleMappingService;
-        private readonly IAesCryptographyService _aesCryptographyService;
-        public UserService(IDbContextFactory<EvaDbContext> contextFactory, IUserRoleMappingService userRoleMappingService, IAesCryptographyService aesCryptographyService) : base(contextFactory)
+        private readonly IRsaCryptographyService _rsaCryptographyService;
+        public UserService(IDbContextFactory<EvaDbContext> contextFactory, IUserRoleMappingService userRoleMappingService, IRsaCryptographyService rsaCryptographyService) : base(contextFactory)
         {
             _contextFactory = contextFactory;
             _userRoleMappingService = userRoleMappingService;
-            _aesCryptographyService = aesCryptographyService;
+            _rsaCryptographyService = rsaCryptographyService;
         }
         public async Task<User> GetByUsername(string username)
         {
@@ -152,7 +152,7 @@ namespace Eva.Core.ApplicationService.Queries
                     throw new EvaNotFoundException("User not found", typeof(User));
 
                 var signature = $"{user.Id.ToString()} | {user.Username} | {user.CreatedOn.ToString()}";
-                var encryptedSignature = await _aesCryptographyService.Encrypt(signature);
+                var encryptedSignature = _rsaCryptographyService.Encrypt(signature);
 
                 user.Signature = encryptedSignature;
                 await context.SaveChangesAsync();
