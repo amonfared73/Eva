@@ -8,6 +8,7 @@ using Eva.Core.Domain.Responses;
 using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContextes;
 using Eva.Infra.Tools.Hashers;
+using Eva.Infra.Tools.Serialization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -151,7 +152,15 @@ namespace Eva.Core.ApplicationService.Queries
                 if (user == null)
                     throw new EvaNotFoundException("User not found", typeof(User));
 
-                var signature = $"{user.Id.ToString()} | {user.Username} | {user.CreatedOn.ToString()}";
+                if (!string.IsNullOrEmpty(user.Signature))
+                    throw new Exception("You already have a predefined signature, if you need to change it, clear it first");
+
+                var signature = new UserSignatureViewModel()
+                {
+                    UserId = user.Id,
+                    UserName = user.Username,
+                    CreatedOn = user.CreatedOn
+                }.ToJson();
                 var encryptedSignature = _rsaCryptographyService.Encrypt(signature);
 
                 user.Signature = encryptedSignature;
@@ -172,7 +181,7 @@ namespace Eva.Core.ApplicationService.Queries
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
                 var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
-                if(user == null)
+                if (user == null)
                     throw new EvaNotFoundException("User not found", typeof(User));
 
                 user.Signature = string.Empty;
