@@ -166,5 +166,25 @@ namespace Eva.Core.ApplicationService.Queries
 
             }
         }
+
+        public async Task<CustomActionResultViewModel<string>> ClearUserSignature(int userId)
+        {
+            using (EvaDbContext context = _contextFactory.CreateDbContext())
+            {
+                var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+                if(user == null)
+                    throw new EvaNotFoundException("User not found", typeof(User));
+
+                user.Signature = string.Empty;
+                await context.SaveChangesAsync();
+
+                return new CustomActionResultViewModel<string>()
+                {
+                    Entity = null,
+                    HasError = false,
+                    ResponseMessage = new ResponseMessage($"{user.Username} signature cleared")
+                };
+            }
+        }
     }
 }
