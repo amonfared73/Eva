@@ -52,7 +52,6 @@ namespace Eva.EndPoint.API.Extensions
         {
             services.AddSingleton<AesEncryptor>();
             services.AddSingleton<DesEncryptor>();
-            services.AddSingleton<RsaKeyPair>();
             services.AddSingleton<RsaEncryptor>();
             return services;
         }

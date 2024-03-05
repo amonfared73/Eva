@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Eva.EndPoint.API.Controllers
 {
     [DisableBaseOperations]
-    
+
     public class RsaCryptographyController : EvaControllerBase<RsaCryptography>
     {
         private readonly IRsaCryptographyService _service;

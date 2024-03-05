@@ -1,4 +1,5 @@
-﻿using Eva.Core.Domain.Models.Cryptography;
+﻿using Eva.Core.Domain.BaseModels;
+using Eva.Core.Domain.Models.Cryptography;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -6,10 +7,10 @@ namespace Eva.Core.ApplicationService.Encryptors
 {
     public class RsaEncryptor
     {
-        private readonly RsaKeyPair _rsaKeyPair;
-        public RsaEncryptor(RsaKeyPair rsaKeyPair)
+        private readonly RsaCryptographyConfiguration _configuration;
+        public RsaEncryptor(RsaCryptographyConfiguration configuration)
         {
-            _rsaKeyPair = rsaKeyPair;
+            _configuration = configuration;
         }
         public string Encrypt(string text)
         {
@@ -17,7 +18,7 @@ namespace Eva.Core.ApplicationService.Encryptors
             {
                 using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
                 {
-                    rsa.FromXmlString(_rsaKeyPair.PublicKey);
+                    rsa.FromXmlString(_configuration.PublicKey);
 
                     byte[] plainBytes = Encoding.UTF8.GetBytes(text);
                     byte[] encryptedBytes = rsa.Encrypt(plainBytes, false);
@@ -36,7 +37,7 @@ namespace Eva.Core.ApplicationService.Encryptors
             {
                 using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
                 {
-                    rsa.FromXmlString(_rsaKeyPair.PrivateKey);
+                    rsa.FromXmlString(_configuration.PrivateKey);
 
                     byte[] encryptedBytes = Convert.FromBase64String(encryptedText);
                     byte[] decryptedBytes = rsa.Decrypt(encryptedBytes, false);
