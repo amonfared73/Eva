@@ -9,7 +9,7 @@ namespace Eva.Core.Domain.Models
         [JsonIgnore]
         public string PasswordHash { get; set; } = string.Empty;
         public bool IsAdmin { get; set; }
-        //[JsonIgnore]
+        [JsonIgnore]
         public string Signature { get; set; } = string.Empty;
         [JsonIgnore]
         public ICollection<UserRoleMapping> UserRoleMappings { get; set; }
