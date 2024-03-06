@@ -122,7 +122,7 @@ namespace Eva.EndPoint.API.Controllers
             }
         }
         [HttpPost("{id}")]
-        public virtual async Task<CustomActionResultViewModel<byte[]>> ToByteAsync(int id)
+        public virtual async Task<CustomResultViewModel<byte[]>> ToByteAsync(int id)
         {
             try
             {
@@ -130,7 +130,7 @@ namespace Eva.EndPoint.API.Controllers
             }
             catch (CrudException<T> ex)
             {
-                return new CustomActionResultViewModel<byte[]>()
+                return new CustomResultViewModel<byte[]>()
                 {
                     HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message)
@@ -138,7 +138,7 @@ namespace Eva.EndPoint.API.Controllers
             }
             catch (Exception ex)
             {
-                return new CustomActionResultViewModel<byte[]>()
+                return new CustomResultViewModel<byte[]>()
                 {
                     HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message)

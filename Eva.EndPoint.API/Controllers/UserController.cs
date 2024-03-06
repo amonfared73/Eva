@@ -90,7 +90,7 @@ namespace Eva.EndPoint.API.Controllers
             return base.UpdateAsync(entity);
         }
         [HttpPost]
-        public async Task<CustomActionResultViewModel<string>> CreateUserSignature(string signatureBase)
+        public async Task<CustomResultViewModel<string>> CreateUserSignature(string signatureBase)
         {
             try
             {
@@ -102,7 +102,7 @@ namespace Eva.EndPoint.API.Controllers
             }
             catch (EvaNotFoundException ex)
             {
-                return new CustomActionResultViewModel<string>()
+                return new CustomResultViewModel<string>()
                 {
                     Entity = null,
                     HasError = true,
@@ -111,7 +111,7 @@ namespace Eva.EndPoint.API.Controllers
             }
             catch (Exception ex)
             {
-                return new CustomActionResultViewModel<string>()
+                return new CustomResultViewModel<string>()
                 {
                     Entity = null,
                     HasError = true,
@@ -120,7 +120,7 @@ namespace Eva.EndPoint.API.Controllers
             }
         }
         [HttpPost]
-        public async Task<CustomActionResultViewModel<string>> ClearUserSignature(string signatureBase)
+        public async Task<CustomResultViewModel<string>> ClearUserSignature(string signatureBase)
         {
             try
             {
@@ -132,7 +132,7 @@ namespace Eva.EndPoint.API.Controllers
             }
             catch (EvaNotFoundException ex)
             {
-                return new CustomActionResultViewModel<string>()
+                return new CustomResultViewModel<string>()
                 {
                     Entity = null,
                     HasError = true,
@@ -141,7 +141,7 @@ namespace Eva.EndPoint.API.Controllers
             }
             catch (Exception ex)
             {
-                return new CustomActionResultViewModel<string>()
+                return new CustomResultViewModel<string>()
                 {
                     Entity = null,
                     HasError = true,

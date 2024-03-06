@@ -3,7 +3,7 @@ using Eva.Core.Domain.Models;
 
 namespace Eva.Core.Domain.ViewModels
 {
-    public class WeatherForcastResultViewModel : CustomActionResultViewModel<WeatherForcast>
+    public class WeatherForcastResultViewModel : CustomResultViewModel<WeatherForcast>
     {
         public double latitude { get; set; }
         public double longitude { get; set; }

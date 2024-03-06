@@ -146,7 +146,7 @@ namespace Eva.Core.ApplicationService.Queries
             }
         }
 
-        public async Task<CustomActionResultViewModel<string>> CreateUserSignature(int userId, string signatureBase)
+        public async Task<CustomResultViewModel<string>> CreateUserSignature(int userId, string signatureBase)
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
@@ -175,7 +175,7 @@ namespace Eva.Core.ApplicationService.Queries
                 user.Signature = encryptedSignature;
                 await context.SaveChangesAsync();
 
-                return new CustomActionResultViewModel<string>()
+                return new CustomResultViewModel<string>()
                 {
                     Entity = signature,
                     HasError = false,
@@ -185,7 +185,7 @@ namespace Eva.Core.ApplicationService.Queries
             }
         }
 
-        public async Task<CustomActionResultViewModel<string>> ClearUserSignature(int userId, string signatureBase)
+        public async Task<CustomResultViewModel<string>> ClearUserSignature(int userId, string signatureBase)
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
@@ -217,7 +217,7 @@ namespace Eva.Core.ApplicationService.Queries
                 user.Signature = string.Empty;
                 await context.SaveChangesAsync();
 
-                return new CustomActionResultViewModel<string>()
+                return new CustomResultViewModel<string>()
                 {
                     Entity = null,
                     HasError = false,

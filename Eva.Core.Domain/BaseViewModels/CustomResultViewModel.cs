@@ -2,7 +2,7 @@
 
 namespace Eva.Core.Domain.BaseViewModels
 {
-    public class CustomActionResultViewModel<T>
+    public class CustomResultViewModel<T>
     {
         public T? Entity { get; set; }
         public bool HasError { get; set; } = false;
