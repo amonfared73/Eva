@@ -189,6 +189,9 @@ namespace Eva.Core.ApplicationService.Queries
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
+                // Check if signatureBase is empty
+                if (string.IsNullOrEmpty(signatureBase))
+                    throw new Exception("Signature base can not be empty");
                 // Grab user
                 var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
                 if (user == null)
