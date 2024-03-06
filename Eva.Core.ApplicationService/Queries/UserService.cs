@@ -12,8 +12,6 @@ using Eva.Infra.Tools.Serialization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using System.Text.Json;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Eva.Core.ApplicationService.Queries
 {
@@ -73,7 +71,7 @@ namespace Eva.Core.ApplicationService.Queries
                 return new ActionResultViewModel<User>()
                 {
                     Entity = user,
-                    ResponseMessage = new Domain.Responses.ResponseMessage("User Updated successfully!")
+                    ResponseMessage = new ResponseMessage("User Updated successfully!")
                 };
             }
         }
@@ -192,6 +190,7 @@ namespace Eva.Core.ApplicationService.Queries
                 // Check if signatureBase is empty
                 if (string.IsNullOrEmpty(signatureBase))
                     throw new Exception("Signature base can not be empty");
+
                 // Grab user
                 var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
                 if (user == null)
