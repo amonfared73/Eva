@@ -24,6 +24,8 @@ namespace Eva.EndPoint.API.Conventions
                 foreach (var action in crudActions)
                 {
                     action.ApiExplorer.IsVisible = false;
+                    action.ActionName += "_DisabledEndpoint";
+                    action.Selectors.Clear();
                 }
             }
         }
