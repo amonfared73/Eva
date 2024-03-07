@@ -1,6 +1,7 @@
 ﻿using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.Models.Cryptography;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace Eva.Infra.EntityFramework.DbContextes
@@ -14,6 +15,15 @@ namespace Eva.Infra.EntityFramework.DbContextes
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(EvaDbContext).Assembly);
+        }
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var entityEntries = ChangeTracker.Entries().Where(e => e.Entity is DomainObject && e.State == EntityState.Added);
+            foreach (var entityEntry in entityEntries)
+            {
+                ((DomainObject)entityEntry.Entity).CreatedOn = DateTime.Now;
+            }
+            return base.SaveChangesAsync(cancellationToken);
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
