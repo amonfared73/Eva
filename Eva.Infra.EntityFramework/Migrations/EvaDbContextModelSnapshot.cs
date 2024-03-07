@@ -23,6 +23,9 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
@@ -47,6 +50,9 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<int?>("AccountId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
@@ -67,6 +73,9 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
@@ -79,6 +88,9 @@ namespace Eva.Infra.EntityFramework.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreatedBy")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedOn")
@@ -97,6 +109,9 @@ namespace Eva.Infra.EntityFramework.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreatedBy")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedOn")
@@ -123,6 +138,9 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
@@ -137,6 +155,9 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
@@ -149,6 +170,9 @@ namespace Eva.Infra.EntityFramework.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreatedBy")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedOn")
@@ -166,6 +190,9 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("CompanyId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreatedBy")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedOn")
@@ -186,6 +213,9 @@ namespace Eva.Infra.EntityFramework.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreatedBy")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedOn")
@@ -217,6 +247,9 @@ namespace Eva.Infra.EntityFramework.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreatedBy")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedOn")
@@ -260,6 +293,9 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
@@ -276,6 +312,9 @@ namespace Eva.Infra.EntityFramework.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreatedBy")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedOn")
@@ -305,6 +344,9 @@ namespace Eva.Infra.EntityFramework.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreatedBy")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedOn")
