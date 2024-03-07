@@ -8,9 +8,10 @@ namespace Eva.Infra.EntityFramework.DbContextes
 {
     public class EvaDbContext : DbContext
     {
-        public EvaDbContext(DbContextOptions options) : base(options)
+        private readonly IHttpContextAccessor _contextAccessor;
+        public EvaDbContext(DbContextOptions options, IHttpContextAccessor contextAccessor) : base(options)
         {
-
+            _contextAccessor = contextAccessor;
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,15 +24,23 @@ namespace Eva.Infra.EntityFramework.DbContextes
         /// <returns></returns>
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            // Grab all entity entries
-            var entityEntries = ChangeTracker.Entries().Where(e => e.Entity is DomainObject && (e.State == EntityState.Added || e.State == EntityState.Modified));
-            foreach (var entityEntry in entityEntries)
+            if (_contextAccessor.HttpContext.Request.Path.Value != Authentication.LoginUrl)
             {
-                // Add current datetime for added state
-                if (entityEntry.State == EntityState.Added)
-                    ((DomainObject)entityEntry.Entity).CreatedOn = DateTime.Now;
-                // Add current datetime for modified state
-                ((DomainObject)entityEntry.Entity).ModifiedOn = DateTime.Now;
+                // Grab all entity entries
+                var entityEntries = ChangeTracker.Entries().Where(e => e.Entity is DomainObject && (e.State == EntityState.Added || e.State == EntityState.Modified));
+                var userId = int.Parse(_contextAccessor.HttpContext.User.FindFirst(CustomClaims.UserId)?.Value);
+                foreach (var entityEntry in entityEntries)
+                {
+                    // Add current datetime for added state
+                    if (entityEntry.State == EntityState.Added)
+                    {
+                        ((DomainObject)entityEntry.Entity).CreatedOn = DateTime.Now;
+                        ((DomainObject)entityEntry.Entity).CreatedBy = userId;
+                    }
+                    // Add current datetime for modified state
+                    ((DomainObject)entityEntry.Entity).ModifiedOn = DateTime.Now;
+                    ((DomainObject)entityEntry.Entity).ModifiedBy = userId;
+                }
             }
             return base.SaveChangesAsync(cancellationToken);
         }

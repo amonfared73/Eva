@@ -158,6 +158,9 @@ namespace Eva.EndPoint.API.Extensions
             // Open Meteo Service for weather forcast
             builder.Services.AddHttpClient<IOpenMeteoService, OpenMeteoService>();
 
+            // Add Http Context Accessor
+            builder.Services.AddHttpContextAccessor();
+
             // Add DbContext
             builder.Services.AddEvaDbContext(connectionString);
 
