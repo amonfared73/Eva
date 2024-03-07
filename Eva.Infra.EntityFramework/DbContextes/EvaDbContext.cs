@@ -1,6 +1,7 @@
 ﻿using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.Models.Cryptography;
+using Eva.Infra.Tools.Extentions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,7 +25,7 @@ namespace Eva.Infra.EntityFramework.DbContextes
         /// <returns></returns>
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            if (_contextAccessor.HttpContext.Request.Path.Value != Authentication.LoginUrl)
+            if (!_contextAccessor.IsLoginRequeust())
             {
                 // Grab all entity entries
                 var entityEntries = ChangeTracker.Entries().Where(e => e.Entity is DomainObject && (e.State == EntityState.Added || e.State == EntityState.Modified));

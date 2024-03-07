@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Eva.Core.Domain\Eva.Core.Domain.csproj" />
+    <ProjectReference Include="..\Eva.Infra.Tools\Eva.Infra.Tools.csproj" />
   </ItemGroup>
 
 </Project>

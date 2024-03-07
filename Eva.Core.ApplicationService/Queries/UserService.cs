@@ -7,6 +7,7 @@ using Eva.Core.Domain.Models;
 using Eva.Core.Domain.Responses;
 using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContextes;
+using Eva.Infra.Tools.Extentions;
 using Eva.Infra.Tools.Hashers;
 using Eva.Infra.Tools.Serialization;
 using Microsoft.AspNetCore.Http;
@@ -90,8 +91,7 @@ namespace Eva.Core.ApplicationService.Queries
 
         public async Task<int?> GetUserIdFromContext(HttpContext httpContext, string requestBody)
         {
-            var isLoginRequest = httpContext.Request.Path.Value == Authentication.LoginUrl;
-            var userId = isLoginRequest ? await ExtractUserIdFromRequestBody(requestBody) : await ExtractUserIdFromToken(httpContext);
+            var userId = httpContext.IsLoginRequest() ? await ExtractUserIdFromRequestBody(requestBody) : await ExtractUserIdFromToken(httpContext);
             return userId;
         }
 
