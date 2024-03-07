@@ -10,6 +10,10 @@ namespace Eva.Infra.EntityFramework.DbContextes
     public class EvaDbContext : DbContext
     {
         private readonly IHttpContextAccessor _contextAccessor;
+        public EvaDbContext(DbContextOptions options) : base(options)
+        {
+            
+        }
         public EvaDbContext(DbContextOptions options, IHttpContextAccessor contextAccessor) : base(options)
         {
             _contextAccessor = contextAccessor;
@@ -60,5 +64,6 @@ namespace Eva.Infra.EntityFramework.DbContextes
         public DbSet<Company> Companies { get; set; }
         public DbSet<Complex> ComplexNumbers { get; set; }
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<Instrument> Instruments { get; set; }
     }
 }
