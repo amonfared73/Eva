@@ -6,7 +6,5 @@ namespace Eva.Core.Domain.BaseModels
     {
         public int Id { get; set; }
         public DateTime CreatedOn { get; set; } = DateTime.Now;
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
     }
 }

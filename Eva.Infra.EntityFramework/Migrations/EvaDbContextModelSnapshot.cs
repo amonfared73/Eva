@@ -26,12 +26,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("BLOB");
-
                     b.Property<string>("Token")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -60,12 +54,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("BLOB");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId");
@@ -81,12 +69,6 @@ namespace Eva.Infra.EntityFramework.Migrations
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("BLOB");
 
                     b.HasKey("Id");
 
@@ -105,12 +87,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("BLOB");
 
                     b.HasKey("Id");
 
@@ -136,12 +112,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<double>("Real")
                         .HasColumnType("REAL");
 
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("BLOB");
-
                     b.HasKey("Id");
 
                     b.ToTable("ComplexNumbers");
@@ -155,12 +125,6 @@ namespace Eva.Infra.EntityFramework.Migrations
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("BLOB");
 
                     b.HasKey("Id");
 
@@ -176,12 +140,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("BLOB");
-
                     b.HasKey("Id");
 
                     b.ToTable("DesCryptographies");
@@ -195,12 +153,6 @@ namespace Eva.Infra.EntityFramework.Migrations
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("BLOB");
 
                     b.HasKey("Id");
 
@@ -222,12 +174,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("BLOB");
 
                     b.HasKey("Id");
 
@@ -259,12 +205,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("BLOB");
 
                     b.HasKey("Id");
 
@@ -300,12 +240,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<string>("Response")
                         .HasColumnType("TEXT");
 
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("BLOB");
-
                     b.Property<string>("StatusCode")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -333,12 +267,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("BLOB");
-
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
@@ -359,12 +287,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("BLOB");
 
                     b.Property<string>("Signature")
                         .IsRequired()
@@ -390,12 +312,6 @@ namespace Eva.Infra.EntityFramework.Migrations
 
                     b.Property<int>("RoleId")
                         .HasColumnType("INTEGER");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("BLOB");
 
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
@@ -443,13 +359,13 @@ namespace Eva.Infra.EntityFramework.Migrations
             modelBuilder.Entity("Eva.Core.Domain.Models.UserRoleMapping", b =>
                 {
                     b.HasOne("Eva.Core.Domain.Models.Role", "Role")
-                        .WithMany("UserRoleMapping")
+                        .WithMany("UserRoleMappings")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Eva.Core.Domain.Models.User", "User")
-                        .WithMany("UserRoleMapping")
+                        .WithMany("UserRoleMappings")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -476,14 +392,14 @@ namespace Eva.Infra.EntityFramework.Migrations
 
             modelBuilder.Entity("Eva.Core.Domain.Models.Role", b =>
                 {
-                    b.Navigation("UserRoleMapping");
+                    b.Navigation("UserRoleMappings");
                 });
 
             modelBuilder.Entity("Eva.Core.Domain.Models.User", b =>
                 {
                     b.Navigation("EvaLogs");
 
-                    b.Navigation("UserRoleMapping");
+                    b.Navigation("UserRoleMappings");
                 });
 #pragma warning restore 612, 618
         }
