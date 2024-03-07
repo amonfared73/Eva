@@ -23,27 +23,28 @@ namespace Eva.Infra.EntityFramework.DbContextes
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             if (!_contextAccessor.IsLoginRequeust())
             {
                 // Grab all entity entries
                 var entityEntries = ChangeTracker.Entries().Where(e => e.Entity is DomainObject && (e.State == EntityState.Added || e.State == EntityState.Modified));
-                var userId = int.Parse(_contextAccessor.HttpContext.User.FindFirst(CustomClaims.UserId)?.Value);
+                var userId = _contextAccessor.GetUserId();
                 foreach (var entityEntry in entityEntries)
                 {
+                    // Add current datetime for modified state
+                    ((DomainObject)entityEntry.Entity).ModifiedOn = DateTime.Now;
+                    ((DomainObject)entityEntry.Entity).ModifiedBy = userId;
+
                     // Add current datetime for added state
                     if (entityEntry.State == EntityState.Added)
                     {
                         ((DomainObject)entityEntry.Entity).CreatedOn = DateTime.Now;
                         ((DomainObject)entityEntry.Entity).CreatedBy = userId;
                     }
-                    // Add current datetime for modified state
-                    ((DomainObject)entityEntry.Entity).ModifiedOn = DateTime.Now;
-                    ((DomainObject)entityEntry.Entity).ModifiedBy = userId;
                 }
             }
-            return base.SaveChangesAsync(cancellationToken);
+            return await base.SaveChangesAsync(cancellationToken);
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
