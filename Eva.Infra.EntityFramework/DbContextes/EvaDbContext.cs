@@ -16,12 +16,22 @@ namespace Eva.Infra.EntityFramework.DbContextes
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(EvaDbContext).Assembly);
         }
+        /// <summary>
+        /// Overriden SaveChangesAsync method to implement trackable properties of Eva entities
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            var entityEntries = ChangeTracker.Entries().Where(e => e.Entity is DomainObject && e.State == EntityState.Added);
+            // Grab all entity entries
+            var entityEntries = ChangeTracker.Entries().Where(e => e.Entity is DomainObject && (e.State == EntityState.Added || e.State == EntityState.Modified));
             foreach (var entityEntry in entityEntries)
             {
-                ((DomainObject)entityEntry.Entity).CreatedOn = DateTime.Now;
+                // Add current datetime for added state
+                if (entityEntry.State == EntityState.Added)
+                    ((DomainObject)entityEntry.Entity).CreatedOn = DateTime.Now;
+                // Add current datetime for modified state
+                ((DomainObject)entityEntry.Entity).ModifiedOn = DateTime.Now;
             }
             return base.SaveChangesAsync(cancellationToken);
         }
