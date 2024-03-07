@@ -2,10 +2,8 @@
 
 namespace Eva.Core.Domain.BaseModels
 {
-    public class DomainObject
+    public class DomainObject : Trackable
     {
         public int Id { get; set; }
-        public int CreatedBy { get; set; }
-        public DateTime CreatedOn { get; set; } = DateTime.Now;
     }
 }

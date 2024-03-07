@@ -29,6 +29,12 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Token")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -56,6 +62,12 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -79,6 +91,12 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("Authentications");
@@ -94,6 +112,12 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -124,6 +148,12 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<double>("Imaginary")
                         .HasColumnType("REAL");
 
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
                     b.Property<double>("Real")
                         .HasColumnType("REAL");
 
@@ -144,6 +174,12 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("AesCryptographies");
@@ -161,6 +197,12 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("DesCryptographies");
@@ -176,6 +218,12 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -196,6 +244,12 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -236,6 +290,12 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
@@ -257,6 +317,12 @@ namespace Eva.Infra.EntityFramework.Migrations
 
                     b.Property<string>("LogTypeCode")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Payload")
@@ -299,6 +365,12 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -322,6 +394,12 @@ namespace Eva.Infra.EntityFramework.Migrations
 
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("INTEGER");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
@@ -350,6 +428,12 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("RoleId")
