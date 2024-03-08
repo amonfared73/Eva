@@ -57,5 +57,11 @@ namespace Eva.EndPoint.API.Controllers
         {
             return await _logService.SimpleUserLogReport();
         }
+        [HttpDelete]
+        [HasRole(ActiveRoles.SystemDeveloper)]
+        public async Task<ActionResultViewModel<EvaLog>> ClearAllLogsAsync()
+        {
+            return await _logService.ClearAllLogsAsync();
+        }
     }
 }

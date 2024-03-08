@@ -11,5 +11,6 @@ namespace Eva.Core.ApplicationService.Services
         Task<IEnumerable<EvaLog>> ViewAllLogsAsync();
         Task<PagedResultViewModel<EvaLogReportOutputViewModel>> EvaLogReportAsync(EvaLogReportInputViewModel request);
         Task<IEnumerable<SimpleUserLogReport>> SimpleUserLogReport();
+        Task<ActionResultViewModel<EvaLog>> ClearAllLogsAsync();
     }
 }

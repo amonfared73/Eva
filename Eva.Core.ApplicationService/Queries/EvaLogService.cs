@@ -116,5 +116,21 @@ namespace Eva.Core.ApplicationService.Queries
 
             }
         }
+
+        public async Task<ActionResultViewModel<EvaLog>> ClearAllLogsAsync()
+        {
+            using (EvaDbContext context = _contextFactory.CreateDbContext())
+            {
+                var logs = await context.EvaLogs.ToListAsync();
+                logs.Clear();
+                await context.SaveChangesAsync();
+                return new ActionResultViewModel<EvaLog>()
+                {
+                    Entity = null,
+                    HasError = false,
+                    ResponseMessage = new ResponseMessage("All logs cleared")
+                };
+            }
+        }
     }
 }
