@@ -12,7 +12,7 @@ namespace Eva.Infra.EntityFramework.DbContextes
         private readonly IHttpContextAccessor _contextAccessor;
         public EvaDbContext(DbContextOptions options) : base(options)
         {
-            
+
         }
         public EvaDbContext(DbContextOptions options, IHttpContextAccessor contextAccessor) : base(options)
         {
@@ -36,16 +36,14 @@ namespace Eva.Infra.EntityFramework.DbContextes
                 var userId = _contextAccessor.GetUserId();
                 foreach (var entityEntry in entityEntries)
                 {
-                    // Add current datetime for modified state
+                    var createdOn = entityEntry.Property("CreatedOn").CurrentValue;
+                    var createdBy = entityEntry.Property("CreatedBy").CurrentValue;
+
                     entityEntry.Property("ModifiedOn").CurrentValue = DateTime.Now;
                     entityEntry.Property("ModifiedBy").CurrentValue = userId;
 
-                    // Add current datetime for added state
-                    if (entityEntry.State == EntityState.Added)
-                    {
-                        entityEntry.Property("CreatedOn").CurrentValue = DateTime.Now;
-                        entityEntry.Property("CreatedBy").CurrentValue = userId;
-                    }
+                    entityEntry.Property("CreatedOn").CurrentValue = createdOn is null ? DateTime.Now : createdBy;
+                    entityEntry.Property("CreatedBy").CurrentValue = createdBy is null ? userId : createdBy;
                 }
             }
             return await base.SaveChangesAsync(cancellationToken);
