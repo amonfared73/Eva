@@ -37,14 +37,16 @@ namespace Eva.Infra.EntityFramework.DbContextes
                 foreach (var entityEntry in entityEntries)
                 {
                     // Add current datetime for modified state
-                    ((DomainObject)entityEntry.Entity).ModifiedOn = DateTime.Now;
-                    ((DomainObject)entityEntry.Entity).ModifiedBy = userId;
+                    entityEntry.Property("ModifiedOn").CurrentValue = DateTime.Now;
+                    entityEntry.Property("ModifiedBy").CurrentValue = userId;
+                    entityEntry.Property("CreatedOn").CurrentValue = entityEntry.Property("CreatedOn").OriginalValue;
+                    entityEntry.Property("CreatedBy").CurrentValue = entityEntry.Property("CreatedBy").OriginalValue;
 
                     // Add current datetime for added state
                     if (entityEntry.State == EntityState.Added)
                     {
-                        ((DomainObject)entityEntry.Entity).CreatedOn = DateTime.Now;
-                        ((DomainObject)entityEntry.Entity).CreatedBy = userId;
+                        entityEntry.Property("CreatedOn").CurrentValue = DateTime.Now;
+                        entityEntry.Property("CreatedBy").CurrentValue = userId;
                     }
                 }
             }
