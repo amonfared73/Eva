@@ -1,6 +1,5 @@
 ﻿using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.BaseModels;
-using Eva.Core.Domain.Models;
 using Eva.Infra.Tools.Extentions;
 
 namespace Eva.EndPoint.API.Middlewares
