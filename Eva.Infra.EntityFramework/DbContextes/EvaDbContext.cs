@@ -36,18 +36,14 @@ namespace Eva.Infra.EntityFramework.DbContextes
                 var userId = _contextAccessor.GetUserId();
                 foreach (var entityEntry in entityEntries)
                 {
-                    // Add current datetime for modified state
+                    // Check if entry state is added mode
+                    var isAddedState = entityEntry.State == EntityState.Added;
+
+                    // Detect trackeble properties
                     entityEntry.Property("ModifiedOn").CurrentValue = DateTime.Now;
                     entityEntry.Property("ModifiedBy").CurrentValue = userId;
-                    entityEntry.Property("CreatedOn").CurrentValue = entityEntry.Property("CreatedOn").OriginalValue;
-                    entityEntry.Property("CreatedBy").CurrentValue = entityEntry.Property("CreatedBy").OriginalValue;
-
-                    // Add current datetime for added state
-                    if (entityEntry.State == EntityState.Added)
-                    {
-                        entityEntry.Property("CreatedOn").CurrentValue = DateTime.Now;
-                        entityEntry.Property("CreatedBy").CurrentValue = userId;
-                    }
+                    entityEntry.Property("CreatedOn").CurrentValue = isAddedState ? DateTime.Now : entityEntry.Property("CreatedOn").OriginalValue;
+                    entityEntry.Property("CreatedBy").CurrentValue = isAddedState ? userId : entityEntry.Property("CreatedBy").OriginalValue;
                 }
             }
             return await base.SaveChangesAsync(cancellationToken);
