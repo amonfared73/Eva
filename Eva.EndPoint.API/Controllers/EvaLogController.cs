@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Eva.EndPoint.API.Controllers
 {
     [DisableBaseOperations]
-    public class EvaLogController :EvaControllerBase<EvaLog>
+    public class EvaLogController : EvaControllerBase<EvaLog>
     {
         private readonly IEvaLogService _logService;
         public EvaLogController(IEvaLogService logService) : base(logService)
@@ -61,7 +61,19 @@ namespace Eva.EndPoint.API.Controllers
         [HasRole(ActiveRoles.SystemDeveloper)]
         public async Task<ActionResultViewModel<EvaLog>> ClearAllLogsAsync()
         {
-            return await _logService.ClearAllLogsAsync();
+            try
+            {
+                return await _logService.ClearAllLogsAsync();
+            }
+            catch (Exception ex)
+            {
+                return new ActionResultViewModel<EvaLog>()
+                {
+                    Entity = null,
+                    HasError = true,
+                    ResponseMessage = new ResponseMessage($"{ex.Message}"),
+                };
+            }
         }
     }
 }

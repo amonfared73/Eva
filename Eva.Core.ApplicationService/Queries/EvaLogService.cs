@@ -122,7 +122,7 @@ namespace Eva.Core.ApplicationService.Queries
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
                 var logs = await context.EvaLogs.ToListAsync();
-                logs.Clear();
+                context.EvaLogs.RemoveRange(logs);
                 await context.SaveChangesAsync();
                 return new ActionResultViewModel<EvaLog>()
                 {
