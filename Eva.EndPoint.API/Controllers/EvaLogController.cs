@@ -7,7 +7,6 @@ using Eva.Core.Domain.Models;
 using Eva.Core.Domain.Responses;
 using Eva.Core.Domain.ViewModels;
 using Eva.EndPoint.API.Authorization;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eva.EndPoint.API.Controllers

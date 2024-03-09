@@ -64,6 +64,7 @@ namespace Eva.Core.ApplicationService.Queries
                                 select new EvaLogReportOutputViewModel()
                                 {
                                     Username = user.Username,
+                                    CreatedOn = log.CreatedOn,
                                     RequestUrl = log.RequestUrl,
                                     RequestMethod = log.RequestMethod,
                                     Payload = log.Payload,
