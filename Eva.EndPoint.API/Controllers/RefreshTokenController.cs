@@ -1,7 +1,6 @@
 ﻿using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseModels;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Eva.EndPoint.API.Controllers
 {
