@@ -1,5 +1,4 @@
 ﻿using Eva.Core.Domain.BaseModels;
-using Eva.Core.Domain.Models.Cryptography;
 using System.Security.Cryptography;
 using System.Text;
 
