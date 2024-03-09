@@ -7,7 +7,6 @@ using Eva.Core.ApplicationService.TokenGenerators;
 using Eva.Core.ApplicationService.TokenValidators;
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseModels;
-using Eva.Core.Domain.Models.Cryptography;
 using Eva.EndPoint.API.Authorization;
 using Eva.EndPoint.API.Conventions;
 using Eva.EndPoint.API.Middlewares;
@@ -18,7 +17,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Serilog;
 using System.Text;
 
 namespace Eva.EndPoint.API.Extensions
