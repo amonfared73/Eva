@@ -6,10 +6,10 @@ name: Countinuous Integration
 on:
   push:
     branches: 
-      - master
+      - Release
   pull_request:
     branches: 
-      - master
+      - Release
 
 jobs:
   build:
