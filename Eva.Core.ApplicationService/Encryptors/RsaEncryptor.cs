@@ -8,9 +8,11 @@ namespace Eva.Core.ApplicationService.Encryptors
     public class RsaEncryptor
     {
         private readonly RsaCryptographyConfiguration _configuration;
-        public RsaEncryptor(RsaCryptographyConfiguration configuration)
+        private readonly RsaParser _parser;
+        public RsaEncryptor(RsaCryptographyConfiguration configuration, RsaParser parser)
         {
             _configuration = configuration;
+            _parser = parser;
         }
         public string Encrypt(string text)
         {
@@ -48,6 +50,23 @@ namespace Eva.Core.ApplicationService.Encryptors
             catch (Exception ex)
             {
                 return string.Format("Unable to decrypt, {0}", ex.Message);
+            }
+        }
+        public byte[] SignContent(byte[] content)
+        {
+            using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
+            {
+                rsa.ImportParameters(_parser.ParseRsaParametersFromXml(_configuration.PrivateKey));
+                return rsa.SignData(content, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
+            }
+        }
+
+        public bool VerifyContent(byte[] content, byte[] signature)
+        {
+            using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
+            {
+                rsa.ImportParameters(_parser.ParseRsaParametersFromXml(_configuration.PublicKey));
+                return rsa.VerifyData(content, signature, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
             }
         }
     }
