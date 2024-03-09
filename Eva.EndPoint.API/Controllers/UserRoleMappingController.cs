@@ -1,5 +1,4 @@
 ﻿using Eva.Core.ApplicationService.Services;
-using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.DTOs;
 using Eva.Core.Domain.Exceptions;
