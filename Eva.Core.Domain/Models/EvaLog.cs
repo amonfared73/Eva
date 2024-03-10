@@ -14,5 +14,6 @@ namespace Eva.Core.Domain.Models
         public int? UserId { get; set; }
         [JsonIgnore]
         public User User { get; set; }
+        public static string SensitiveCredentials = $"Login request/response credentials are not exposed";
     }
 }

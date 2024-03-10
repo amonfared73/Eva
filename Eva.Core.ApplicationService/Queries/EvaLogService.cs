@@ -32,8 +32,8 @@ namespace Eva.Core.ApplicationService.Queries
                     RequestUrl = httpContext.Request.Path,
                     RequestMethod = httpContext.Request.Method,
                     StatusCode = httpContext.Response.StatusCode.ToString(),
-                    Payload = httpContext.IsLoginRequest() ? "Sensitive Credentials" : requestBody,
-                    Response = httpContext.IsLoginRequest() ? "Sensitive Credentials" : responseBody,
+                    Payload = httpContext.IsLoginRequest() ? EvaLog.SensitiveCredentials : requestBody,
+                    Response = httpContext.IsLoginRequest() ? EvaLog.SensitiveCredentials : responseBody,
                     UserId = await _userService.GetUserIdFromContext(httpContext, requestBody),
                     CreatedOn = DateTime.Now,
                 };
