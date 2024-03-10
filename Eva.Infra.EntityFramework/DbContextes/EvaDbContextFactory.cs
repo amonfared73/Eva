@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Eva.Infra.EntityFramework.DbContextes
 {
-    public class EvaDbContextFactory : IDbContextFactory<EvaDbContext>
+    public class EvaDbContextFactory : IEvaDbContextFactory
     {
         private readonly DbContextOptions _options;
         private readonly IHttpContextAccessor _contextAccessor;

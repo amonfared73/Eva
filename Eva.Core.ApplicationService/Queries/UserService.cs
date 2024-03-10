@@ -19,10 +19,10 @@ namespace Eva.Core.ApplicationService.Queries
     [RegistrationRequired]
     public class UserService : BaseService<User>, IUserService
     {
-        private readonly IDbContextFactory<EvaDbContext> _contextFactory;
+        private readonly IEvaDbContextFactory _contextFactory;
         private readonly IUserRoleMappingService _userRoleMappingService;
         private readonly IRsaCryptographyService _rsaCryptographyService;
-        public UserService(IDbContextFactory<EvaDbContext> contextFactory, IUserRoleMappingService userRoleMappingService, IRsaCryptographyService rsaCryptographyService) : base(contextFactory)
+        public UserService(IEvaDbContextFactory contextFactory, IUserRoleMappingService userRoleMappingService, IRsaCryptographyService rsaCryptographyService) : base(contextFactory)
         {
             _contextFactory = contextFactory;
             _userRoleMappingService = userRoleMappingService;

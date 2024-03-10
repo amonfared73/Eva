@@ -11,9 +11,9 @@ namespace Eva.Core.ApplicationService.Queries
     [RegistrationRequired]
     public class RefreshTokenService : BaseService<RefreshToken>, IRefreshTokenService
     {
-        private readonly IDbContextFactory<EvaDbContext> _contextFactory;
+        private readonly IEvaDbContextFactory _contextFactory;
 
-        public RefreshTokenService(IDbContextFactory<EvaDbContext> contextFactory) : base(contextFactory)
+        public RefreshTokenService(IEvaDbContextFactory contextFactory) : base(contextFactory)
         {
             _contextFactory = contextFactory;
         }

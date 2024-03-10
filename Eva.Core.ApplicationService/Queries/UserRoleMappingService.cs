@@ -14,9 +14,9 @@ namespace Eva.Core.ApplicationService.Queries
     [RegistrationRequired]
     public class UserRoleMappingService : BaseService<UserRoleMapping>, IUserRoleMappingService
     {
-        private readonly IDbContextFactory<EvaDbContext> _contextFactory;
+        private readonly IEvaDbContextFactory _contextFactory;
 
-        public UserRoleMappingService(IDbContextFactory<EvaDbContext> contextFactory) : base(contextFactory)
+        public UserRoleMappingService(IEvaDbContextFactory contextFactory) : base(contextFactory)
         {
             _contextFactory = contextFactory;
         }
