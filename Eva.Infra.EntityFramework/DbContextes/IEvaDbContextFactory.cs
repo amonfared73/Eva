@@ -1,8 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Eva.Infra.EntityFramework.DbContextes
+﻿namespace Eva.Infra.EntityFramework.DbContextes
 {
-    public interface IEvaDbContextFactory : IDbContextFactory<EvaDbContext>
+    public interface IEvaDbContextFactory
     {
+        EvaDbContext CreateDbContext();
     }
 }

@@ -25,8 +25,8 @@ namespace Eva.EndPoint.API.Extensions
     {
         private static IServiceCollection AddEvaDbContext(this IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<EvaDbContext>(options => options.UseSqlite(connectionString), optionsLifetime: ServiceLifetime.Singleton);
-            services.AddDbContextFactory<EvaDbContext, EvaDbContextFactory>(options => options.UseSqlite(connectionString));
+            services.AddSingleton<IEvaDbContextFactory,EvaDbContextFactory>();
+            services.AddDbContextFactory<EvaDbContext>(options => options.UseSqlite(connectionString));
             return services;
         }
 
