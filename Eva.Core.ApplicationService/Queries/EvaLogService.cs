@@ -15,9 +15,9 @@ namespace Eva.Core.ApplicationService.Queries
     [RegistrationRequired]
     public class EvaLogService : BaseService<EvaLog>, IEvaLogService
     {
-        private readonly IDbContextFactory<EvaDbContext> _contextFactory;
+        private readonly IEvaDbContextFactory _contextFactory;
         private readonly IUserService _userService;
-        public EvaLogService(IDbContextFactory<EvaDbContext> contextFactory, IUserService userService) : base(contextFactory)
+        public EvaLogService(IEvaDbContextFactory contextFactory, IUserService userService) : base(contextFactory)
         {
             _contextFactory = contextFactory;
             _userService = userService;

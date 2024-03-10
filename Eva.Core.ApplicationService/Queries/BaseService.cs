@@ -13,8 +13,8 @@ namespace Eva.Core.ApplicationService.Queries
 {
     public class BaseService<T> : IBaseService<T> where T : DomainObject
     {
-        private readonly IDbContextFactory<EvaDbContext> _contextFactory;
-        public BaseService(IDbContextFactory<EvaDbContext> contextFactory)
+        private readonly IEvaDbContextFactory _contextFactory;
+        public BaseService(IEvaDbContextFactory contextFactory)
         {
             _contextFactory = contextFactory;
         }
