@@ -48,20 +48,28 @@ namespace Eva.Infra.EntityFramework.DbContextes
             }
             return await base.SaveChangesAsync(cancellationToken);
         }
+        #region Eva framework entities
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRoleMapping> UserRoleMappings { get; set; }
         public DbSet<EvaLog> EvaLogs { get; set; }
         public DbSet<Authentication> Authentications { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        #endregion
+
+        #region Cryptographic entities
         public DbSet<AesCryptography> AesCryptographies { get; set; }
         public DbSet<DesCryptography> DesCryptographies { get; set; }
         public DbSet<RsaCryptography> RsaCryptographies { get; set; }
+        #endregion
+
+        #region Business entities
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Complex> ComplexNumbers { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Instrument> Instruments { get; set; }
+        #endregion
     }
 }
