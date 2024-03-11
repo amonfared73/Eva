@@ -55,6 +55,7 @@ namespace Eva.Infra.EntityFramework.DbContextes
         public DbSet<EvaLog> EvaLogs { get; set; }
         public DbSet<Authentication> Authentications { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<EvaEndPoint> EvaEndPoints { get; set; }
         #endregion
 
         #region Cryptographic entities
