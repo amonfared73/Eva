@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Eva.Core.Domain.Responses;
 using Eva.EndPoint.API.Authorization;
 using Eva.Core.Domain.BaseModels;
+using Eva.Core.Domain.ViewModels;
 
 namespace Eva.EndPoint.API.Controllers
 {
@@ -150,7 +151,7 @@ namespace Eva.EndPoint.API.Controllers
             }
         }
         [HttpPost]
-        public async Task<ActionResultViewModel<User>> ValidateUserAsync(int userId)
+        public async Task<UserValidatorResponseViewModel> ValidateUserAsync(int userId)
         {
             return await _service.ValidateUserAsync(userId);
         }

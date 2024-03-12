@@ -1,6 +1,7 @@
 ﻿using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.DTOs;
 using Eva.Core.Domain.Models;
+using Eva.Core.Domain.ViewModels;
 using Microsoft.AspNetCore.Http;
 
 namespace Eva.Core.ApplicationService.Services
@@ -17,6 +18,6 @@ namespace Eva.Core.ApplicationService.Services
         Task<ActionResultViewModel<User>> AssignAllMissingRolesAsync(int userId);
         Task<CustomResultViewModel<string>> CreateUserSignature(int userId, string signatureBase);
         Task<CustomResultViewModel<string>> ClearUserSignature(int userId, string signatureBase);
-        Task<ActionResultViewModel<User>> ValidateUserAsync(int userId);
+        Task<UserValidatorResponseViewModel> ValidateUserAsync(int userId);
     }
 }

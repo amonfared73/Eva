@@ -228,7 +228,7 @@ namespace Eva.Core.ApplicationService.Queries
             }
         }
 
-        public async Task<ActionResultViewModel<User>> ValidateUserAsync(int userId)
+        public async Task<UserValidatorResponseViewModel> ValidateUserAsync(int userId)
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
@@ -236,13 +236,12 @@ namespace Eva.Core.ApplicationService.Queries
                 if (user is null)
                     throw new EvaNotFoundException("User not found", typeof(User));
 
-                var isValidUser = _userValidator.Validate(user);
+                var isValidUserResponse = _userValidator.Validate(user);
 
-                return new ActionResultViewModel<User>
+                return new UserValidatorResponseViewModel()
                 {
-                    Entity = user,
-                    HasError = false,
-                    ResponseMessage = new ResponseMessage($"{user.Username} is {(isValidUser ? "a valid" : "an invalid")} user")
+                    State = isValidUserResponse.State,
+                    ResponseMessage = isValidUserResponse.ResponseMessage,
                 };
             }
         }
