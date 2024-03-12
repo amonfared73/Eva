@@ -5,6 +5,7 @@ using Eva.Core.ApplicationService.Services;
 using Eva.Core.ApplicationService.Services.Authenticators;
 using Eva.Core.ApplicationService.TokenGenerators;
 using Eva.Core.ApplicationService.TokenValidators;
+using Eva.Core.ApplicationService.Validators;
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseModels;
 using Eva.EndPoint.API.Authorization;
@@ -44,6 +45,11 @@ namespace Eva.EndPoint.API.Extensions
             services.AddSingleton<RefreshTokenValidator>();
             services.AddScoped<Authenticator>();
             services.AddSingleton<TokenGenerator>();
+            return services;
+        }
+        private static IServiceCollection AddEntityValidators(this IServiceCollection services)
+        {
+            services.AddSingleton<UserValidator>();
             return services;
         }
         private static IServiceCollection AddCryptographyServices(this IServiceCollection services)
@@ -165,6 +171,9 @@ namespace Eva.EndPoint.API.Extensions
 
             // Add Access Token Generator
             builder.Services.AddAccessTokenGenerator();
+
+            // Add Entity Validators
+            builder.Services.AddEntityValidators();
 
             // Add Cryptography 
             builder.Services.AddCryptographyServices();

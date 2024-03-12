@@ -149,5 +149,10 @@ namespace Eva.EndPoint.API.Controllers
                 };
             }
         }
+        [HttpPost]
+        public async Task<ActionResultViewModel<User>> ValidateUserAsync(int userId)
+        {
+            return await _service.ValidateUserAsync(userId);
+        }
     }
 }
