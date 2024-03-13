@@ -4,7 +4,7 @@ namespace Eva.Core.Domain.ViewModels
 {
     public class UserValidatorResponseViewModel
     {
-        public bool State { get; set; }
+        public bool IsValid { get; set; }
         public ResponseMessage ResponseMessage { get; set; } = new ResponseMessage(new List<string>());
     }
 }

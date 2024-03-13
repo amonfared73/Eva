@@ -6,26 +6,33 @@ namespace Eva.Core.ApplicationService.Validators
 {
     public class UserValidator
     {
+        private bool _isValid;
+        private List<string> _messages;
+        public UserValidator()
+        {
+            _isValid = true;
+            _messages = new List<string>();
+        }
         public UserValidatorResponseViewModel Validate(User user)
         {
-            bool isValid = true;
-            var messages = new List<string>();
+            _messages.Clear();
+
             if (!user.IsAdmin)
             {
-                isValid = false;
-                messages.Add("User is not an admin");
+                _isValid = false;
+                _messages.Add("User is not an admin");
             }
 
             if (string.IsNullOrEmpty(user.Signature))
             {
-                isValid = false;
-                messages.Add("User's signature is empty");
+                _isValid = false;
+                _messages.Add("User's signature is empty");
             }
 
             return new UserValidatorResponseViewModel()
             {
-                State = isValid,
-                ResponseMessage = new ResponseMessage(messages)
+                IsValid = _isValid,
+                ResponseMessage = new ResponseMessage(_messages)
             };
         }
     }

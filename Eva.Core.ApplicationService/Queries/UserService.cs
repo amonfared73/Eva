@@ -240,7 +240,7 @@ namespace Eva.Core.ApplicationService.Queries
 
                 return new UserValidatorResponseViewModel()
                 {
-                    State = isValidUserResponse.State,
+                    IsValid = isValidUserResponse.IsValid,
                     ResponseMessage = isValidUserResponse.ResponseMessage,
                 };
             }
