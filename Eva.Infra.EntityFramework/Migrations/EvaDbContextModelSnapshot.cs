@@ -303,6 +303,36 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.ToTable("Employees");
                 });
 
+            modelBuilder.Entity("Eva.Core.Domain.Models.EvaEndPoint", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Url")
+                        .IsUnique();
+
+                    b.ToTable("EvaEndPoints");
+                });
+
             modelBuilder.Entity("Eva.Core.Domain.Models.EvaLog", b =>
                 {
                     b.Property<int>("Id")
@@ -374,6 +404,9 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("YearInvented")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

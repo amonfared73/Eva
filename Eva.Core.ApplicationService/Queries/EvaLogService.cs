@@ -15,9 +15,9 @@ namespace Eva.Core.ApplicationService.Queries
     [RegistrationRequired]
     public class EvaLogService : BaseService<EvaLog>, IEvaLogService
     {
-        private readonly IDbContextFactory<EvaDbContext> _contextFactory;
+        private readonly IEvaDbContextFactory _contextFactory;
         private readonly IUserService _userService;
-        public EvaLogService(IDbContextFactory<EvaDbContext> contextFactory, IUserService userService) : base(contextFactory)
+        public EvaLogService(IEvaDbContextFactory contextFactory, IUserService userService) : base(contextFactory)
         {
             _contextFactory = contextFactory;
             _userService = userService;
@@ -32,8 +32,8 @@ namespace Eva.Core.ApplicationService.Queries
                     RequestUrl = httpContext.Request.Path,
                     RequestMethod = httpContext.Request.Method,
                     StatusCode = httpContext.Response.StatusCode.ToString(),
-                    Payload = requestBody,
-                    Response = responseBody,
+                    Payload = httpContext.IsLoginRequest() ? EvaLog.SensitiveCredentials : requestBody,
+                    Response = httpContext.IsLoginRequest() ? EvaLog.SensitiveCredentials : responseBody,
                     UserId = await _userService.GetUserIdFromContext(httpContext, requestBody),
                     CreatedOn = DateTime.Now,
                 };
@@ -64,6 +64,7 @@ namespace Eva.Core.ApplicationService.Queries
                                 select new EvaLogReportOutputViewModel()
                                 {
                                     Username = user.Username,
+                                    CreatedOn = log.CreatedOn,
                                     RequestUrl = log.RequestUrl,
                                     RequestMethod = log.RequestMethod,
                                     Payload = log.Payload,
@@ -114,6 +115,22 @@ namespace Eva.Core.ApplicationService.Queries
                     .ToListAsync();
                 return logs;
 
+            }
+        }
+
+        public async Task<ActionResultViewModel<EvaLog>> ClearAllLogsAsync()
+        {
+            using (EvaDbContext context = _contextFactory.CreateDbContext())
+            {
+                var logs = await context.EvaLogs.ToListAsync();
+                context.EvaLogs.RemoveRange(logs);
+                await context.SaveChangesAsync();
+                return new ActionResultViewModel<EvaLog>()
+                {
+                    Entity = null,
+                    HasError = false,
+                    ResponseMessage = new ResponseMessage("All logs cleared")
+                };
             }
         }
     }

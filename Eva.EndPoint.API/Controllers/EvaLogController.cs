@@ -7,13 +7,12 @@ using Eva.Core.Domain.Models;
 using Eva.Core.Domain.Responses;
 using Eva.Core.Domain.ViewModels;
 using Eva.EndPoint.API.Authorization;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eva.EndPoint.API.Controllers
 {
     [DisableBaseOperations]
-    public class EvaLogController :EvaControllerBase<EvaLog>
+    public class EvaLogController : EvaControllerBase<EvaLog>
     {
         private readonly IEvaLogService _logService;
         public EvaLogController(IEvaLogService logService) : base(logService)
@@ -56,6 +55,24 @@ namespace Eva.EndPoint.API.Controllers
         public async Task<IEnumerable<SimpleUserLogReport>> SimpleUserLogReport()
         {
             return await _logService.SimpleUserLogReport();
+        }
+        [HttpDelete]
+        [HasRole(ActiveRoles.SystemDeveloper)]
+        public async Task<ActionResultViewModel<EvaLog>> ClearAllLogsAsync()
+        {
+            try
+            {
+                return await _logService.ClearAllLogsAsync();
+            }
+            catch (Exception ex)
+            {
+                return new ActionResultViewModel<EvaLog>()
+                {
+                    Entity = null,
+                    HasError = true,
+                    ResponseMessage = new ResponseMessage($"{ex.Message}"),
+                };
+            }
         }
     }
 }

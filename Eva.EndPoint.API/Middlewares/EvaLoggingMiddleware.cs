@@ -1,6 +1,5 @@
 ﻿using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.BaseModels;
-using Eva.Core.Domain.Models;
 using Eva.Infra.Tools.Extentions;
 
 namespace Eva.EndPoint.API.Middlewares
@@ -35,8 +34,7 @@ namespace Eva.EndPoint.API.Middlewares
                 responseBody.Seek(0, SeekOrigin.Begin);
                 var responseBodyContent = await new StreamReader(responseBody).ReadToEndAsync();
 
-                if (!httpContext.IsLoginRequest())
-                    await _logService.LogAsync(httpContext, EvaLogTypeCode.ServiceLog, requestBody, responseBodyContent);
+                await _logService.LogAsync(httpContext, EvaLogTypeCode.ServiceLog, requestBody, responseBodyContent);
 
                 responseBody.Seek(0, SeekOrigin.Begin);
                 await responseBody.CopyToAsync(originalBodyStream);

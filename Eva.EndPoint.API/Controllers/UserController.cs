@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Eva.Core.Domain.Responses;
 using Eva.EndPoint.API.Authorization;
 using Eva.Core.Domain.BaseModels;
+using Eva.Core.Domain.ViewModels;
 
 namespace Eva.EndPoint.API.Controllers
 {
@@ -148,6 +149,11 @@ namespace Eva.EndPoint.API.Controllers
                     ResponseMessage = new ResponseMessage(ex.Message)
                 };
             }
+        }
+        [HttpPost]
+        public async Task<UserValidatorResponseViewModel> ValidateUserAsync(int userId)
+        {
+            return await _service.ValidateUserAsync(userId);
         }
     }
 }

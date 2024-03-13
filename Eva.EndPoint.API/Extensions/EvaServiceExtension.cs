@@ -5,9 +5,9 @@ using Eva.Core.ApplicationService.Services;
 using Eva.Core.ApplicationService.Services.Authenticators;
 using Eva.Core.ApplicationService.TokenGenerators;
 using Eva.Core.ApplicationService.TokenValidators;
+using Eva.Core.ApplicationService.Validators;
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseModels;
-using Eva.Core.Domain.Models.Cryptography;
 using Eva.EndPoint.API.Authorization;
 using Eva.EndPoint.API.Conventions;
 using Eva.EndPoint.API.Middlewares;
@@ -18,7 +18,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Serilog;
 using System.Text;
 
 namespace Eva.EndPoint.API.Extensions
@@ -27,8 +26,8 @@ namespace Eva.EndPoint.API.Extensions
     {
         private static IServiceCollection AddEvaDbContext(this IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<EvaDbContext>(options => options.UseSqlite(connectionString), optionsLifetime: ServiceLifetime.Singleton);
-            services.AddDbContextFactory<EvaDbContext, EvaDbContextFactory>(options => options.UseSqlite(connectionString));
+            services.AddSingleton<IEvaDbContextFactory, EvaDbContextFactory>();
+            services.AddDbContextFactory<EvaDbContext>(options => options.UseSqlite(connectionString));
             return services;
         }
 
@@ -48,11 +47,17 @@ namespace Eva.EndPoint.API.Extensions
             services.AddSingleton<TokenGenerator>();
             return services;
         }
+        private static IServiceCollection AddEntityValidators(this IServiceCollection services)
+        {
+            services.AddSingleton<UserValidator>();
+            return services;
+        }
         private static IServiceCollection AddCryptographyServices(this IServiceCollection services)
         {
             services.AddSingleton<AesEncryptor>();
             services.AddSingleton<DesEncryptor>();
             services.AddSingleton<RsaEncryptor>();
+            services.AddSingleton<RsaParser>();
             return services;
         }
         private static IServiceCollection AddEvaServices(this IServiceCollection services)
@@ -76,11 +81,22 @@ namespace Eva.EndPoint.API.Extensions
         }
 
         /// <summary>
-        /// Initializes Eva framework for asp.Net Core Web API application
+        /// Initializes <see href="https://github.com/amonfared73/Eva">Eva</see> Framework asp.Net Core web api application
+        /// <para>
+        /// Grabing sensitive configuration data from <see cref="IConfiguration" />
+        /// <para>Creating instances of related objects and injecting them into HTTP pipeline</para>
+        /// <para>Configuring controllers with their custom respective <see cref="IControllerModelConvention" /></para>
+        /// <para>Configuring authentication and authorization</para>
+        /// <para>Registering <see href="https://github.com/amonfared73/Eva">Eva</see> services</para>
+        /// <para>Adding related middlewares to HTTP pipeline</para>
+        /// </para>
+        /// <para>
+        /// <param name="app">an <see href="https://github.com/amonfared73/Eva">Eva</see> <see cref="WebApplication" /> out parameter used to configure the HTTP pipeline and routes</param>
+        /// </para>
         /// </summary>
-        /// <param name="builder">WebApplicationBuilder extension method</param>
-        /// <param name="app">WebApplication out parameter</param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="WebApplicationBuilder" /> that represents the <see href="https://github.com/amonfared73/Eva">Eva</see> Framework builder
+        /// </returns>
         public static WebApplicationBuilder AddEva(this WebApplicationBuilder builder, out WebApplication app)
         {
             // Connection string
@@ -166,6 +182,9 @@ namespace Eva.EndPoint.API.Extensions
 
             // Add Access Token Generator
             builder.Services.AddAccessTokenGenerator();
+
+            // Add Entity Validators
+            builder.Services.AddEntityValidators();
 
             // Add Cryptography 
             builder.Services.AddCryptographyServices();

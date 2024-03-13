@@ -1,4 +1,6 @@
-﻿namespace Eva.Core.Domain.BaseModels
+﻿using Eva.Core.Domain.Attributes;
+
+namespace Eva.Core.Domain.BaseModels
 {
     public abstract class Trackable
     {
