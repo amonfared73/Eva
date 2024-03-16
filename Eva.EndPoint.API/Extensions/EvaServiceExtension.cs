@@ -19,6 +19,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Eva.EndPoint.API.Extensions
 {
@@ -123,7 +124,7 @@ namespace Eva.EndPoint.API.Extensions
             configuration.Bind("RsaCryptographyConfiguration", rsaCryptographyConfiguration);
             builder.Services.AddSingleton(rsaCryptographyConfiguration);
 
-            builder.Services.AddControllers(s => s.Conventions.Add(new EvaControllerModelConvention()));
+            builder.Services.AddControllers(s => s.Conventions.Add(new EvaControllerModelConvention())).AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
             {
