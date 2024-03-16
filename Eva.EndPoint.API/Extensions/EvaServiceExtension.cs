@@ -38,6 +38,12 @@ namespace Eva.EndPoint.API.Extensions
             return services;
         }
 
+        public static IServiceCollection AddUserContext(this IServiceCollection services)
+        {
+            services.AddSingleton<IUserContext, UserContext>();
+            return services;
+        }
+
         private static IServiceCollection AddAccessTokenGenerator(this IServiceCollection services)
         {
             services.AddSingleton<AccessTokenGenerator>();
@@ -176,6 +182,9 @@ namespace Eva.EndPoint.API.Extensions
 
             // Add Http Context Accessor
             builder.Services.AddHttpContextAccessor();
+
+            // Add User Context Implementations
+            builder.Services.AddUserContext();
 
             // Add DbContext
             builder.Services.AddEvaDbContext(connectionString);
