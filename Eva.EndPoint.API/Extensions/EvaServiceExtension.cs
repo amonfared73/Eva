@@ -19,7 +19,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using System.Text.Json.Serialization;
 
 namespace Eva.EndPoint.API.Extensions
 {
@@ -36,6 +35,12 @@ namespace Eva.EndPoint.API.Extensions
         {
             services.AddSingleton<IAuthorizationHandler, RoleAuthorizationHandler>();
             services.AddSingleton<IAuthorizationPolicyProvider, RoleAuthorizationPolicyProvider>();
+            return services;
+        }
+
+        public static IServiceCollection AddUserContext(this IServiceCollection services)
+        {
+            services.AddSingleton<IUserContext, UserContext>();
             return services;
         }
 
@@ -177,6 +182,9 @@ namespace Eva.EndPoint.API.Extensions
 
             // Add Http Context Accessor
             builder.Services.AddHttpContextAccessor();
+
+            // Add User Context Implementations
+            builder.Services.AddUserContext();
 
             // Add DbContext
             builder.Services.AddEvaDbContext(connectionString);
