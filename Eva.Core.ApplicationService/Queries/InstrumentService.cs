@@ -22,7 +22,6 @@ namespace Eva.Core.ApplicationService.Queries
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
                 var instruments = new List<Instrument>();
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
                 using (var package = new ExcelPackage(new FileInfo(filePath)))
                 {
                     var worksheet = package.Workbook.Worksheets[0];
