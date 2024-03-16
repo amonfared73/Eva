@@ -21,7 +21,7 @@ namespace Eva.EndPoint.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResultViewModel<Comment>> CreateComment(CommentCreationViewModel commentCreationViewModel)
+        public async Task<CustomResultViewModel<string>> CreateComment(CommentCreationViewModel commentCreationViewModel)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace Eva.EndPoint.API.Controllers
             }
             catch (EvaNotFoundException ex)
             {
-                return new ActionResultViewModel<Comment>()
+                return new CustomResultViewModel<string>()
                 {
                     Entity = null,
                     HasError = true,
@@ -38,7 +38,7 @@ namespace Eva.EndPoint.API.Controllers
             }
             catch (EvaInvalidException ex)
             {
-                return new ActionResultViewModel<Comment>()
+                return new CustomResultViewModel<string>()
                 {
                     Entity = null,
                     HasError = true,
@@ -47,7 +47,7 @@ namespace Eva.EndPoint.API.Controllers
             }
             catch (Exception ex)
             {
-                return new ActionResultViewModel<Comment>()
+                return new CustomResultViewModel<string>()
                 {
                     Entity = null,
                     HasError = true,

@@ -6,6 +6,6 @@ namespace Eva.Core.ApplicationService.Services
 {
     public interface ICommentService : IBaseService<Comment>
     {
-        Task<ActionResultViewModel<Comment>> CreateComment(CommentCreationViewModel commentCreationViewModel);
+        Task<CustomResultViewModel<string>> CreateComment(CommentCreationViewModel commentCreationViewModel);
     }
 }

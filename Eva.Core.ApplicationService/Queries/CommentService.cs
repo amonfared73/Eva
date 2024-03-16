@@ -18,7 +18,7 @@ namespace Eva.Core.ApplicationService.Queries
         {
             _dbContextFactory = dbContextFactory;
         }
-        public async Task<ActionResultViewModel<Comment>> CreateComment(CommentCreationViewModel commentCreationViewModel)
+        public async Task<CustomResultViewModel<string>> CreateComment(CommentCreationViewModel commentCreationViewModel)
         {
             using(EvaDbContext context = _dbContextFactory.CreateDbContext())
             {
@@ -36,9 +36,9 @@ namespace Eva.Core.ApplicationService.Queries
                 };
                 await context.Comments.AddAsync(comment);
                 await context.SaveChangesAsync();
-                return new ActionResultViewModel<Comment>()
+                return new CustomResultViewModel<string>()
                 {
-                    Entity = comment,
+                    Entity = comment.Text,
                     HasError = false,
                     ResponseMessage = new Domain.Responses.ResponseMessage("Comment created successfully")
                 };
