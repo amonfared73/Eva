@@ -17,7 +17,7 @@ using AllowAnonymousAttribute = Microsoft.AspNetCore.Authorization.AllowAnonymou
 namespace Eva.EndPoint.API.Controllers
 {
     [DisableBaseOperations]
-    public class AuthenticationController : EvaControllerBase<Authentication>
+    public class AuthenticationController : EvaControllerBase<Authentication, AuthenticationViewModel>
     {
         private readonly IAuthenticationService _service;
         private readonly IUserService _userService;

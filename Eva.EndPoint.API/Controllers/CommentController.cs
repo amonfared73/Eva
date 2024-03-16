@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Eva.EndPoint.API.Controllers
 {
-    public class CommentController : EvaControllerBase<Comment>
+    public class CommentController : EvaControllerBase<Comment, CommentViewModel>
     {
         private readonly ICommentService _commentService;
         public CommentController(ICommentService commentService) : base(commentService)

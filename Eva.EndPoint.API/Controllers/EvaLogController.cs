@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Eva.EndPoint.API.Controllers
 {
     [DisableBaseOperations]
-    public class EvaLogController : EvaControllerBase<EvaLog>
+    public class EvaLogController : EvaControllerBase<EvaLog, EvaLogViewModel>
     {
         private readonly IEvaLogService _logService;
         public EvaLogController(IEvaLogService logService) : base(logService)

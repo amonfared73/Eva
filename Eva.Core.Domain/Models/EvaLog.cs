@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Eva.Core.Domain.Models
 {
-    public class EvaLog : DomainObject
+    public class EvaLog : ModelBase
     {
         public string LogTypeCode { get; set; } = string.Empty;
         public string RequestUrl { get; set; } = string.Empty;

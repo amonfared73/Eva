@@ -3,13 +3,14 @@ using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.Responses;
+using Eva.Core.Domain.ViewModels;
 using Eva.EndPoint.API.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eva.EndPoint.API.Controllers
 {
     [DisableBaseOperations]
-    public class RefreshTokenController : EvaControllerBase<RefreshToken>
+    public class RefreshTokenController : EvaControllerBase<RefreshToken, RefreshTokenViewModel>
     {
         private readonly IRefreshTokenService _service;
 

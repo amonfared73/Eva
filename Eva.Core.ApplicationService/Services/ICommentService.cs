@@ -4,7 +4,7 @@ using Eva.Core.Domain.ViewModels;
 
 namespace Eva.Core.ApplicationService.Services
 {
-    public interface ICommentService : IBaseService<Comment>
+    public interface ICommentService : IBaseService<Comment, CommentViewModel>
     {
         Task<CustomResultViewModel<string>> CreateComment(CommentCreationViewModel commentCreationViewModel);
     }

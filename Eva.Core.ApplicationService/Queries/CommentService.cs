@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired]
-    public class CommentService : BaseService<Comment>, ICommentService
+    public class CommentService : BaseService<Comment, CommentViewModel>, ICommentService
     {
         private readonly IEvaDbContextFactory _dbContextFactory;
         public CommentService(IEvaDbContextFactory dbContextFactory) : base(dbContextFactory)

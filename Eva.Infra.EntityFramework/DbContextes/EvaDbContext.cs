@@ -63,7 +63,7 @@ namespace Eva.Infra.EntityFramework.DbContextes
             if (!_contextAccessor.IsLoginRequeust())
             {
                 // Grab all entity entries
-                var entityEntries = ChangeTracker.Entries().Where(e => e.Entity is DomainObject && (e.State == EntityState.Added || e.State == EntityState.Modified));
+                var entityEntries = ChangeTracker.Entries().Where(e => e.Entity is ModelBase && (e.State == EntityState.Added || e.State == EntityState.Modified));
                 var userId = _contextAccessor.GetUserId();
                 foreach (var entityEntry in entityEntries)
                 {

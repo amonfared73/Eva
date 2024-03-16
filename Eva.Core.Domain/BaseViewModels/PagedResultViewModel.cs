@@ -3,7 +3,7 @@ using Eva.Core.Domain.Responses;
 
 namespace Eva.Core.Domain.BaseViewModels
 {
-    public class PagedResultViewModel<T> where T : DomainObject
+    public class PagedResultViewModel<T> where T : ModelBase
     {
         public Pagination Pagination { get; set; }
         public IEnumerable<T> Data { get; set; }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Eva.Core.Domain.Models
 {
-    public class UserRoleMapping : DomainObject
+    public class UserRoleMapping : ModelBase
     {
         public int UserId { get; set; }
         public int RoleId { get; set; }

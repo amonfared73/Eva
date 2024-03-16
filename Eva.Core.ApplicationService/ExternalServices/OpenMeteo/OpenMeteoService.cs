@@ -14,7 +14,7 @@ namespace Eva.Core.ApplicationService.ExternalServices.OpenMeteo
         {
             _httpClient = httpClient;
         }
-        public async Task<WeatherForcastResultViewModel> ForcastAsync(WeatherForcastViewModel reqeust)
+        public async Task<WeatherForcastResultViewModel> ForcastAsync(WeatherForcastInput reqeust)
         {
             var url = $"{WeatherForcast.WeatherForcastUrl}?latitude={reqeust.Latitude.ToString()}&longitude={reqeust.Longitude.ToString()}&hourly=temperature_2m";
             var response = await _httpClient.GetAsync(url);

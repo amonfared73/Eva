@@ -2,7 +2,7 @@
 
 namespace Eva.Core.Domain.Models
 {
-    public class Comment : DomainObject
+    public class Comment : ModelBase
     {
         public string Text { get; set; } = string.Empty;
         public int PostId { get; set; }

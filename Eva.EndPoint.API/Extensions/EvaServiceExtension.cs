@@ -69,7 +69,7 @@ namespace Eva.EndPoint.API.Extensions
         private static IServiceCollection AddEvaServices(this IServiceCollection services)
         {
             // Register base services
-            services.AddSingleton(typeof(IBaseService<>), typeof(BaseService<>));
+            services.AddSingleton(typeof(IBaseService<,>), typeof(BaseService<,>));
 
             // Get all services corresponding to Registration Required Attribute
             var repositoryTypes = Assemblies.GetServices("Eva.Core.ApplicationService", typeof(RegistrationRequiredAttribute));
