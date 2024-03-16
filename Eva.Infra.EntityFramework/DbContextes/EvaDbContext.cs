@@ -102,6 +102,10 @@ namespace Eva.Infra.EntityFramework.DbContextes
         public DbSet<Complex> ComplexNumbers { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Instrument> Instruments { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+
         #endregion
     }
 }

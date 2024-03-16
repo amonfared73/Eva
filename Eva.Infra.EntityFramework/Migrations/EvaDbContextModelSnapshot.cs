@@ -102,6 +102,65 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.ToTable("Authentications");
                 });
 
+            modelBuilder.Entity("Eva.Core.Domain.Models.Blog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Blogs");
+                });
+
+            modelBuilder.Entity("Eva.Core.Domain.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("Eva.Core.Domain.Models.Company", b =>
                 {
                     b.Property<int>("Id")
@@ -413,6 +472,42 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.ToTable("Instruments");
                 });
 
+            modelBuilder.Entity("Eva.Core.Domain.Models.Post", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("BlogId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogId");
+
+                    b.ToTable("Posts");
+                });
+
             modelBuilder.Entity("Eva.Core.Domain.Models.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -519,6 +614,17 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasForeignKey("AccountId");
                 });
 
+            modelBuilder.Entity("Eva.Core.Domain.Models.Comment", b =>
+                {
+                    b.HasOne("Eva.Core.Domain.Models.Post", "Post")
+                        .WithMany("Comments")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+                });
+
             modelBuilder.Entity("Eva.Core.Domain.Models.Department", b =>
                 {
                     b.HasOne("Eva.Core.Domain.Models.Company", null)
@@ -540,6 +646,17 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Eva.Core.Domain.Models.Post", b =>
+                {
+                    b.HasOne("Eva.Core.Domain.Models.Blog", "Blog")
+                        .WithMany("Posts")
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Blog");
                 });
 
             modelBuilder.Entity("Eva.Core.Domain.Models.UserRoleMapping", b =>
@@ -566,6 +683,11 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Navigation("Accounts");
                 });
 
+            modelBuilder.Entity("Eva.Core.Domain.Models.Blog", b =>
+                {
+                    b.Navigation("Posts");
+                });
+
             modelBuilder.Entity("Eva.Core.Domain.Models.Company", b =>
                 {
                     b.Navigation("Departments");
@@ -574,6 +696,11 @@ namespace Eva.Infra.EntityFramework.Migrations
             modelBuilder.Entity("Eva.Core.Domain.Models.Department", b =>
                 {
                     b.Navigation("Employees");
+                });
+
+            modelBuilder.Entity("Eva.Core.Domain.Models.Post", b =>
+                {
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("Eva.Core.Domain.Models.Role", b =>
