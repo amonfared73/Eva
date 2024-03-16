@@ -124,7 +124,7 @@ namespace Eva.EndPoint.API.Extensions
             configuration.Bind("RsaCryptographyConfiguration", rsaCryptographyConfiguration);
             builder.Services.AddSingleton(rsaCryptographyConfiguration);
 
-            builder.Services.AddControllers(s => s.Conventions.Add(new EvaControllerModelConvention())).AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+            builder.Services.AddControllers(s => s.Conventions.Add(new EvaControllerModelConvention()));
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
             {
