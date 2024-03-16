@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Eva.EndPoint.API.Controllers
 {
-    public class PostController : EvaControllerBase<Post>
+    public class PostController : EvaControllerBase<Post, PostViewModel>
     {
         private readonly IPostService _postService;
         public PostController(IPostService postService) : base(postService)

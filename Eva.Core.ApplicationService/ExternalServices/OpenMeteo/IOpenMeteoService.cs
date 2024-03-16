@@ -9,6 +9,6 @@ namespace Eva.Core.ApplicationService.ExternalServices.OpenMeteo
 {
     public interface IOpenMeteoService
     {
-        Task<WeatherForcastResultViewModel> ForcastAsync(WeatherForcastViewModel reqeust);
+        Task<WeatherForcastResultViewModel> ForcastAsync(WeatherForcastInput reqeust);
     }
 }

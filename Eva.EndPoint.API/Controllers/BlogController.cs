@@ -2,11 +2,12 @@
 using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Models;
+using Eva.Core.Domain.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eva.EndPoint.API.Controllers
 {
-    public class BlogController : EvaControllerBase<Blog>
+    public class BlogController : EvaControllerBase<Blog, BlogViewModel>
     {
         private readonly IBlogService _blogService;
         public BlogController(IBlogService blogService) : base(blogService)

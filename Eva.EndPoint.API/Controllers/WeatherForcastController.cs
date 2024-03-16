@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Eva.EndPoint.API.Controllers
 {
     [DisableBaseOperations]
-    public class WeatherForcastController : EvaControllerBase<WeatherForcast>
+    public class WeatherForcastController : EvaControllerBase<WeatherForcast, WeatherForcastViewModel>
     {
         private readonly IWeatherForcastService _service;
         private readonly IOpenMeteoService _openMeteoService;
@@ -18,7 +18,7 @@ namespace Eva.EndPoint.API.Controllers
             _openMeteoService = openMeteoService;
         }
         [HttpPost]
-        public async Task<WeatherForcastResultViewModel> ForcastAsync(WeatherForcastViewModel reqeust)
+        public async Task<WeatherForcastResultViewModel> ForcastAsync(WeatherForcastInput reqeust)
         {
             return await _openMeteoService.ForcastAsync(reqeust);
         }

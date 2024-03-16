@@ -2,12 +2,13 @@
 using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.Models.Cryptography;
+using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContextes;
 
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired]
-    public class AesCryptographyService : BaseService<AesCryptography>, IAesCryptographyService
+    public class AesCryptographyService : BaseService<AesCryptography, AesCryptographyViewModel>, IAesCryptographyService
     {
         private readonly IEvaDbContextFactory _contextFactory;
         private readonly AesEncryptor _encryptor;

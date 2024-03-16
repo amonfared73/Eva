@@ -2,7 +2,7 @@
 
 namespace Eva.Core.Domain.Models.Cryptography
 {
-    public class AesCryptography : DomainObject
+    public class AesCryptography : ModelBase
     {
     }
 }

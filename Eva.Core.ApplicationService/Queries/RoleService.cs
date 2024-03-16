@@ -2,12 +2,13 @@
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.Models;
+using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContextes;
 
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired]
-    public class RoleService : BaseService<Role>, IRoleService
+    public class RoleService : BaseService<Role, RoleViewModel>, IRoleService
     {
         private readonly IEvaDbContextFactory _contextFactory;
 

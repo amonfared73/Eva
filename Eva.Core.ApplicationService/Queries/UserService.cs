@@ -18,7 +18,7 @@ using Newtonsoft.Json;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired]
-    public class UserService : BaseService<User>, IUserService
+    public class UserService : BaseService<User, UserViewModel>, IUserService
     {
         private readonly IEvaDbContextFactory _contextFactory;
         private readonly IUserRoleMappingService _userRoleMappingService;

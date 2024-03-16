@@ -11,30 +11,29 @@ namespace Eva.EndPoint.API.Controllers
     [Route("api/[controller]/[action]")]
     [ApiController]
     [Authorize]
-    public class EvaControllerBase<T> : ControllerBase where T : DomainObject
+    public class EvaControllerBase<TModel, TViewModel> : ControllerBase where TModel : ModelBase where TViewModel : ViewModelBase
     {
-        private readonly IBaseService<T> _baseService;
-
-        public EvaControllerBase(IBaseService<T> baseService)
+        private readonly IBaseService<TModel, TViewModel> _baseService;
+        public EvaControllerBase(IBaseService<TModel, TViewModel> baseService)
         {
             _baseService = baseService;
         }
 
         [HttpPost]
-        public virtual async Task<PagedResultViewModel<T>> GetAllAsync(BaseRequestViewModel request)
+        public virtual async Task<PagedResultViewModel<TModel>> GetAllAsync(BaseRequestViewModel request)
         {
             return await _baseService.GetAllAsync(request);
         }
         [HttpGet("{id}")]
-        public virtual async Task<SingleResultViewModel<T>> GetByIdAsync(int id)
+        public virtual async Task<SingleResultViewModel<TModel>> GetByIdAsync(int id)
         {
             try
             {
                 return await _baseService.GetByIdAsync(id);
             }
-            catch (CrudException<T> ex)
+            catch (CrudException<TModel> ex)
             {
-                return new SingleResultViewModel<T>()
+                return new SingleResultViewModel<TModel>()
                 {
                     HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message)
@@ -42,7 +41,7 @@ namespace Eva.EndPoint.API.Controllers
             }
             catch (Exception ex)
             {
-                return new SingleResultViewModel<T>()
+                return new SingleResultViewModel<TModel>()
                 {
                     HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message)
@@ -50,15 +49,15 @@ namespace Eva.EndPoint.API.Controllers
             }
         }
         [HttpPost]
-        public virtual async Task<ActionResultViewModel<T>> InsertAsync(T entity)
+        public virtual async Task<ActionResultViewModel<TModel>> InsertAsync(TModel entity)
         {
             try
             {
                 return await _baseService.InsertAsync(entity);
             }
-            catch (CrudException<T> ex)
+            catch (CrudException<TModel> ex)
             {
-                return new ActionResultViewModel<T>()
+                return new ActionResultViewModel<TModel>()
                 {
                     HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message)
@@ -66,7 +65,7 @@ namespace Eva.EndPoint.API.Controllers
             }
             catch (Exception ex)
             {
-                return new ActionResultViewModel<T>()
+                return new ActionResultViewModel<TModel>()
                 {
                     HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message)
@@ -74,15 +73,15 @@ namespace Eva.EndPoint.API.Controllers
             }
         }
         [HttpPut]
-        public virtual async Task<ActionResultViewModel<T>> UpdateAsync(T entity)
+        public virtual async Task<ActionResultViewModel<TModel>> UpdateAsync(TModel entity)
         {
             try
             {
                 return await _baseService.UpdateAsync(entity);
             }
-            catch (CrudException<T> ex)
+            catch (CrudException<TModel> ex)
             {
-                return new ActionResultViewModel<T>()
+                return new ActionResultViewModel<TModel>()
                 {
                     HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message)
@@ -90,7 +89,7 @@ namespace Eva.EndPoint.API.Controllers
             }
             catch (Exception ex)
             {
-                return new ActionResultViewModel<T>()
+                return new ActionResultViewModel<TModel>()
                 {
                     HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message)
@@ -98,15 +97,15 @@ namespace Eva.EndPoint.API.Controllers
             }
         }
         [HttpDelete("{id}")]
-        public virtual async Task<ActionResultViewModel<T>> DeleteAsync(int id)
+        public virtual async Task<ActionResultViewModel<TModel>> DeleteAsync(int id)
         {
             try
             {
                 return await _baseService.DeleteAsync(id);
             }
-            catch (CrudException<T> ex)
+            catch (CrudException<TModel> ex)
             {
-                return new ActionResultViewModel<T>()
+                return new ActionResultViewModel<TModel>()
                 {
                     HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message)
@@ -114,7 +113,7 @@ namespace Eva.EndPoint.API.Controllers
             }
             catch (Exception ex)
             {
-                return new ActionResultViewModel<T>()
+                return new ActionResultViewModel<TModel>()
                 {
                     HasError = true,
                     ResponseMessage = new ResponseMessage(ex.Message)
@@ -128,7 +127,7 @@ namespace Eva.EndPoint.API.Controllers
             {
                 return await _baseService.ToByte(id);
             }
-            catch (CrudException<T> ex)
+            catch (CrudException<TModel> ex)
             {
                 return new CustomResultViewModel<byte[]>()
                 {

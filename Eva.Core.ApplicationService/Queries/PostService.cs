@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired]
-    public class PostService : BaseService<Post>, IPostService
+    public class PostService : BaseService<Post, PostViewModel>, IPostService
     {
         private readonly IEvaDbContextFactory _dbContextFactory;
         public PostService(IEvaDbContextFactory dbContextFactory) : base(dbContextFactory)

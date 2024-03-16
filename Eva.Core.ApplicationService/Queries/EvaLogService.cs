@@ -13,7 +13,7 @@ using Eva.Core.Domain.Exceptions;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired]
-    public class EvaLogService : BaseService<EvaLog>, IEvaLogService
+    public class EvaLogService : BaseService<EvaLog, EvaLogViewModel>, IEvaLogService
     {
         private readonly IEvaDbContextFactory _contextFactory;
         private readonly IUserService _userService;

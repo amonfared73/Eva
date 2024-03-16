@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Eva.Core.Domain.Models
 {
-    public class User : DomainObject
+    public class User : ModelBase
     {
         public string Username { get; set; } = string.Empty;
         [JsonIgnore]

@@ -3,12 +3,13 @@ using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Models;
+using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContextes;
 
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired]
-    public class BlogService : BaseService<Blog>, IBlogService
+    public class BlogService : BaseService<Blog, BlogViewModel>, IBlogService
     {
         private readonly IEvaDbContextFactory _dbContextFactory;
         public BlogService(IEvaDbContextFactory dbContextFactory) : base(dbContextFactory)

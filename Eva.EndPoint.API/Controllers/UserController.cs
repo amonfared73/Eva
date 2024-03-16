@@ -10,7 +10,7 @@ using Eva.Core.Domain.ViewModels;
 
 namespace Eva.EndPoint.API.Controllers
 {
-    public class UserController : EvaControllerBase<User>
+    public class UserController : EvaControllerBase<User, UserViewModel>
     {
         private readonly IUserService _service;
         public UserController(IUserService service) : base(service)

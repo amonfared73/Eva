@@ -2,7 +2,7 @@
 
 namespace Eva.Core.Domain.Models
 {
-    public class Complex : DomainObject
+    public class Complex : ModelBase
     {
         public double Real { get; set; } = 0;
         public double Imaginary { get; set; } = 0;

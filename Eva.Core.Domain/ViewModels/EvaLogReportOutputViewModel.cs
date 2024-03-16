@@ -2,7 +2,7 @@
 
 namespace Eva.Core.Domain.ViewModels
 {
-    public class EvaLogReportOutputViewModel : DomainObject
+    public class EvaLogReportOutputViewModel : ModelBase
     {
         public string Username { get; set; } = string.Empty;
         public string RequestUrl { get; set; } = string.Empty;

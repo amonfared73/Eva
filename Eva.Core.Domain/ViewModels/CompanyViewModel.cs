@@ -2,7 +2,7 @@
 
 namespace Eva.Core.Domain.ViewModels
 {
-    public class CompanyViewModel : DomainObjectViewModel
+    public class CompanyViewModel : ViewModelBase
     {
     }
 }

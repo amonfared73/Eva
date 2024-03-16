@@ -1,12 +1,13 @@
 ﻿using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.Models;
+using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContextes;
 
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired]
-    public class AccountService : BaseService<Account>, IAccountService
+    public class AccountService : BaseService<Account, AccountViewModel>, IAccountService
     {
         private readonly IEvaDbContextFactory _dbContextFactory;
         public AccountService(IEvaDbContextFactory dbContextFactory) : base(dbContextFactory)
