@@ -1,5 +1,6 @@
 ﻿using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.BaseViewModels;
+using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +21,28 @@ namespace Eva.EndPoint.API.Controllers
         [HttpPost]
         public async Task<ActionResultViewModel<Blog>> CreateBlogAsync(string blogTitle)
         {
-            return await _blogService.CreateBlog(blogTitle);
+            try
+            {
+                return await _blogService.CreateBlog(blogTitle);
+            }
+            catch (EvaRequiredPropertyException ex)
+            {
+                return new ActionResultViewModel<Blog>()
+                {
+                    Entity = null,
+                    HasError = true,
+                    ResponseMessage = new Core.Domain.Responses.ResponseMessage(ex.Message)
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ActionResultViewModel<Blog>()
+                {
+                    Entity = null,
+                    HasError = true,
+                    ResponseMessage = new Core.Domain.Responses.ResponseMessage(ex.Message)
+                };
+            }
         }
     }
 }
