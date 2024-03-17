@@ -22,8 +22,9 @@ namespace Eva.Infra.Tools.Extentions
             request.FixPagination();
             return source.Skip((request.PageNumber - 1) * request.RecordsPerPage).Take(request.RecordsPerPage);
         }
-        public static IEnumerable<T> ApplyBaseRequest<T>(this IEnumerable<T> source, BaseRequestViewModel request)
+        public static IEnumerable<T> ApplyBaseRequest<T>(this IEnumerable<T> source, BaseRequestViewModel request, out int totalRecords)
         {
+            totalRecords = source.Count();
             return source.ApplySearchTerm(request.SearchTermRequest).ApplySorting(request.SortingRequest).ApplyPagination(request.PaginationRequest);
         }
         public static bool HasDuplicates<T>(this IEnumerable<T> source)

@@ -23,8 +23,7 @@ namespace Eva.Core.ApplicationService.Queries
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
                 var rawData = await context.Set<TModel>().ToListAsync();
-                var filteredData = rawData.ApplyBaseRequest(request);
-                var totalRecords = rawData.Count();
+                var filteredData = rawData.ApplyBaseRequest(request, out int totalRecords);
                 return new PagedResultViewModel<TModel>()
                 {
                     Data = filteredData,

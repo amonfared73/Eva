@@ -71,8 +71,7 @@ namespace Eva.Core.ApplicationService.Queries
                                     Response = log.Response,
                                     StatusCode = log.StatusCode
                                 };
-                    var filteredQuery = query.ApplyBaseRequest(request);
-                    var totalRecords = query.Count();
+                    var filteredQuery = query.ApplyBaseRequest(request, out int totalRecords);
 
                     return new PagedResultViewModel<EvaLogReportOutputViewModel>()
                     {
