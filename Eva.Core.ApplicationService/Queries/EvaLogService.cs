@@ -9,6 +9,7 @@ using Eva.Infra.Tools.Extentions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Eva.Core.Domain.Exceptions;
+using Eva.Core.Domain.BaseModels;
 
 namespace Eva.Core.ApplicationService.Queries
 {
@@ -71,12 +72,12 @@ namespace Eva.Core.ApplicationService.Queries
                                     Response = log.Response,
                                     StatusCode = log.StatusCode
                                 };
-                    var filteredQuery = query.ApplyBaseRequest(request, out int totalRecords);
+                    var filteredQuery = query.ApplyBaseRequest(request, out Pagination pagination);
 
                     return new PagedResultViewModel<EvaLogReportOutputViewModel>()
                     {
                         Data = filteredQuery,
-                        Pagination = request.PaginationRequest.ToPagination(totalRecords)
+                        Pagination = pagination
                     };
                 }
             }

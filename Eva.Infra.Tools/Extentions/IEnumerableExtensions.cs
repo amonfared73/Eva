@@ -1,4 +1,5 @@
-﻿using Eva.Core.Domain.BaseViewModels;
+﻿using Eva.Core.Domain.BaseModels;
+using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.Enums;
 
 namespace Eva.Infra.Tools.Extentions
@@ -22,9 +23,16 @@ namespace Eva.Infra.Tools.Extentions
             request.FixPagination();
             return source.Skip((request.PageNumber - 1) * request.RecordsPerPage).Take(request.RecordsPerPage);
         }
-        public static IEnumerable<T> ApplyBaseRequest<T>(this IEnumerable<T> source, BaseRequestViewModel request, out int totalRecords)
+        public static IEnumerable<T> ApplyBaseRequest<T>(this IEnumerable<T> source, BaseRequestViewModel request, out Pagination pagination)
         {
-            totalRecords = source.Count();
+            int totalRecords = source.Count();
+            bool hasInvalidPaginationNumber = request.PaginationRequest.PageNumber.IsNullOrZero() || request.PaginationRequest.RecordsPerPage.IsNullOrZero();
+            pagination = new Pagination()
+            {
+                CurrentPage = hasInvalidPaginationNumber ? 1 : request.PaginationRequest.PageNumber,
+                TotalPages = (int)Math.Ceiling((decimal)totalRecords / (hasInvalidPaginationNumber ? 5 : request.PaginationRequest.RecordsPerPage)),
+                TotalRecords = totalRecords,
+            };
             return source.ApplySearchTerm(request.SearchTermRequest).ApplySorting(request.SortingRequest).ApplyPagination(request.PaginationRequest);
         }
         public static bool HasDuplicates<T>(this IEnumerable<T> source)
