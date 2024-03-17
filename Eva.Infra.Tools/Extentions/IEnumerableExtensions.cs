@@ -29,8 +29,8 @@ namespace Eva.Infra.Tools.Extentions
             bool hasInvalidPaginationNumber = request.PaginationRequest.PageNumber.IsNullOrZero() || request.PaginationRequest.RecordsPerPage.IsNullOrZero();
             pagination = new Pagination()
             {
-                CurrentPage = hasInvalidPaginationNumber ? 1 : request.PaginationRequest.PageNumber,
-                TotalPages = (int)Math.Ceiling((decimal)totalRecords / (hasInvalidPaginationNumber ? 5 : request.PaginationRequest.RecordsPerPage)),
+                CurrentPage = hasInvalidPaginationNumber ? Pagination.DefaultCurrentPage : request.PaginationRequest.PageNumber,
+                TotalPages = (int)Math.Ceiling((decimal)totalRecords / (hasInvalidPaginationNumber ? Pagination.DefaultRecordsPerPage : request.PaginationRequest.RecordsPerPage)),
                 TotalRecords = totalRecords,
             };
             return source.ApplySearchTerm(request.SearchTermRequest).ApplySorting(request.SortingRequest).ApplyPagination(request.PaginationRequest);
