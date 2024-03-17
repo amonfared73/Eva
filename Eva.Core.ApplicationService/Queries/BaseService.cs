@@ -96,7 +96,7 @@ namespace Eva.Core.ApplicationService.Queries
             }
         }
 
-        public async Task<CustomResultViewModel<byte[]>> ToByte(int id)
+        public virtual async Task<CustomResultViewModel<byte[]>> ToByte(int id)
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
@@ -111,7 +111,7 @@ namespace Eva.Core.ApplicationService.Queries
             }
         }
 
-        public Task<CustomResultViewModel<IEnumerable<TViewModel>>> ImportFromExcel(string filePath)
+        public virtual Task<CustomResultViewModel<IEnumerable<TViewModel>>> ImportFromExcel(string filePath)
         {
             throw new NotImplementedException();
         }
