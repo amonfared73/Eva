@@ -22,11 +22,11 @@ namespace Eva.Core.ApplicationService.Queries
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
-                var rawData = await context.Set<TModel>().ToListAsync();
-                var filteredData = rawData.ApplyBaseRequest(request, out Pagination pagination);
+                var entities = await context.Set<TModel>().ToListAsync();
+                var result = entities.ApplyBaseRequest(request, out Pagination pagination);
                 return new PagedResultViewModel<TModel>()
                 {
-                    Data = filteredData,
+                    Data = result,
                     Pagination = pagination
                 };
             }
