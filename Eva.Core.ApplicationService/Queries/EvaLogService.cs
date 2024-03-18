@@ -9,11 +9,12 @@ using Eva.Infra.Tools.Extentions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Eva.Core.Domain.Exceptions;
+using Eva.Core.Domain.BaseModels;
 
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired]
-    public class EvaLogService : BaseService<EvaLog>, IEvaLogService
+    public class EvaLogService : BaseService<EvaLog, EvaLogViewModel>, IEvaLogService
     {
         private readonly IEvaDbContextFactory _contextFactory;
         private readonly IUserService _userService;
@@ -71,13 +72,12 @@ namespace Eva.Core.ApplicationService.Queries
                                     Response = log.Response,
                                     StatusCode = log.StatusCode
                                 };
-                    var filteredQuery = query.ApplyBaseRequest(request);
-                    var totalRecords = query.Count();
+                    var filteredQuery = query.ApplyBaseRequest(request, out Pagination pagination);
 
                     return new PagedResultViewModel<EvaLogReportOutputViewModel>()
                     {
                         Data = filteredQuery,
-                        Pagination = request.PaginationRequest.ToPagination(totalRecords)
+                        Pagination = pagination
                     };
                 }
             }

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Eva.Core.Domain.Models
 {
-    public class Role : DomainObject
+    public class Role : ModelBase
     {
         public string Name { get; set; } = string.Empty;
         [JsonIgnore]

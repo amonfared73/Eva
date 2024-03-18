@@ -63,7 +63,7 @@ namespace Eva.Infra.EntityFramework.DbContextes
             if (!_contextAccessor.IsLoginRequeust())
             {
                 // Grab all entity entries
-                var entityEntries = ChangeTracker.Entries().Where(e => e.Entity is DomainObject && (e.State == EntityState.Added || e.State == EntityState.Modified));
+                var entityEntries = ChangeTracker.Entries().Where(e => e.Entity is ModelBase && (e.State == EntityState.Added || e.State == EntityState.Modified));
                 var userId = _contextAccessor.GetUserId();
                 foreach (var entityEntry in entityEntries)
                 {
@@ -102,6 +102,10 @@ namespace Eva.Infra.EntityFramework.DbContextes
         public DbSet<Complex> ComplexNumbers { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Instrument> Instruments { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+
         #endregion
     }
 }

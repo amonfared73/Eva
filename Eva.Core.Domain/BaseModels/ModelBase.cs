@@ -2,7 +2,7 @@
 
 namespace Eva.Core.Domain.BaseModels
 {
-    public class DomainObject : Trackable
+    public class ModelBase : Trackable
     {
         public int Id { get; set; }
     }

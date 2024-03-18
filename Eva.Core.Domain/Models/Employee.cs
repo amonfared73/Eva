@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Eva.Core.Domain.Models
 {
-    public class Employee : DomainObject
+    public class Employee : ModelBase
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

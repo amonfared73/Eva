@@ -14,5 +14,9 @@ namespace Eva.Infra.Tools.Extentions
         {
             return contextAccessor.HttpContext.User.FindFirst(CustomClaims.UserId).Value.ToInt();
         }
+        public static bool IsAuthenticated(this IHttpContextAccessor contextAccessor)
+        {
+            return contextAccessor.HttpContext.User.Identity?.IsAuthenticated ?? false;
+        }
     }
 }

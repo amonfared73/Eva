@@ -3,7 +3,7 @@ using Eva.Core.Domain.Responses;
 
 namespace Eva.Core.Domain.BaseViewModels
 {
-    public class ActionResultViewModel<T> where T : DomainObject
+    public class ActionResultViewModel<T> where T : ModelBase
     {
         public T? Entity { get; set; }
         public bool HasError { get; set; } = false;

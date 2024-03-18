@@ -2,12 +2,13 @@
 using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.Models.Cryptography;
+using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContextes;
 
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired]
-    public class RsaCryptographyService : BaseService<RsaCryptography>, IRsaCryptographyService
+    public class RsaCryptographyService : BaseService<RsaCryptography, RsaCryptographyViewModel>, IRsaCryptographyService
     {
         private readonly IEvaDbContextFactory _contextFactory;
         private readonly RsaEncryptor _encryptor;

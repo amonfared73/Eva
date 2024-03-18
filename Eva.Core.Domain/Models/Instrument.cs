@@ -2,7 +2,7 @@
 
 namespace Eva.Core.Domain.Models
 {
-    public class Instrument : DomainObject
+    public class Instrument : ModelBase
     {
         public string Name { get; set; } = string.Empty;
         public int YearInvented { get; set; }

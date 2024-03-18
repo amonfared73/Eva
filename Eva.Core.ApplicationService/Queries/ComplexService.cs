@@ -5,12 +5,13 @@ using Eva.Core.Domain.DTOs;
 using Eva.Core.Domain.Enums;
 using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Models;
+using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContextes;
 
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired]
-    public class ComplexService : BaseService<Complex>, IComplexService
+    public class ComplexService : BaseService<Complex, ComplexViewModel>, IComplexService
     {
         private readonly IEvaDbContextFactory _contextFactory;
         public ComplexService(IEvaDbContextFactory contextFactory) : base(contextFactory)

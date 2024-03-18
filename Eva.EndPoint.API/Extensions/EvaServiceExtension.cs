@@ -38,6 +38,12 @@ namespace Eva.EndPoint.API.Extensions
             return services;
         }
 
+        public static IServiceCollection AddUserContext(this IServiceCollection services)
+        {
+            services.AddSingleton<IUserContext, UserContext>();
+            return services;
+        }
+
         private static IServiceCollection AddAccessTokenGenerator(this IServiceCollection services)
         {
             services.AddSingleton<AccessTokenGenerator>();
@@ -63,7 +69,7 @@ namespace Eva.EndPoint.API.Extensions
         private static IServiceCollection AddEvaServices(this IServiceCollection services)
         {
             // Register base services
-            services.AddSingleton(typeof(IBaseService<>), typeof(BaseService<>));
+            services.AddSingleton(typeof(IBaseService<,>), typeof(BaseService<,>));
 
             // Get all services corresponding to Registration Required Attribute
             var repositoryTypes = Assemblies.GetServices("Eva.Core.ApplicationService", typeof(RegistrationRequiredAttribute));
@@ -176,6 +182,9 @@ namespace Eva.EndPoint.API.Extensions
 
             // Add Http Context Accessor
             builder.Services.AddHttpContextAccessor();
+
+            // Add User Context Implementations
+            builder.Services.AddUserContext();
 
             // Add DbContext
             builder.Services.AddEvaDbContext(connectionString);

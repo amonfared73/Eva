@@ -1,11 +1,12 @@
 ﻿using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.Models;
+using Eva.Core.Domain.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eva.EndPoint.API.Controllers
 {
-    public class RoleController : EvaControllerBase<Role>
+    public class RoleController : EvaControllerBase<Role, RoleViewModel>
     {
         private readonly IRoleService _service;
 

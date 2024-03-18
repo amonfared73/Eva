@@ -3,13 +3,14 @@ using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.Responses;
+using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContextes;
 using Microsoft.EntityFrameworkCore;
 
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired]
-    public class RefreshTokenService : BaseService<RefreshToken>, IRefreshTokenService
+    public class RefreshTokenService : BaseService<RefreshToken, RefreshTokenViewModel>, IRefreshTokenService
     {
         private readonly IEvaDbContextFactory _contextFactory;
 

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Eva.Core.ApplicationService.Services
 {
-    public interface IUserService : IBaseService<User>
+    public interface IUserService : IBaseService<User, UserViewModel>
     {
         Task<ActionResultViewModel<User>> AlterAdminStateAsync(int userId);
         Task<User> GetByUsername(string username);
