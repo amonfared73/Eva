@@ -1,4 +1,6 @@
-﻿namespace Eva.Core.Domain.BaseModels
+﻿using Eva.Core.Domain.BaseInterfaces;
+
+namespace Eva.Core.Domain.BaseModels
 {
     /// <summary>
     /// The base entity model for all Eva models
