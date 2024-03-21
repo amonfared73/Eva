@@ -1,5 +1,4 @@
-﻿using Eva.Core.Domain.Attributes;
-
+﻿
 namespace Eva.Core.Domain.BaseModels
 {
     /// <summary>
