@@ -1,6 +1,7 @@
 ﻿using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.Models.Cryptography;
+using Eva.Infra.EntityFramework.Interceptors;
 using Eva.Infra.Tools.Extentions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,10 @@ namespace Eva.Infra.EntityFramework.DbContextes
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(EvaDbContext).Assembly);
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.AddInterceptors(new SoftDeleteInterceptor());
         }
         /// <summary>
         ///     <para>

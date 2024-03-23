@@ -35,7 +35,6 @@ namespace Eva.EndPoint.API.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> RegisterAsync(UserDto userDto)
         {
             // Check validity

@@ -5,7 +5,7 @@ namespace Eva.Core.Domain.BaseModels
     /// <summary>
     /// The base entity model for all Eva models
     /// </summary>
-    public class ModelBase : Trackable, ISoftDeletable
+    public class ModelBase : Trackable, ISoftDelete
     {
         /// <summary>
         /// The unique integer key for all Eva entities
@@ -22,6 +22,11 @@ namespace Eva.Core.Domain.BaseModels
         /// <summary>
         /// The deletion datetime
         /// </summary>
-        public DateTime DeletedOn { get; set; }
+        public DateTime? DeletedOn { get; set; }
+        public virtual void Undo()
+        {
+            IsDeleted = false;
+            DeletedOn = null;
+        }
     }
 }

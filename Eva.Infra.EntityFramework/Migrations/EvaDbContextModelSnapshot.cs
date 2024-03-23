@@ -32,7 +32,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -77,7 +77,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -118,7 +118,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -153,7 +153,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -192,7 +192,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -236,7 +236,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -275,7 +275,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FriendlyState")
@@ -320,7 +320,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -355,7 +355,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -390,7 +390,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -425,7 +425,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -466,7 +466,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("DepartmentId")
@@ -518,7 +518,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -560,7 +560,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -622,7 +622,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -671,7 +671,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -712,7 +712,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -751,7 +751,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsAdmin")
@@ -801,7 +801,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
