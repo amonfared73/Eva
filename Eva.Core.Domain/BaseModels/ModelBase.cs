@@ -12,7 +12,7 @@ namespace Eva.Core.Domain.BaseModels
         /// </summary>
         public int Id { get; set; }
         /// <summary>
-        /// Entity sate code for entity instances, default = 1
+        /// Entity state code for entity instances, default = 1
         /// </summary>
         public int StateCode { get; set; } = 1;
         /// <summary>

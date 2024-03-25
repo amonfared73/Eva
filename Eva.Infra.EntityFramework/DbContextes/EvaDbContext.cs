@@ -3,7 +3,6 @@ using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.Models.Cryptography;
 using Eva.Infra.Tools.Extentions;
-using Eva.Infra.Tools.Reflections;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -23,15 +22,18 @@ namespace Eva.Infra.EntityFramework.DbContextes
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //var entities = Assemblies.GetEvaTypes("Eva.Core.Domain").Where(type => typeof(ISoftDelete).IsAssignableFrom(type) && type.IsClass && !type.IsAbstract);
-            //foreach(var entity in entities)
-            //{
-            //    modelBuilder.Entity(entity).HasQueryFilter(GenerateQueryFilterLambda(entity));
-            //}
+            var entities = typeof(ISoftDelete).Assembly.GetTypes().Where(t => typeof(ModelBase).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract);
+            foreach (var entity in entities)
+            {
+                modelBuilder.Entity(entity).HasQueryFilter(GenerateQueryFilterLambda(entity));
+            }
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(EvaDbContext).Assembly);
-            //base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
         }
-
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+        }
         /// <summary>
         ///     <para>
         ///         Overridden SaveChangesAsync method to manage trackable properties of Eva framework
