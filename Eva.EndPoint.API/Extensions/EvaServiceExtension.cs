@@ -73,8 +73,7 @@ namespace Eva.EndPoint.API.Extensions
             services.AddSingleton(typeof(IBaseService<,>), typeof(BaseService<,>));
 
             // Get all services corresponding to Registration Required Attribute
-            var repositoryTypes = Assemblies.GetEvaTypesWithAttribute("Eva.Core.ApplicationService", typeof(RegistrationRequiredAttribute));
-
+            var repositoryTypes = Assemblies.GetEvaTypes(typeof(IBaseService<,>)).Where(t => t.IsDefined(typeof(RegistrationRequiredAttribute), true));
 
             // Register each service
             foreach (var repositoryType in repositoryTypes)
