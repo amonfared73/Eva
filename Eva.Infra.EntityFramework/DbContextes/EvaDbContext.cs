@@ -4,6 +4,7 @@ using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.Models.Cryptography;
 using Eva.Infra.Tools.Extentions;
+using Eva.Infra.Tools.Reflections;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -23,7 +24,7 @@ namespace Eva.Infra.EntityFramework.DbContextes
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var entities = typeof(ISoftDelete).Assembly.GetTypes().Where(t => typeof(ModelBase).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract && t.IsDefined(typeof(EvaEntityAttribute), true));
+            var entities = Assemblies.GetEvaTypes(typeof(ISoftDelete)).Where(t => typeof(ModelBase).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract && t.IsDefined(typeof(EvaEntityAttribute), true));
             foreach (var entity in entities)
             {
                 modelBuilder.Entity(entity).HasQueryFilter(GenerateQueryFilterLambda(entity));
