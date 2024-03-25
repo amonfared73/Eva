@@ -4,7 +4,21 @@ namespace Eva.Infra.Tools.Reflections
 {
     public static class Assemblies
     {
-        public static List<Type> GetServices(string assemblyName, Type attribute)
+        public static List<Type> GetEvaTypes(string assemblyName)
+        {
+            var services = new List<Type>();
+            IEnumerable<Assembly> assemblies = GetAllAssemblies(assemblyName);
+            foreach (var assembly in assemblies)
+            {
+                var types = assembly.GetTypes().Where(c => c.IsClass);
+                foreach (var type in types)
+                {
+                    services.Add(type);
+                }
+            }
+            return services;
+        }
+        public static List<Type> GetEvaTypesWithAttribute(string assemblyName, Type attribute)
         {
             var services = new List<Type>();
             IEnumerable<Assembly> assemblies = GetAllAssemblies(assemblyName);

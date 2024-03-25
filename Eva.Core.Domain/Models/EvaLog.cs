@@ -1,8 +1,10 @@
-﻿using Eva.Core.Domain.BaseModels;
+﻿using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.BaseModels;
 using System.Text.Json.Serialization;
 
 namespace Eva.Core.Domain.Models
 {
+    [EvaEntity]
     public class EvaLog : ModelBase
     {
         public string LogTypeCode { get; set; } = string.Empty;

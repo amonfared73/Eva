@@ -1,8 +1,9 @@
-﻿using Eva.Core.Domain.BaseModels;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.BaseModels;
 
 namespace Eva.Core.Domain.Models
 {
+    [EvaEntity]
     public class UserRoleMapping : ModelBase
     {
         public int UserId { get; set; }

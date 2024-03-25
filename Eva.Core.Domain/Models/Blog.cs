@@ -1,8 +1,9 @@
-﻿using Eva.Core.Domain.BaseModels;
-using System.Text.Json.Serialization;
+﻿using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.BaseModels;
 
 namespace Eva.Core.Domain.Models
 {
+    [EvaEntity]
     public class Blog : ModelBase
     {
         public string Title { get; set; } = string.Empty;

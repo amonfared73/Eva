@@ -1,12 +1,9 @@
-﻿using Eva.Core.Domain.BaseModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.BaseModels;
 
 namespace Eva.Core.Domain.Models
 {
+    [EvaEntity]
     public class Employee : ModelBase
     {
         public string FirstName { get; set; }

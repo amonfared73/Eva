@@ -1,9 +1,12 @@
-﻿using Eva.Core.Domain.BaseModels;
+﻿using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.BaseInterfaces;
+using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.Models.Cryptography;
 using Eva.Infra.Tools.Extentions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Eva.Infra.EntityFramework.DbContextes
 {
@@ -20,7 +23,17 @@ namespace Eva.Infra.EntityFramework.DbContextes
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            var entities = typeof(ISoftDelete).Assembly.GetTypes().Where(t => typeof(ModelBase).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract && t.IsDefined(typeof(EvaEntityAttribute), true));
+            foreach (var entity in entities)
+            {
+                modelBuilder.Entity(entity).HasQueryFilter(GenerateQueryFilterLambda(entity));
+            }
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(EvaDbContext).Assembly);
+            base.OnModelCreating(modelBuilder);
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
         }
         /// <summary>
         ///     <para>
@@ -79,6 +92,21 @@ namespace Eva.Infra.EntityFramework.DbContextes
             }
             return await base.SaveChangesAsync(cancellationToken);
         }
+        /// <summary>
+        /// A utility method to provide a global query filter over all <see href="https://github.com/amonfared73/Eva">Eva</see> entities
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns>A LambdaExpression representing an equivalant form of .Where(e => !e.IsDeleted) </returns>
+        private LambdaExpression GenerateQueryFilterLambda(Type entity)
+        {
+            var parameter = Expression.Parameter(entity, "e");
+            var falseConstant = Expression.Constant(false);
+            var propertyAccess = Expression.PropertyOrField(parameter, nameof(ISoftDelete.IsDeleted));
+            var equalExpression = Expression.Equal(propertyAccess, falseConstant);
+            var lambda = Expression.Lambda(equalExpression, parameter);
+            return lambda;
+        }
+
         #region Eva framework entities
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
