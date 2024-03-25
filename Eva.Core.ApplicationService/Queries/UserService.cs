@@ -1,4 +1,5 @@
 ﻿using Eva.Core.ApplicationService.Services;
+using Eva.Core.ApplicationService.Validators;
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.DTOs;
@@ -17,16 +18,18 @@ using Newtonsoft.Json;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired]
-    public class UserService : BaseService<User>, IUserService
+    public class UserService : BaseService<User, UserViewModel>, IUserService
     {
-        private readonly IDbContextFactory<EvaDbContext> _contextFactory;
+        private readonly IEvaDbContextFactory _contextFactory;
         private readonly IUserRoleMappingService _userRoleMappingService;
         private readonly IRsaCryptographyService _rsaCryptographyService;
-        public UserService(IDbContextFactory<EvaDbContext> contextFactory, IUserRoleMappingService userRoleMappingService, IRsaCryptographyService rsaCryptographyService) : base(contextFactory)
+        private readonly UserValidator _userValidator;
+        public UserService(IEvaDbContextFactory contextFactory, IUserRoleMappingService userRoleMappingService, IRsaCryptographyService rsaCryptographyService, UserValidator userValidator) : base(contextFactory)
         {
             _contextFactory = contextFactory;
             _userRoleMappingService = userRoleMappingService;
             _rsaCryptographyService = rsaCryptographyService;
+            _userValidator = userValidator;
         }
         public async Task<User> GetByUsername(string username)
         {
@@ -221,6 +224,24 @@ namespace Eva.Core.ApplicationService.Queries
                     Entity = null,
                     HasError = false,
                     ResponseMessage = new ResponseMessage($"{user.Username} signature cleared")
+                };
+            }
+        }
+
+        public async Task<UserValidatorResponseViewModel> ValidateUserAsync(int userId)
+        {
+            using (EvaDbContext context = _contextFactory.CreateDbContext())
+            {
+                var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+                if (user is null)
+                    throw new EvaNotFoundException("User not found", typeof(User));
+
+                var isValidUserResponse = _userValidator.Validate(user);
+
+                return new UserValidatorResponseViewModel()
+                {
+                    IsValid = isValidUserResponse.IsValid,
+                    ResponseMessage = isValidUserResponse.ResponseMessage,
                 };
             }
         }

@@ -1,23 +1,23 @@
-﻿using Eva.Core.ApplicationService.Services.Authenticators;
-using Eva.Core.ApplicationService.Services;
+﻿using Eva.Core.ApplicationService.Services;
+using Eva.Core.ApplicationService.Services.Authenticators;
 using Eva.Core.ApplicationService.TokenValidators;
+using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.DTOs;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.Responses;
-using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.ViewModels;
 using Eva.Infra.Tools.Hashers;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
-using HttpDeleteAttribute = Microsoft.AspNetCore.Mvc.HttpDeleteAttribute;
 using AllowAnonymousAttribute = Microsoft.AspNetCore.Authorization.AllowAnonymousAttribute;
+using HttpDeleteAttribute = Microsoft.AspNetCore.Mvc.HttpDeleteAttribute;
+using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
 
 namespace Eva.EndPoint.API.Controllers
 {
     [DisableBaseOperations]
-    public class AuthenticationController : EvaControllerBase<Authentication>
+    public class AuthenticationController : EvaControllerBase<Authentication, AuthenticationViewModel>
     {
         private readonly IAuthenticationService _service;
         private readonly IUserService _userService;
@@ -35,7 +35,6 @@ namespace Eva.EndPoint.API.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> RegisterAsync(UserDto userDto)
         {
             // Check validity

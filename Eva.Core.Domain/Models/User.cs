@@ -1,9 +1,11 @@
-﻿using Eva.Core.Domain.BaseModels;
+﻿using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.BaseModels;
 using System.Text.Json.Serialization;
 
 namespace Eva.Core.Domain.Models
 {
-    public class User : DomainObject
+    [EvaEntity]
+    public class User : ModelBase
     {
         public string Username { get; set; } = string.Empty;
         [JsonIgnore]

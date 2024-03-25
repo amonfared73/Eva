@@ -2,18 +2,18 @@
 using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.Models.Cryptography;
+using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContextes;
-using Microsoft.EntityFrameworkCore;
 
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired]
-    public class DesCryptographyService : BaseService<DesCryptography>, IDesCryptographyService
+    public class DesCryptographyService : BaseService<DesCryptography, DesCryptographyViewModel>, IDesCryptographyService
     {
-        private readonly IDbContextFactory<EvaDbContext> _contextFactory;
+        private readonly IEvaDbContextFactory _contextFactory;
         private readonly DesEncryptor _encryptor;
 
-        public DesCryptographyService(IDbContextFactory<EvaDbContext> contextFactory, DesEncryptor encryptor) : base(contextFactory)
+        public DesCryptographyService(IEvaDbContextFactory contextFactory, DesEncryptor encryptor) : base(contextFactory)
         {
             _contextFactory = contextFactory;
             _encryptor = encryptor;

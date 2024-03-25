@@ -1,16 +1,16 @@
 ﻿using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.Models;
+using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContextes;
-using Microsoft.EntityFrameworkCore;
 
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired]
-    public class CompanyService : BaseService<Company>, ICompanyService
+    public class CompanyService : BaseService<Company, CompanyViewModel>, ICompanyService
     {
-        private readonly IDbContextFactory<EvaDbContext> _contextFactory;
-        public CompanyService(IDbContextFactory<EvaDbContext> contextFactory) : base(contextFactory)
+        private readonly IEvaDbContextFactory _contextFactory;
+        public CompanyService(IEvaDbContextFactory contextFactory) : base(contextFactory)
         {
             _contextFactory = contextFactory;
         }

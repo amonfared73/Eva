@@ -1,10 +1,12 @@
 ﻿using Bogus;
+using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseModels;
 using System.Text.Json.Serialization;
 
 namespace Eva.Core.Domain.Models
 {
-    public class Role : DomainObject
+    [EvaEntity]
+    public class Role : ModelBase
     {
         public string Name { get; set; } = string.Empty;
         [JsonIgnore]

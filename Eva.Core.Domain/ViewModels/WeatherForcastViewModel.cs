@@ -1,8 +1,8 @@
-﻿namespace Eva.Core.Domain.ViewModels
+﻿using Eva.Core.Domain.BaseViewModels;
+
+namespace Eva.Core.Domain.ViewModels
 {
-    public class WeatherForcastViewModel
+    public class WeatherForcastViewModel : ViewModelBase
     {
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
     }
 }

@@ -5,20 +5,20 @@ using Eva.Core.ApplicationService.Services;
 using Eva.Core.ApplicationService.Services.Authenticators;
 using Eva.Core.ApplicationService.TokenGenerators;
 using Eva.Core.ApplicationService.TokenValidators;
+using Eva.Core.ApplicationService.Validators;
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseModels;
-using Eva.Core.Domain.Models.Cryptography;
 using Eva.EndPoint.API.Authorization;
 using Eva.EndPoint.API.Conventions;
 using Eva.EndPoint.API.Middlewares;
 using Eva.Infra.EntityFramework.DbContextes;
+using Eva.Infra.EntityFramework.Interceptors;
 using Eva.Infra.Tools.Reflections;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Serilog;
 using System.Text;
 
 namespace Eva.EndPoint.API.Extensions
@@ -27,8 +27,8 @@ namespace Eva.EndPoint.API.Extensions
     {
         private static IServiceCollection AddEvaDbContext(this IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<EvaDbContext>(options => options.UseSqlite(connectionString), optionsLifetime: ServiceLifetime.Singleton);
-            services.AddDbContextFactory<EvaDbContext, EvaDbContextFactory>(options => options.UseSqlite(connectionString));
+            services.AddSingleton<IEvaDbContextFactory, EvaDbContextFactory>();
+            services.AddDbContextFactory<EvaDbContext>(options => options.UseSqlite(connectionString).AddInterceptors(new SoftDeleteInterceptor()));
             return services;
         }
 
@@ -36,6 +36,12 @@ namespace Eva.EndPoint.API.Extensions
         {
             services.AddSingleton<IAuthorizationHandler, RoleAuthorizationHandler>();
             services.AddSingleton<IAuthorizationPolicyProvider, RoleAuthorizationPolicyProvider>();
+            return services;
+        }
+
+        public static IServiceCollection AddUserContext(this IServiceCollection services)
+        {
+            services.AddSingleton<IUserContext, UserContext>();
             return services;
         }
 
@@ -48,21 +54,26 @@ namespace Eva.EndPoint.API.Extensions
             services.AddSingleton<TokenGenerator>();
             return services;
         }
+        private static IServiceCollection AddEntityValidators(this IServiceCollection services)
+        {
+            services.AddSingleton<UserValidator>();
+            return services;
+        }
         private static IServiceCollection AddCryptographyServices(this IServiceCollection services)
         {
             services.AddSingleton<AesEncryptor>();
             services.AddSingleton<DesEncryptor>();
             services.AddSingleton<RsaEncryptor>();
+            services.AddSingleton<RsaParser>();
             return services;
         }
         private static IServiceCollection AddEvaServices(this IServiceCollection services)
         {
             // Register base services
-            services.AddSingleton(typeof(IBaseService<>), typeof(BaseService<>));
+            services.AddSingleton(typeof(IBaseService<,>), typeof(BaseService<,>));
 
             // Get all services corresponding to Registration Required Attribute
-            var repositoryTypes = Assemblies.GetServices("Eva.Core.ApplicationService", typeof(RegistrationRequiredAttribute));
-
+            var repositoryTypes = Assemblies.GetEvaTypes(typeof(IBaseService<,>)).Where(t => t.IsDefined(typeof(RegistrationRequiredAttribute), true));
 
             // Register each service
             foreach (var repositoryType in repositoryTypes)
@@ -76,11 +87,22 @@ namespace Eva.EndPoint.API.Extensions
         }
 
         /// <summary>
-        /// Initializes Eva framework for asp.Net Core Web API application
+        /// Initializes <see href="https://github.com/amonfared73/Eva">Eva</see> Framework asp.Net Core web api application
+        /// <para>
+        /// Grabing sensitive configuration data from <see cref="IConfiguration" />
+        /// <para>Creating instances of related objects and injecting them into HTTP pipeline</para>
+        /// <para>Configuring controllers with their custom respective <see cref="IControllerModelConvention" /></para>
+        /// <para>Configuring authentication and authorization</para>
+        /// <para>Registering <see href="https://github.com/amonfared73/Eva">Eva</see> services</para>
+        /// <para>Adding related middlewares to HTTP pipeline</para>
+        /// </para>
+        /// <para>
+        /// <param name="app">an <see href="https://github.com/amonfared73/Eva">Eva</see> <see cref="WebApplication" /> out parameter used to configure the HTTP pipeline and routes</param>
+        /// </para>
         /// </summary>
-        /// <param name="builder">WebApplicationBuilder extension method</param>
-        /// <param name="app">WebApplication out parameter</param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="WebApplicationBuilder" /> that represents the <see href="https://github.com/amonfared73/Eva">Eva</see> Framework builder
+        /// </returns>
         public static WebApplicationBuilder AddEva(this WebApplicationBuilder builder, out WebApplication app)
         {
             // Connection string
@@ -161,11 +183,17 @@ namespace Eva.EndPoint.API.Extensions
             // Add Http Context Accessor
             builder.Services.AddHttpContextAccessor();
 
+            // Add User Context Implementations
+            builder.Services.AddUserContext();
+
             // Add DbContext
             builder.Services.AddEvaDbContext(connectionString);
 
             // Add Access Token Generator
             builder.Services.AddAccessTokenGenerator();
+
+            // Add Entity Validators
+            builder.Services.AddEntityValidators();
 
             // Add Cryptography 
             builder.Services.AddCryptographyServices();

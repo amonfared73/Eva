@@ -1,9 +1,11 @@
-﻿using Eva.Core.Domain.BaseModels;
+﻿using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.BaseModels;
 using System.Text.Json.Serialization;
 
 namespace Eva.Core.Domain.Models
 {
-    public class EvaLog : DomainObject
+    [EvaEntity]
+    public class EvaLog : ModelBase
     {
         public string LogTypeCode { get; set; } = string.Empty;
         public string RequestUrl { get; set; } = string.Empty;
@@ -14,5 +16,6 @@ namespace Eva.Core.Domain.Models
         public int? UserId { get; set; }
         [JsonIgnore]
         public User User { get; set; }
+        public static string SensitiveCredentials = $"Login request/response credentials are not exposed";
     }
 }

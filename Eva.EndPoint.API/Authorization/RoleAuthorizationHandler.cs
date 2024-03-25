@@ -1,8 +1,5 @@
-﻿using Eva.Core.ApplicationService.Services;
-using Eva.Core.Domain.BaseModels;
-using Eva.Core.Domain.Exceptions;
+﻿using Eva.Core.Domain.BaseModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace Eva.EndPoint.API.Authorization
 {

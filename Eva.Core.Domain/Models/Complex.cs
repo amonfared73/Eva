@@ -1,8 +1,10 @@
-﻿using Eva.Core.Domain.BaseModels;
+﻿using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.BaseModels;
 
 namespace Eva.Core.Domain.Models
 {
-    public class Complex : DomainObject
+    [EvaEntity]
+    public class Complex : ModelBase
     {
         public double Real { get; set; } = 0;
         public double Imaginary { get; set; } = 0;

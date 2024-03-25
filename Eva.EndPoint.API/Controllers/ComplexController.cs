@@ -2,14 +2,14 @@
 using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.DTOs;
 using Eva.Core.Domain.Models;
+using Eva.Core.Domain.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eva.EndPoint.API.Controllers
 {
-    public class ComplexController : EvaControllerBase<Complex>
+    public class ComplexController : EvaControllerBase<Complex, ComplexViewModel>
     {
         private readonly IComplexService _service;
-
         public ComplexController(IComplexService service) : base(service) 
         {
             _service = service;

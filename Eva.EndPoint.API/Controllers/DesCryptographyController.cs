@@ -1,12 +1,13 @@
 ﻿using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.Models.Cryptography;
+using Eva.Core.Domain.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eva.EndPoint.API.Controllers
 {
     [DisableBaseOperations]
-    public class DesCryptographyController : EvaControllerBase<DesCryptography>
+    public class DesCryptographyController : EvaControllerBase<DesCryptography, DesCryptographyViewModel>
     {
         private readonly IDesCryptographyService _service;
 

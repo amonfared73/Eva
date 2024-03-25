@@ -1,10 +1,10 @@
 ﻿using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.Models;
-using Microsoft.AspNetCore.Authorization;
+using Eva.Core.Domain.ViewModels;
 
 namespace Eva.EndPoint.API.Controllers
 {
-    public class EmployeeController : EvaControllerBase<Employee>
+    public class EmployeeController : EvaControllerBase<Employee, EmployeeViewModel>
     {
         private readonly IEmployeeService _baseService;
         public EmployeeController(IEmployeeService baseService) : base(baseService)

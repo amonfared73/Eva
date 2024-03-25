@@ -1,8 +1,10 @@
-﻿using Eva.Core.Domain.BaseModels;
+﻿using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.BaseModels;
 
 namespace Eva.Core.Domain.Models.Cryptography
 {
-    public class AesCryptography : DomainObject
+    [EvaEntity]
+    public class AesCryptography : ModelBase
     {
     }
 }

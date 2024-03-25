@@ -9,15 +9,16 @@ using Eva.Infra.Tools.Extentions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Eva.Core.Domain.Exceptions;
+using Eva.Core.Domain.BaseModels;
 
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired]
-    public class EvaLogService : BaseService<EvaLog>, IEvaLogService
+    public class EvaLogService : BaseService<EvaLog, EvaLogViewModel>, IEvaLogService
     {
-        private readonly IDbContextFactory<EvaDbContext> _contextFactory;
+        private readonly IEvaDbContextFactory _contextFactory;
         private readonly IUserService _userService;
-        public EvaLogService(IDbContextFactory<EvaDbContext> contextFactory, IUserService userService) : base(contextFactory)
+        public EvaLogService(IEvaDbContextFactory contextFactory, IUserService userService) : base(contextFactory)
         {
             _contextFactory = contextFactory;
             _userService = userService;
@@ -32,8 +33,8 @@ namespace Eva.Core.ApplicationService.Queries
                     RequestUrl = httpContext.Request.Path,
                     RequestMethod = httpContext.Request.Method,
                     StatusCode = httpContext.Response.StatusCode.ToString(),
-                    Payload = httpContext.IsLoginRequest() ? "Sensitive Credentials" : requestBody,
-                    Response = httpContext.IsLoginRequest() ? "Sensitive Credentials" : responseBody,
+                    Payload = httpContext.IsLoginRequest() ? EvaLog.SensitiveCredentials : requestBody,
+                    Response = httpContext.IsLoginRequest() ? EvaLog.SensitiveCredentials : responseBody,
                     UserId = await _userService.GetUserIdFromContext(httpContext, requestBody),
                     CreatedOn = DateTime.Now,
                 };
@@ -71,13 +72,12 @@ namespace Eva.Core.ApplicationService.Queries
                                     Response = log.Response,
                                     StatusCode = log.StatusCode
                                 };
-                    var filteredQuery = query.ApplyBaseRequest(request);
-                    var totalRecords = query.Count();
+                    var filteredQuery = query.ApplyBaseRequest(request, out Pagination pagination);
 
                     return new PagedResultViewModel<EvaLogReportOutputViewModel>()
                     {
                         Data = filteredQuery,
-                        Pagination = request.PaginationRequest.ToPagination(totalRecords)
+                        Pagination = pagination
                     };
                 }
             }

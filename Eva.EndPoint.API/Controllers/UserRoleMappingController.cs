@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Eva.EndPoint.API.Controllers
 {
-    public class UserRoleMappingController : EvaControllerBase<UserRoleMapping>
+    public class UserRoleMappingController : EvaControllerBase<UserRoleMapping, UserRoleMappingViewModel>
     {
         private readonly IUserRoleMappingService _service;
 

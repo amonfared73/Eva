@@ -1,12 +1,13 @@
 ﻿using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.Models.Cryptography;
+using Eva.Core.Domain.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eva.EndPoint.API.Controllers
 {
     [DisableBaseOperations]
-    public class AesCryptographyController : EvaControllerBase<AesCryptography>
+    public class AesCryptographyController : EvaControllerBase<AesCryptography, AesCryptographyViewModel>
     {
         private readonly IAesCryptographyService _service;
         public AesCryptographyController(IAesCryptographyService service) : base(service)

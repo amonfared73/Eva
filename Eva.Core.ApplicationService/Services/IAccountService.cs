@@ -1,8 +1,9 @@
 ﻿using Eva.Core.Domain.Models;
+using Eva.Core.Domain.ViewModels;
 
 namespace Eva.Core.ApplicationService.Services
 {
-    public interface IAccountService : IBaseService<Account>
+    public interface IAccountService : IBaseService<Account, AccountViewModel>
     {
     }
 }

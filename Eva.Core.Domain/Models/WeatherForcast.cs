@@ -1,8 +1,10 @@
-﻿using Eva.Core.Domain.BaseModels;
+﻿using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.BaseModels;
 
 namespace Eva.Core.Domain.Models
 {
-    public class WeatherForcast : DomainObject
+    [EvaEntity]
+    public class WeatherForcast : ModelBase
     {
         public static string WeatherForcastUrl = "https://api.open-meteo.com/v1/forecast";
     }
