@@ -8,7 +8,7 @@ namespace Eva.Infra.EntityFramework.Configurations
     {
         public void Configure(EntityTypeBuilder<Account> builder)
         {
-            builder.HasKey(x => x.Id);
+            //builder.HasKey(x => x.Id);
         }
     }
 }

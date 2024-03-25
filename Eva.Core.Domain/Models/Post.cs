@@ -1,7 +1,9 @@
-﻿using Eva.Core.Domain.BaseModels;
+﻿using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.BaseModels;
 
 namespace Eva.Core.Domain.Models
 {
+    [EvaEntity]
     public class Post : ModelBase
     {
         public string Title { get; set; } = string.Empty;

@@ -8,7 +8,7 @@ namespace Eva.Infra.EntityFramework.Configurations
     {
         public void Configure(EntityTypeBuilder<EvaLog> builder)
         {
-            builder.HasKey(e => e.Id);
+            //builder.HasKey(e => e.Id);
         }
     }
 }

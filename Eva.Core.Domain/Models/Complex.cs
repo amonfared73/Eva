@@ -1,7 +1,9 @@
-﻿using Eva.Core.Domain.BaseModels;
+﻿using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.BaseModels;
 
 namespace Eva.Core.Domain.Models
 {
+    [EvaEntity]
     public class Complex : ModelBase
     {
         public double Real { get; set; } = 0;

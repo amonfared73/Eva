@@ -5,6 +5,6 @@
     /// </summary>
     public interface IEvaDbContext
     {
-
+        public EvaDbContext EvaDbContext { get; set; }
     }
 }
