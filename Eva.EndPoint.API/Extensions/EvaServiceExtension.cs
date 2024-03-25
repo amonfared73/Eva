@@ -12,6 +12,7 @@ using Eva.EndPoint.API.Authorization;
 using Eva.EndPoint.API.Conventions;
 using Eva.EndPoint.API.Middlewares;
 using Eva.Infra.EntityFramework.DbContextes;
+using Eva.Infra.EntityFramework.Interceptors;
 using Eva.Infra.Tools.Reflections;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -27,7 +28,7 @@ namespace Eva.EndPoint.API.Extensions
         private static IServiceCollection AddEvaDbContext(this IServiceCollection services, string connectionString)
         {
             services.AddSingleton<IEvaDbContextFactory, EvaDbContextFactory>();
-            services.AddDbContextFactory<EvaDbContext>(options => options.UseSqlite(connectionString));
+            services.AddDbContextFactory<EvaDbContext>(options => options.UseSqlite(connectionString).AddInterceptors(new SoftDeleteInterceptor()));
             return services;
         }
 

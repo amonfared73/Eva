@@ -1,17 +1,21 @@
 ﻿using Eva.Core.Domain.BaseInterfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Eva.Infra.EntityFramework.Interceptors
 {
     public class SoftDeleteInterceptor : SaveChangesInterceptor
     {
-        public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
+        public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
         {
-            if (eventData.Context is null)
-                return result;
+            var entries = eventData
+                .Context
+                .ChangeTracker
+                .Entries<ISoftDelete>()
+                .Where(e => e.State == EntityState.Deleted);
 
-            foreach (var entry in eventData.Context.ChangeTracker.Entries())
+            foreach (EntityEntry<ISoftDelete> entry in entries)
             {
                 if (entry is not { State: EntityState.Deleted, Entity: ISoftDelete deletedEntity })
                     continue;
@@ -21,8 +25,7 @@ namespace Eva.Infra.EntityFramework.Interceptors
                 deletedEntity.DeletedOn = DateTime.Now;
 
             }
-
-            return result;
+            return base.SavingChangesAsync(eventData, result, cancellationToken);
         }
     }
 }
