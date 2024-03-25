@@ -1,4 +1,5 @@
-﻿using Eva.Core.Domain.BaseInterfaces;
+﻿using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.BaseInterfaces;
 using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.Models.Cryptography;
@@ -22,7 +23,7 @@ namespace Eva.Infra.EntityFramework.DbContextes
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var entities = typeof(ISoftDelete).Assembly.GetTypes().Where(t => typeof(ModelBase).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract && t.BaseType == null);
+            var entities = typeof(ISoftDelete).Assembly.GetTypes().Where(t => typeof(ModelBase).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract && t.IsDefined(typeof(EvaEntityAttribute), true));
             foreach (var entity in entities)
             {
                 modelBuilder.Entity(entity).HasQueryFilter(GenerateQueryFilterLambda(entity));
