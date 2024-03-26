@@ -3,6 +3,8 @@ using Eva.Core.Domain.BaseInterfaces;
 using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.Models.Cryptography;
+using Eva.Core.Domain.Models.General;
+using Eva.Core.Domain.Models.Inv;
 using Eva.Infra.Tools.Extentions;
 using Eva.Infra.Tools.Reflections;
 using Microsoft.AspNetCore.Http;
@@ -134,7 +136,19 @@ namespace Eva.Infra.EntityFramework.DbContextes
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        #endregion
 
+        #region Inventory Managment
+        public DbSet<Inventory> Inventories { get; set; }
+        public DbSet<InventoryDocumentHeader> InventoryDocumentHeaders { get; set; }
+        public DbSet<InventoryDocumentDetail> InventoryDocumentDetails { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
+        #endregion
+
+        #region General entities
+        public DbSet<MeasureUnit> MeasureUnits { get; set; }
+        public DbSet<Party> Parties { get; set; }
+        public DbSet<Good> Goods { get; set; }
         #endregion
     }
 }

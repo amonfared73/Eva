@@ -23,9 +23,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("CreatedBy")
                         .HasColumnType("INTEGER");
 
@@ -48,7 +45,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Token")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("UserId")
@@ -66,9 +62,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("AccountId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CompanyId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("CreatedBy")
@@ -90,7 +83,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("StateCode")
@@ -107,9 +99,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CompanyId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("CreatedBy")
@@ -144,9 +133,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("CreatedBy")
                         .HasColumnType("INTEGER");
 
@@ -169,7 +155,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -181,9 +166,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CompanyId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("CreatedBy")
@@ -211,7 +193,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Text")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -225,9 +206,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CompanyId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("CreatedBy")
@@ -266,9 +244,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("CreatedBy")
                         .HasColumnType("INTEGER");
 
@@ -279,7 +254,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FriendlyState")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<double>("Imaginary")
@@ -309,9 +283,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CompanyId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("CreatedBy")
@@ -346,9 +317,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("CreatedBy")
                         .HasColumnType("INTEGER");
 
@@ -379,9 +347,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CompanyId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("CreatedBy")
@@ -416,7 +381,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CompanyId")
+                    b.Property<int?>("CompanyId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("CreatedBy")
@@ -457,9 +422,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("CreatedBy")
                         .HasColumnType("INTEGER");
 
@@ -484,7 +446,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("ModifiedBy")
@@ -509,9 +470,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("CreatedBy")
                         .HasColumnType("INTEGER");
 
@@ -534,7 +492,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Url")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -551,9 +508,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("CreatedBy")
                         .HasColumnType("INTEGER");
 
@@ -567,7 +521,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("LogTypeCode")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("ModifiedBy")
@@ -580,11 +533,9 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("RequestMethod")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("RequestUrl")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Response")
@@ -594,7 +545,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("StatusCode")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("UserId")
@@ -607,13 +557,51 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.ToTable("EvaLogs");
                 });
 
-            modelBuilder.Entity("Eva.Core.Domain.Models.Instrument", b =>
+            modelBuilder.Entity("Eva.Core.Domain.Models.General.Good", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CompanyId")
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GoodCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("StateCode")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GoodCode")
+                        .IsUnique();
+
+                    b.ToTable("Goods");
+                });
+
+            modelBuilder.Entity("Eva.Core.Domain.Models.General.MeasureUnit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("CreatedBy")
@@ -635,7 +623,82 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("StateCode")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MeasureUnits");
+                });
+
+            modelBuilder.Entity("Eva.Core.Domain.Models.General.Party", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StateCode")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Number")
+                        .IsUnique();
+
+                    b.ToTable("Parties");
+                });
+
+            modelBuilder.Entity("Eva.Core.Domain.Models.Instrument", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("StateCode")
@@ -649,6 +712,197 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.ToTable("Instruments");
                 });
 
+            modelBuilder.Entity("Eva.Core.Domain.Models.Inv.Inventory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StateCode")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Number")
+                        .IsUnique();
+
+                    b.ToTable("Inventories");
+                });
+
+            modelBuilder.Entity("Eva.Core.Domain.Models.Inv.InventoryDocumentDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("GoodId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("IncomingAmount")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("InventoryDocumentHeaderId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("MeasureUnitId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("OutgoingAmount")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("StateCode")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GoodId");
+
+                    b.HasIndex("InventoryDocumentHeaderId");
+
+                    b.HasIndex("MeasureUnitId");
+
+                    b.ToTable("InventoryDocumentDetails");
+                });
+
+            modelBuilder.Entity("Eva.Core.Domain.Models.Inv.InventoryDocumentHeader", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("EffectiveDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("InventoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PartyId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StateCode")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TransactionId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InventoryId");
+
+                    b.HasIndex("PartyId");
+
+                    b.HasIndex("TransactionId");
+
+                    b.ToTable("InventoryDocumentHeaders");
+                });
+
+            modelBuilder.Entity("Eva.Core.Domain.Models.Inv.Transaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StateCode")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TransactionTypeCode")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Transactions");
+                });
+
             modelBuilder.Entity("Eva.Core.Domain.Models.Post", b =>
                 {
                     b.Property<int>("Id")
@@ -658,11 +912,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<int>("BlogId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Content")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("CreatedBy")
@@ -687,7 +937,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -701,9 +950,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CompanyId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("CreatedBy")
@@ -742,9 +988,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("CreatedBy")
                         .HasColumnType("INTEGER");
 
@@ -771,7 +1014,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Signature")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("StateCode")
@@ -790,9 +1032,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CompanyId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("CreatedBy")
@@ -832,6 +1071,38 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.ToTable("UserRoleMappings");
                 });
 
+            modelBuilder.Entity("Eva.Core.Domain.Models.WeatherForcast", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("StateCode")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WeatherForcast");
+                });
+
             modelBuilder.Entity("Eva.Core.Domain.Models.Account", b =>
                 {
                     b.HasOne("Eva.Core.Domain.Models.Account", null)
@@ -854,9 +1125,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                 {
                     b.HasOne("Eva.Core.Domain.Models.Company", null)
                         .WithMany("Departments")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CompanyId");
                 });
 
             modelBuilder.Entity("Eva.Core.Domain.Models.Employee", b =>
@@ -873,6 +1142,60 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Eva.Core.Domain.Models.Inv.InventoryDocumentDetail", b =>
+                {
+                    b.HasOne("Eva.Core.Domain.Models.General.Good", "Good")
+                        .WithMany()
+                        .HasForeignKey("GoodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Eva.Core.Domain.Models.Inv.InventoryDocumentHeader", "InventoryDocumentHeader")
+                        .WithMany("InventoryDocumentDetails")
+                        .HasForeignKey("InventoryDocumentHeaderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Eva.Core.Domain.Models.General.MeasureUnit", "MeasureUnit")
+                        .WithMany()
+                        .HasForeignKey("MeasureUnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Good");
+
+                    b.Navigation("InventoryDocumentHeader");
+
+                    b.Navigation("MeasureUnit");
+                });
+
+            modelBuilder.Entity("Eva.Core.Domain.Models.Inv.InventoryDocumentHeader", b =>
+                {
+                    b.HasOne("Eva.Core.Domain.Models.Inv.Inventory", "Inventory")
+                        .WithMany()
+                        .HasForeignKey("InventoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Eva.Core.Domain.Models.General.Party", "Party")
+                        .WithMany()
+                        .HasForeignKey("PartyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Eva.Core.Domain.Models.Inv.Transaction", "Transaction")
+                        .WithMany()
+                        .HasForeignKey("TransactionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Inventory");
+
+                    b.Navigation("Party");
+
+                    b.Navigation("Transaction");
                 });
 
             modelBuilder.Entity("Eva.Core.Domain.Models.Post", b =>
@@ -923,6 +1246,11 @@ namespace Eva.Infra.EntityFramework.Migrations
             modelBuilder.Entity("Eva.Core.Domain.Models.Department", b =>
                 {
                     b.Navigation("Employees");
+                });
+
+            modelBuilder.Entity("Eva.Core.Domain.Models.Inv.InventoryDocumentHeader", b =>
+                {
+                    b.Navigation("InventoryDocumentDetails");
                 });
 
             modelBuilder.Entity("Eva.Core.Domain.Models.Post", b =>
