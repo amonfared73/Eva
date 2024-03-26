@@ -592,6 +592,9 @@ namespace Eva.Infra.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GoodCode")
+                        .IsUnique();
+
                     b.ToTable("Goods");
                 });
 
@@ -743,6 +746,9 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Number")
+                        .IsUnique();
 
                     b.ToTable("Inventories");
                 });
