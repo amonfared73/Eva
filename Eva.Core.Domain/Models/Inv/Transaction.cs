@@ -10,5 +10,6 @@ namespace Eva.Core.Domain.Models.Inv
         public int Number { get; set; }
         public TransactionTypeCode TransactionTypeCode { get; set; }
         public string Name { get; set; } = string.Empty;
+        public override string ToString() => $"{Number} {Name}";
     }
 }

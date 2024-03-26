@@ -8,5 +8,6 @@ namespace Eva.Core.Domain.Models.Inv
     {
         public int Number { get; set; }
         public string Name { get; set; }
+        public override string ToString() => $"{Number} {Name}";
     }
 }

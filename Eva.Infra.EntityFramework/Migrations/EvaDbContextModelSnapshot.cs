@@ -665,6 +665,9 @@ namespace Eva.Infra.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Number")
+                        .IsUnique();
+
                     b.ToTable("Parties");
                 });
 

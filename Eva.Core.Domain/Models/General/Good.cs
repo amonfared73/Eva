@@ -8,6 +8,7 @@ namespace Eva.Core.Domain.Models.General
     {
         public string GoodCode { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
+        public override string ToString() => $"{GoodCode} {Name}";
 
     }
 }
