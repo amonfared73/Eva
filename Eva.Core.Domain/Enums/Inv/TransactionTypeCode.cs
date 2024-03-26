@@ -1,4 +1,4 @@
-﻿namespace Eva.Core.Domain.Models.Inv
+﻿namespace Eva.Core.Domain.Enums.Inv
 {
     public enum TransactionTypeCode
     {

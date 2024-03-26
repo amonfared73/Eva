@@ -1,5 +1,6 @@
 ﻿using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseModels;
+using Eva.Core.Domain.Enums.Inv;
 
 namespace Eva.Core.Domain.Models.Inv
 {

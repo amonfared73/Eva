@@ -15,6 +15,6 @@ namespace Eva.Core.Domain.Models.Inv
         public InventoryDocumentHeader InventoryDocumentHeader { get; set; }
         public decimal IncomingAmount { get; set; }
         public decimal OutgoingAmount { get; set; }
-
+        public string Description { get; set; }
     }
 }
