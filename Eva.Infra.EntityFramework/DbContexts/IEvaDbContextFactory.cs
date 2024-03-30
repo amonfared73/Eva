@@ -1,4 +1,4 @@
-﻿namespace Eva.Infra.EntityFramework.DbContextes
+﻿namespace Eva.Infra.EntityFramework.DbContexts
 {
     public interface IEvaDbContextFactory
     {
