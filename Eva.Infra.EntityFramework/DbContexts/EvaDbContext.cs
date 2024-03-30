@@ -88,7 +88,7 @@ namespace Eva.Infra.EntityFramework.DbContexts
                     // Check if entry state is added mode
                     var isAddedState = entityEntry.State == EntityState.Added;
 
-                    // Detect trackeble properties
+                    // Detect trackable properties
                     entityEntry.Property("ModifiedOn").CurrentValue = DateTime.Now;
                     entityEntry.Property("ModifiedBy").CurrentValue = userId;
                     entityEntry.Property("CreatedOn").CurrentValue = isAddedState ? DateTime.Now : entityEntry.Property("CreatedOn").OriginalValue;
