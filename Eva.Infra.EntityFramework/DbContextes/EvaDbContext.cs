@@ -26,7 +26,9 @@ namespace Eva.Infra.EntityFramework.DbContextes
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var entities = Assemblies.GetEvaTypes(typeof(ISoftDelete)).Where(t => typeof(ModelBase).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract && t.IsDefined(typeof(EvaEntityAttribute), true));
+            var entities = Assemblies
+                .GetEvaTypes(typeof(ISoftDelete))
+                .Where(t => typeof(ModelBase).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract && t.IsDefined(typeof(EvaEntityAttribute), true));
             foreach (var entity in entities)
             {
                 modelBuilder.Entity(entity).HasQueryFilter(GenerateQueryFilterLambda(entity));
