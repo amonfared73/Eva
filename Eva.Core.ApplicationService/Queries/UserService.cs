@@ -7,7 +7,7 @@ using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.Responses;
 using Eva.Core.Domain.ViewModels;
-using Eva.Infra.EntityFramework.DbContextes;
+using Eva.Infra.EntityFramework.DbContexts;
 using Eva.Infra.Tools.Extentions;
 using Eva.Infra.Tools.Hashers;
 using Eva.Infra.Tools.Serialization;

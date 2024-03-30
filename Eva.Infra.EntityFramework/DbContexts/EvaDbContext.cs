@@ -3,13 +3,15 @@ using Eva.Core.Domain.BaseInterfaces;
 using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.Models.Cryptography;
+using Eva.Core.Domain.Models.General;
+using Eva.Core.Domain.Models.Inv;
 using Eva.Infra.Tools.Extentions;
 using Eva.Infra.Tools.Reflections;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace Eva.Infra.EntityFramework.DbContextes
+namespace Eva.Infra.EntityFramework.DbContexts
 {
     public class EvaDbContext : DbContext
     {
@@ -24,7 +26,9 @@ namespace Eva.Infra.EntityFramework.DbContextes
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var entities = Assemblies.GetEvaTypes(typeof(ISoftDelete)).Where(t => typeof(ModelBase).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract && t.IsDefined(typeof(EvaEntityAttribute), true));
+            var entities = Assemblies
+                .GetEvaTypes(typeof(ISoftDelete))
+                .Where(t => typeof(ModelBase).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract && t.IsDefined(typeof(EvaEntityAttribute), true));
             foreach (var entity in entities)
             {
                 modelBuilder.Entity(entity).HasQueryFilter(GenerateQueryFilterLambda(entity));
@@ -74,7 +78,7 @@ namespace Eva.Infra.EntityFramework.DbContextes
         /// <exception cref="OperationCanceledException">If the <see cref="CancellationToken" /> is canceled.</exception>
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            if (!_contextAccessor.IsLoginRequeust())
+            if (!_contextAccessor.IsLoginRequest())
             {
                 // Grab all entity entries
                 var entityEntries = ChangeTracker.Entries().Where(e => e.Entity is ModelBase && (e.State == EntityState.Added || e.State == EntityState.Modified));
@@ -84,7 +88,7 @@ namespace Eva.Infra.EntityFramework.DbContextes
                     // Check if entry state is added mode
                     var isAddedState = entityEntry.State == EntityState.Added;
 
-                    // Detect trackeble properties
+                    // Detect trackable properties
                     entityEntry.Property("ModifiedOn").CurrentValue = DateTime.Now;
                     entityEntry.Property("ModifiedBy").CurrentValue = userId;
                     entityEntry.Property("CreatedOn").CurrentValue = isAddedState ? DateTime.Now : entityEntry.Property("CreatedOn").OriginalValue;
@@ -97,7 +101,7 @@ namespace Eva.Infra.EntityFramework.DbContextes
         /// A utility method to provide a global query filter over all <see href="https://github.com/amonfared73/Eva">Eva</see> entities
         /// </summary>
         /// <param name="entity"></param>
-        /// <returns>A LambdaExpression representing an equivalant form of .Where(e => !e.IsDeleted) </returns>
+        /// <returns>A LambdaExpression representing an equivalent form of .Where(e => !e.IsDeleted) </returns>
         private LambdaExpression GenerateQueryFilterLambda(Type entity)
         {
             var parameter = Expression.Parameter(entity, "e");
@@ -134,7 +138,19 @@ namespace Eva.Infra.EntityFramework.DbContextes
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        #endregion
 
+        #region Inventory Managment
+        public DbSet<Inventory> Inventories { get; set; }
+        public DbSet<InventoryDocumentHeader> InventoryDocumentHeaders { get; set; }
+        public DbSet<InventoryDocumentDetail> InventoryDocumentDetails { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
+        #endregion
+
+        #region General entities
+        public DbSet<MeasureUnit> MeasureUnits { get; set; }
+        public DbSet<Party> Parties { get; set; }
+        public DbSet<Good> Goods { get; set; }
         #endregion
     }
 }

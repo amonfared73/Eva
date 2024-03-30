@@ -7,10 +7,6 @@ namespace Eva.Core.Domain.BaseModels
     public abstract class Trackable
     {
         /// <summary>
-        /// The corresponding company in which the user has logged in the application
-        /// </summary>
-        public int CompanyId { get; set; }
-        /// <summary>
         /// The corresponding user creating the current instance of entity
         /// </summary>
         public int CreatedBy { get; set; }

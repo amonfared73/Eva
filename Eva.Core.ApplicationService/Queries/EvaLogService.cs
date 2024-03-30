@@ -4,7 +4,7 @@ using Eva.Core.Domain.Responses;
 using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.ViewModels;
-using Eva.Infra.EntityFramework.DbContextes;
+using Eva.Infra.EntityFramework.DbContexts;
 using Eva.Infra.Tools.Extentions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
