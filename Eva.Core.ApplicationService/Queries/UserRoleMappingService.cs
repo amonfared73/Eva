@@ -4,7 +4,7 @@ using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.DTOs;
 using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Models;
-using Eva.Infra.EntityFramework.DbContextes;
+using Eva.Infra.EntityFramework.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Eva.Core.Domain.Responses;
 using Eva.Core.Domain.ViewModels;

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace Eva.Infra.EntityFramework.DbContextes
+namespace Eva.Infra.EntityFramework.DbContexts
 {
     public class EvaDbContextDesignTime : IDesignTimeDbContextFactory<EvaDbContext>
     {

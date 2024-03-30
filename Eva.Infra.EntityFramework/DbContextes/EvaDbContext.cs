@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace Eva.Infra.EntityFramework.DbContextes
+namespace Eva.Infra.EntityFramework.DbContexts
 {
     public class EvaDbContext : DbContext
     {

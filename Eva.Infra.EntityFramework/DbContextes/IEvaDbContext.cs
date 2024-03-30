@@ -1,4 +1,4 @@
-﻿namespace Eva.Infra.EntityFramework.DbContextes
+﻿namespace Eva.Infra.EntityFramework.DbContexts
 {
     /// <summary>
     /// This interface encapsulates EvaDbContext class
