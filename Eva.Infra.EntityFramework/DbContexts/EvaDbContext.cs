@@ -101,7 +101,7 @@ namespace Eva.Infra.EntityFramework.DbContexts
         /// A utility method to provide a global query filter over all <see href="https://github.com/amonfared73/Eva">Eva</see> entities
         /// </summary>
         /// <param name="entity"></param>
-        /// <returns>A LambdaExpression representing an equivalant form of .Where(e => !e.IsDeleted) </returns>
+        /// <returns>A LambdaExpression representing an equivalent form of .Where(e => !e.IsDeleted) </returns>
         private LambdaExpression GenerateQueryFilterLambda(Type entity)
         {
             var parameter = Expression.Parameter(entity, "e");
