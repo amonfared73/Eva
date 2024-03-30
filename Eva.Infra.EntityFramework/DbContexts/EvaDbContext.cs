@@ -78,7 +78,7 @@ namespace Eva.Infra.EntityFramework.DbContexts
         /// <exception cref="OperationCanceledException">If the <see cref="CancellationToken" /> is canceled.</exception>
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            if (!_contextAccessor.IsLoginRequeust())
+            if (!_contextAccessor.IsLoginRequest())
             {
                 // Grab all entity entries
                 var entityEntries = ChangeTracker.Entries().Where(e => e.Entity is ModelBase && (e.State == EntityState.Added || e.State == EntityState.Modified));
