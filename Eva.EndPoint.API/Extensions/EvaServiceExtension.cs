@@ -11,7 +11,7 @@ using Eva.Core.Domain.BaseModels;
 using Eva.EndPoint.API.Authorization;
 using Eva.EndPoint.API.Conventions;
 using Eva.EndPoint.API.Middlewares;
-using Eva.Infra.EntityFramework.DbContextes;
+using Eva.Infra.EntityFramework.DbContexts;
 using Eva.Infra.EntityFramework.Interceptors;
 using Eva.Infra.Tools.Reflections;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
-namespace Eva.Infra.EntityFramework.DbContextes
+namespace Eva.Infra.EntityFramework.DbContexts
 {
     public class EvaDbContextFactory : IEvaDbContextFactory
     {
