@@ -25,8 +25,9 @@ namespace Eva.Core.ApplicationService.TokenGenerators
             {
                 new Claim(CustomClaims.UserId, user.Id.ToString()),
                 new Claim(CustomClaims.Username, user.Username),
+                new Claim(CustomClaims.Email, user.Email ?? ""),
                 new Claim(CustomClaims.IsAdmin, user.IsAdmin.ToString()),
-                new Claim(CustomClaims.Signature, user.Signature),
+                new Claim(CustomClaims.Signature, user.Signature ?? ""),
             };
 
             HashSet<string> roles = await _userRoleMappingService.GetRolesForUserAsync(user.Id);

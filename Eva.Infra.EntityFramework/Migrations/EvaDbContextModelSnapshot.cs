@@ -997,6 +997,9 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("INTEGER");
 
@@ -1026,6 +1029,22 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = 1,
+                            CreatedOn = new DateTime(2024, 3, 31, 9, 44, 44, 776, DateTimeKind.Local).AddTicks(9891),
+                            Email = "eva@eva.com",
+                            IsAdmin = true,
+                            IsDeleted = false,
+                            ModifiedBy = 1,
+                            ModifiedOn = new DateTime(2024, 3, 31, 9, 44, 44, 776, DateTimeKind.Local).AddTicks(9923),
+                            PasswordHash = "$2a$11$GHlqmnSc71fIgIAi5d.d.eC5TyKpR2Z56.vU2vr/M36iLDHx8QhNy",
+                            StateCode = 1,
+                            Username = "eva"
+                        });
                 });
 
             modelBuilder.Entity("Eva.Core.Domain.Models.UserRoleMapping", b =>
