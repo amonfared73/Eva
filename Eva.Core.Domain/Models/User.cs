@@ -10,6 +10,7 @@ namespace Eva.Core.Domain.Models
         public string Username { get; set; } = string.Empty;
         [JsonIgnore]
         public string PasswordHash { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
         public bool IsAdmin { get; set; }
         [JsonIgnore]
         public string Signature { get; set; } = string.Empty;

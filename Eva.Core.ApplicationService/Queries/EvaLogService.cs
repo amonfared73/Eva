@@ -27,16 +27,23 @@ namespace Eva.Core.ApplicationService.Queries
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
+                var isLoginRequest = httpContext.IsLoginRequest();
+                var userId = await _userService.GetUserIdFromContext(httpContext, requestBody);
+                var loggedDate = DateTime.Now;
+
                 var evaLog = new EvaLog()
                 {
                     LogTypeCode = evaLogType,
                     RequestUrl = httpContext.Request.Path,
                     RequestMethod = httpContext.Request.Method,
                     StatusCode = httpContext.Response.StatusCode.ToString(),
-                    Payload = httpContext.IsLoginRequest() ? EvaLog.SensitiveCredentials : requestBody,
-                    Response = httpContext.IsLoginRequest() ? EvaLog.SensitiveCredentials : responseBody,
-                    UserId = await _userService.GetUserIdFromContext(httpContext, requestBody),
-                    CreatedOn = DateTime.Now,
+                    Payload = isLoginRequest ? EvaLog.SensitiveCredentials : requestBody,
+                    Response = isLoginRequest ? EvaLog.SensitiveCredentials : responseBody,
+                    UserId = userId,
+                    CreatedBy = userId,
+                    CreatedOn = loggedDate,
+                    ModifiedBy = userId,
+                    ModifiedOn = loggedDate,
                 };
                 await context.EvaLogs.AddAsync(evaLog);
                 await context.SaveChangesAsync();
@@ -60,7 +67,7 @@ namespace Eva.Core.ApplicationService.Queries
                     var logs = await context.EvaLogs.ToListAsync();
 
                     var query = from log in logs
-                                join user in users on log.UserId equals user.Id
+                                join user in users on log.CreatedBy equals user.Id
                                 orderby log.CreatedOn descending
                                 select new EvaLogReportOutputViewModel()
                                 {
