@@ -25,4 +25,8 @@
     <ProjectReference Include="..\Eva.Infra.Tools\Eva.Infra.Tools.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

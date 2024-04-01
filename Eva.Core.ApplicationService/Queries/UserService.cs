@@ -85,14 +85,14 @@ namespace Eva.Core.ApplicationService.Queries
             var userClaimId = httpContext.User.Claims.Where(x => x.Type == "id").FirstOrDefault();
             return await Task.FromResult(int.TryParse(userClaimId.Value, out int userId) ? userId : 0);
         }
-        public async Task<int?> ExtractUserIdFromRequestBody(string requestBody)
+        public async Task<int> ExtractUserIdFromRequestBody(string requestBody)
         {
             var loginViewModel = JsonConvert.DeserializeObject<LoginRequestViewModel>(requestBody);
             var user = await GetByUsername(loginViewModel.Username);
-            return user == null ? null : user.Id;
+            return user.Id;
         }
 
-        public async Task<int?> GetUserIdFromContext(HttpContext httpContext, string requestBody)
+        public async Task<int> GetUserIdFromContext(HttpContext httpContext, string requestBody)
         {
             var userId = httpContext.IsLoginRequest() ? await ExtractUserIdFromRequestBody(requestBody) : await ExtractUserIdFromToken(httpContext);
             return userId;
