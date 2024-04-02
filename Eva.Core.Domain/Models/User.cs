@@ -5,6 +5,7 @@ using System.Text.Json.Serialization;
 namespace Eva.Core.Domain.Models
 {
     [EvaEntity]
+    [EvaTable("Users", Schema = "master")]
     public class User : ModelBase
     {
         public string Username { get; set; } = string.Empty;
