@@ -53,7 +53,7 @@ namespace Eva.EndPoint.API.Extensions
             configuration.Bind("RsaCryptographyConfiguration", rsaCryptographyConfiguration);
 
             builder.Services
-                .AddSingleton(authenticationConfiguration)
+                .AddEvaAuthenticationConfiguration(authenticationConfiguration)
                 .AddSingleton(aesEncryptionConfiguration)
                 .AddSingleton(desEncryptionConfiguration)
                 .AddSingleton(rsaCryptographyConfiguration)
@@ -63,17 +63,16 @@ namespace Eva.EndPoint.API.Extensions
                 .AddEvaSwagger()
                 .AddEvaExternalServices()
                 .AddHttpContextAccessor()
-                .AddUserContext()
+                .AddEvaUserContext()
                 .AddEvaDbContext(connectionString)
                 .AddEvaAccessTokenGenerator()
                 .AddEvaEntityValidators()
-                .AddCryptographyServices()
+                .AddEvaCryptographyServices()
                 .AddEvaRoleBasedAuthorization()
                 .AddEvaServices();
 
             app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();

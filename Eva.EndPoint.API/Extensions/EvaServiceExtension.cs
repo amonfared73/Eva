@@ -24,6 +24,11 @@ namespace Eva.EndPoint.API.Extensions
 {
     public static class EvaServiceExtension
     {
+        public static IServiceCollection AddEvaAuthenticationConfiguration(this IServiceCollection services, AuthenticationConfiguration configuration)
+        {
+            services.AddSingleton(configuration);
+            return services;
+        }
         public static IServiceCollection AddEvaInitialInstances(this IServiceCollection services, IEnumerable<object> objects)
         {
             foreach (object obj in objects)
@@ -87,9 +92,12 @@ namespace Eva.EndPoint.API.Extensions
             });
             return services;
         }
-        public static IServiceCollection AddEvaControllers(this IServiceCollection services, IControllerModelConvention convention)
+        public static IServiceCollection AddEvaControllers(this IServiceCollection services, params IControllerModelConvention[] conventions)
         {
-            services.AddControllers(s => s.Conventions.Add(convention));
+            foreach (var convention in conventions)
+            {
+                services.AddControllers(s => s.Conventions.Add(convention));
+            }
             return services;
         }
         public static IServiceCollection AddEvaDbContext(this IServiceCollection services, string connectionString)
@@ -106,7 +114,7 @@ namespace Eva.EndPoint.API.Extensions
             return services;
         }
 
-        public static IServiceCollection AddUserContext(this IServiceCollection services)
+        public static IServiceCollection AddEvaUserContext(this IServiceCollection services)
         {
             services.AddSingleton<IUserContext, UserContext>();
             return services;
@@ -126,7 +134,7 @@ namespace Eva.EndPoint.API.Extensions
             services.AddSingleton<UserValidator>();
             return services;
         }
-        public static IServiceCollection AddCryptographyServices(this IServiceCollection services)
+        public static IServiceCollection AddEvaCryptographyServices(this IServiceCollection services)
         {
             services.AddSingleton<AesEncryptor>();
             services.AddSingleton<DesEncryptor>();
