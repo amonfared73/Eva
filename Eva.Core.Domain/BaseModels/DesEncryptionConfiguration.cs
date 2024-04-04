@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.BaseInterfaces;
 
 namespace Eva.Core.Domain.BaseModels
 {
-    public class DesEncryptionConfiguration : SymmetricEncryptionConfiguration
+    [ConfigurationRequired]
+    public class DesEncryptionConfiguration : SymmetricEncryptionConfiguration, IEvaEntityConfiguration
     {
 
     }
