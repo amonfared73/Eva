@@ -5,6 +5,12 @@ namespace Eva.EndPoint.API.Extensions
 {
     public static class WebApplicationBuilderExtensions
     {
+        /// <summary>
+        /// Creates an <see href="https://github.com/amonfared73/Eva">Eva</see> framework <see cref="WebApplicationBuilder"/> instance
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="app"></param>
+        /// <returns></returns>
         public static WebApplicationBuilder AddEva(this WebApplicationBuilder builder, out WebApplication app)
         {
             // Accessing an IConfiguration instance to reach appsettings.json
