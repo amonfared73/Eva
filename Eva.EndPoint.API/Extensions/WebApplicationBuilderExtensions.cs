@@ -1,6 +1,5 @@
 ﻿using Eva.EndPoint.API.Conventions;
 using Eva.EndPoint.API.Middlewares;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace Eva.EndPoint.API.Extensions
 {
@@ -8,14 +7,16 @@ namespace Eva.EndPoint.API.Extensions
     {
         public static WebApplicationBuilder AddEva(this WebApplicationBuilder builder, out WebApplication app)
         {
+            // Accessing an IConfiguration instance to reach appsettings.json
             var configuration = builder.GetEvaConfigurations();
 
+            // Get Connection string
             var connectionString = configuration.GetEvaConnectionString();
 
+            // Get Eva Authentication Configuration
             var authenticationConfiguration = configuration.GetEvaAuthenticationConfiguration();
 
-            var configs = configuration.GetEvaEntityConfigurations();
-
+            // Add Eva required services
             builder.Services
                 .AddEvaAuthenticationConfiguration(authenticationConfiguration)
                 .AddEvaConfigurationEntities(configuration)
@@ -33,6 +34,7 @@ namespace Eva.EndPoint.API.Extensions
                 .AddEvaRoleBasedAuthorization()
                 .AddEvaServices();
 
+            // Build Eva application
             app = builder.Build();
 
             if (app.Environment.IsDevelopment())
@@ -45,6 +47,7 @@ namespace Eva.EndPoint.API.Extensions
                 });
             }
 
+            // Authentication, Authorization and Middlewares
             app
                 .UseHttpsRedirection()
                 .UseAuthentication()
@@ -52,7 +55,7 @@ namespace Eva.EndPoint.API.Extensions
                 .UseMiddleware<EvaLoggingMiddleware>()
                 .UseMiddleware<EvaExceptionMiddleware>();
 
-
+            // Map Controllers
             app.MapControllers();
 
             return builder;
