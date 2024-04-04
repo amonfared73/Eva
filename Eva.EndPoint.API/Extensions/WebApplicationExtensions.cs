@@ -34,11 +34,10 @@ namespace Eva.EndPoint.API.Extensions
         {
             // Connection string
             var configuration = builder.Services.BuildServiceProvider().GetRequiredService<IConfiguration>();
-            var connectionString = configuration.GetConnectionString("sqlite");
+            var connectionString = configuration.GetEvaConnectionString();
 
             // Authentication configuration
-            var authenticationConfiguration = new AuthenticationConfiguration();
-            configuration.Bind("Authentication", authenticationConfiguration);
+            var authenticationConfiguration = configuration.GetEvaAuthenticationConfiguration();
 
             // AES Cryptography Configuration
             var aesEncryptionConfiguration = new AesEncryptionConfiguration();
