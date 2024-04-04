@@ -2,6 +2,6 @@
 {
     public interface IEvaEntityConfiguration
     {
-        IEvaEntityConfiguration Create();
+
     }
 }

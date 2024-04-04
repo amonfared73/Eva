@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace Eva.EndPoint.API.Extensions
 {
-    public static class WebApplicationExtensions
+    public static class WebApplicationBuilderExtensions
     {
         /// <summary>
         /// Initializes <see href="https://github.com/amonfared73/Eva">Eva</see> Framework asp.Net Core web api application
@@ -33,7 +33,7 @@ namespace Eva.EndPoint.API.Extensions
         public static WebApplicationBuilder AddEva(this WebApplicationBuilder builder, out WebApplication app)
         {
             // Connection string
-            var configuration = builder.Services.BuildServiceProvider().GetRequiredService<IConfiguration>();
+            var configuration = builder.GetEvaConfigurations();
             var connectionString = configuration.GetEvaConnectionString();
 
             // Authentication configuration
@@ -93,6 +93,11 @@ namespace Eva.EndPoint.API.Extensions
             app.MapControllers();
 
             return builder;
+        }
+
+        private static IConfiguration GetEvaConfigurations(this WebApplicationBuilder builder)
+        {
+            return builder.Services.BuildServiceProvider().GetRequiredService<IConfiguration>();
         }
     }
 }

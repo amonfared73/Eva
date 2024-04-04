@@ -22,7 +22,7 @@ using System.Text;
 
 namespace Eva.EndPoint.API.Extensions
 {
-    public static class EvaServiceExtension
+    public static class IServiceCollectionExtension
     {
         public static IServiceCollection AddEvaAuthenticationConfiguration(this IServiceCollection services, AuthenticationConfiguration configuration)
         {

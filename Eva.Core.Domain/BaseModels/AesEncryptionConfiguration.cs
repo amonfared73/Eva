@@ -1,6 +1,10 @@
-﻿namespace Eva.Core.Domain.BaseModels
+﻿using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.BaseInterfaces;
+
+namespace Eva.Core.Domain.BaseModels
 {
-    public class AesEncryptionConfiguration : SymmetricEncryptionConfiguration
+    [ConfigurationRequired]
+    public class AesEncryptionConfiguration : IEvaEntityConfiguration
     {
 
     }
