@@ -24,17 +24,28 @@ namespace Eva.EndPoint.API.Extensions
 {
     public static class IServiceCollectionExtension
     {
+        public static IServiceCollection AddEvaConfigurationEntities(this IServiceCollection services, IConfiguration configuration)
+        {
+            // AES Cryptography Configuration
+            var aesEncryptionConfiguration = new AesEncryptionConfiguration();
+            configuration.Bind("AesEncryptionConfiguration", aesEncryptionConfiguration);
+            services.AddSingleton(aesEncryptionConfiguration);
+
+            // DES Cryptography Configuration
+            var desEncryptionConfiguration = new DesEncryptionConfiguration();
+            configuration.Bind("DesEncryptionConfiguration", desEncryptionConfiguration);
+            services.AddSingleton(desEncryptionConfiguration);
+
+            // RSA Cryptography Configuration
+            var rsaCryptographyConfiguration = new RsaCryptographyConfiguration();
+            configuration.Bind("RsaCryptographyConfiguration", rsaCryptographyConfiguration);
+            services.AddSingleton(rsaCryptographyConfiguration);
+
+            return services;
+        }
         public static IServiceCollection AddEvaAuthenticationConfiguration(this IServiceCollection services, AuthenticationConfiguration configuration)
         {
             services.AddSingleton(configuration);
-            return services;
-        }
-        public static IServiceCollection AddEvaInitialInstances(this IServiceCollection services, IEnumerable<object> objects)
-        {
-            foreach (object obj in objects)
-            {
-                services.AddSingleton(obj);
-            }
             return services;
         }
         public static IServiceCollection AddEvaExternalServices(this IServiceCollection services)
