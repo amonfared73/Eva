@@ -58,6 +58,7 @@ namespace Eva.EndPoint.API.Extensions
             // Map Controllers
             app.MapControllers();
 
+            // Return Web application builder
             return builder;
         }
     }

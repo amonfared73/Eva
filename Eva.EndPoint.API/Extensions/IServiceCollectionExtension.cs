@@ -24,6 +24,13 @@ namespace Eva.EndPoint.API.Extensions
 {
     public static class IServiceCollectionExtension
     {
+        /// <summary>
+        /// Creating <see href="https://github.com/amonfared73/Eva">Eva</see> required instances as configurations for particullar services
+        /// This method currently instanciate <see cref="AesEncryptionConfiguration"/>, <see cref="DesEncryptionConfiguration"/>, <see cref="RsaCryptographyConfiguration"/> for cryptography services
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
         public static IServiceCollection AddEvaConfigurationEntities(this IServiceCollection services, IConfiguration configuration)
         {
             // AES Cryptography Configuration
@@ -43,17 +50,33 @@ namespace Eva.EndPoint.API.Extensions
 
             return services;
         }
+        /// <summary>
+        /// Creating an <see href="https://github.com/amonfared73/Eva">Eva</see> <see cref="AuthenticationConfiguration" /> instance for generating Json Web Tokens
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
         public static IServiceCollection AddEvaAuthenticationConfiguration(this IServiceCollection services, AuthenticationConfiguration configuration)
         {
             services.AddSingleton(configuration);
             return services;
         }
+        /// <summary>
+        /// Registering <see href="https://github.com/amonfared73/Eva">Eva</see> External services
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
         public static IServiceCollection AddEvaExternalServices(this IServiceCollection services)
         {
             // Open Meteo Service for weather forcast
             services.AddHttpClient<IOpenMeteoService, OpenMeteoService>();
             return services;
         }
+        /// <summary>
+        /// Add <see href="https://github.com/amonfared73/Eva">Eva</see> SwaggerGen
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
         public static IServiceCollection AddEvaSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(options =>
@@ -86,6 +109,12 @@ namespace Eva.EndPoint.API.Extensions
             });
             return services;
         }
+        /// <summary>
+        /// Configuring <see href="https://github.com/amonfared73/Eva">Eva</see> token validation parameters for Authentication
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
         public static IServiceCollection AddEvaAuthentication(this IServiceCollection services, AuthenticationConfiguration configuration)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
@@ -103,6 +132,12 @@ namespace Eva.EndPoint.API.Extensions
             });
             return services;
         }
+        /// <summary>
+        /// Adding <see href="https://github.com/amonfared73/Eva">Eva</see> Controllers with their respective <see cref="IApplicationModelConvention"/> conventions
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="conventions"></param>
+        /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
         public static IServiceCollection AddEvaControllers(this IServiceCollection services, params IControllerModelConvention[] conventions)
         {
             foreach (var convention in conventions)
@@ -111,26 +146,44 @@ namespace Eva.EndPoint.API.Extensions
             }
             return services;
         }
+        /// <summary>
+        /// Adding <see href="https://github.com/amonfared73/Eva">Eva</see> Db context
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="connectionString"></param>
+        /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
         public static IServiceCollection AddEvaDbContext(this IServiceCollection services, string connectionString)
         {
             services.AddSingleton<IEvaDbContextFactory, EvaDbContextFactory>();
             services.AddDbContextFactory<EvaDbContext>(options => options.UseSqlite(connectionString).AddInterceptors(new SoftDeleteInterceptor()));
             return services;
         }
-
+        /// <summary>
+        /// Adding <see href="https://github.com/amonfared73/Eva">Eva</see> Role Based Authorization
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
         public static IServiceCollection AddEvaRoleBasedAuthorization(this IServiceCollection services)
         {
             services.AddSingleton<IAuthorizationHandler, RoleAuthorizationHandler>();
             services.AddSingleton<IAuthorizationPolicyProvider, RoleAuthorizationPolicyProvider>();
             return services;
         }
-
+        /// <summary>
+        /// Adding <see href="https://github.com/amonfared73/Eva">Eva</see> User Context implementation for Audit log
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
         public static IServiceCollection AddEvaUserContext(this IServiceCollection services)
         {
             services.AddSingleton<IUserContext, UserContext>();
             return services;
         }
-
+        /// <summary>
+        /// Adding services required for <see href="https://github.com/amonfared73/Eva">Eva</see> Token generation
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
         public static IServiceCollection AddEvaAccessTokenGenerator(this IServiceCollection services)
         {
             services.AddSingleton<AccessTokenGenerator>();
@@ -145,6 +198,11 @@ namespace Eva.EndPoint.API.Extensions
             services.AddSingleton<UserValidator>();
             return services;
         }
+        /// <summary>
+        /// Adding serives required for Encryption in <see href="https://github.com/amonfared73/Eva">Eva</see>
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
         public static IServiceCollection AddEvaCryptographyServices(this IServiceCollection services)
         {
             services.AddSingleton<AesEncryptor>();
@@ -153,6 +211,12 @@ namespace Eva.EndPoint.API.Extensions
             services.AddSingleton<RsaParser>();
             return services;
         }
+        /// <summary>
+        /// Registering <see href="https://github.com/amonfared73/Eva">Eva</see> business logic application services through Reflection
+        /// Classes being decorated with <see cref="RegistrationRequiredAttribute" /> will be automatically registered as singleton
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
         public static IServiceCollection AddEvaServices(this IServiceCollection services)
         {
             // Register base services
