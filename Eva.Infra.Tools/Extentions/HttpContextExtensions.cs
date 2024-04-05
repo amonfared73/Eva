@@ -9,5 +9,9 @@ namespace Eva.Infra.Tools.Extentions
         {
             return httpContext.Request.Path.Value == Authentication.LoginUrl;
         }
+        public static bool IsRegisterRequest(this HttpContext httpContext)
+        {
+            return httpContext.Request.Path.Value == Authentication.RegisterUrl;
+        }
     }
 }

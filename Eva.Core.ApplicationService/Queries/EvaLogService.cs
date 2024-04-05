@@ -27,7 +27,7 @@ namespace Eva.Core.ApplicationService.Queries
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
-                var isLoginRequest = httpContext.IsLoginRequest();
+                var hasSensitiveCredentials = httpContext.IsLoginRequest() || httpContext.IsRegisterRequest();
                 var userId = await _userService.GetUserIdFromContext(httpContext, requestBody);
                 var loggedDate = DateTime.Now;
 
@@ -37,8 +37,8 @@ namespace Eva.Core.ApplicationService.Queries
                     RequestUrl = httpContext.Request.Path,
                     RequestMethod = httpContext.Request.Method,
                     StatusCode = httpContext.Response.StatusCode.ToString(),
-                    Payload = isLoginRequest ? EvaLog.SensitiveCredentials : requestBody,
-                    Response = isLoginRequest ? EvaLog.SensitiveCredentials : responseBody,
+                    Payload = hasSensitiveCredentials ? EvaLog.SensitiveCredentials : requestBody,
+                    Response = hasSensitiveCredentials ? EvaLog.SensitiveCredentials : responseBody,
                     UserId = userId,
                     CreatedBy = userId,
                     CreatedOn = loggedDate,
