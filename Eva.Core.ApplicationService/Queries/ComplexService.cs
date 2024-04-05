@@ -7,6 +7,7 @@ using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Eva.Core.ApplicationService.Queries
 {
@@ -38,6 +39,28 @@ namespace Eva.Core.ApplicationService.Queries
                     Entity = complex,
                     HasError = false,
                     ResponseMessage = new Domain.Responses.ResponseMessage($"Complex number created successfully, {complex.ToString()}")
+                };
+            }
+        }
+
+        public async Task<ActionResultViewModel<Complex>> UpdateComplexNumberAsync(UpdateComplexNumberDto complexNumberDto)
+        {
+            using(EvaDbContext context = _contextFactory.CreateDbContext())
+            {
+                var complexNumber = await context.ComplexNumbers.FirstOrDefaultAsync(c => c.Id == complexNumberDto.Id);
+                if (complexNumber is null)
+                    throw new EvaNotFoundException($"Complex number not found", typeof(Complex));
+
+                complexNumber.Real = complexNumberDto.Real;
+                complexNumber.Imaginary = complexNumberDto.Imaginary;
+                complexNumber.FriendlyState = complexNumber.ToString();
+
+                await context.SaveChangesAsync();
+                return new ActionResultViewModel<Complex>()
+                {
+                    Entity = complexNumber,
+                    HasError = false,
+                    ResponseMessage = new Domain.Responses.ResponseMessage("Complex number updated successfully")
                 };
             }
         }
