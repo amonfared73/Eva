@@ -1,7 +1,7 @@
 ﻿using Eva.Core.Domain.Models;
 using Microsoft.AspNetCore.Http;
 
-namespace Eva.Infra.Tools.Extentions
+namespace Eva.Infra.Tools.Extensions
 {
     public static class HttpContextExtensions
     {
