@@ -1,5 +1,8 @@
 ﻿namespace Eva.Core.Domain.BaseModels
 {
+    /// <summary>
+    /// Holds Eva Authentication Configuration reading from appsettings.json
+    /// </summary>
     public class AuthenticationConfiguration
     {
         public string AccessTokenSecret { get; set; }

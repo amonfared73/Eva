@@ -58,7 +58,8 @@ namespace Eva.EndPoint.API.Controllers
             var registrationUser = new User()
             {
                 Username = userDto.Username,
-                PasswordHash = passwordHash
+                PasswordHash = passwordHash,
+                Email = userDto.Email,
             };
 
             await _userService.InsertAsync(registrationUser);
