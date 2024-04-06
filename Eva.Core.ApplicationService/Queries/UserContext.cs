@@ -1,5 +1,5 @@
 ﻿using Eva.Core.ApplicationService.Services;
-using Eva.Infra.Tools.Extentions;
+using Eva.Infra.Tools.Extensions;
 using Microsoft.AspNetCore.Http;
 
 namespace Eva.Core.ApplicationService.Queries

@@ -5,7 +5,7 @@ using Eva.Core.Domain.Models;
 using Eva.Core.Domain.Models.Cryptography;
 using Eva.Core.Domain.Models.General;
 using Eva.Core.Domain.Models.Inv;
-using Eva.Infra.Tools.Extentions;
+using Eva.Infra.Tools.Extensions;
 using Eva.Infra.Tools.Reflections;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;

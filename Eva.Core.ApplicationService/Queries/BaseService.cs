@@ -5,7 +5,7 @@ using Eva.Core.Domain.Enums;
 using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Responses;
 using Eva.Infra.EntityFramework.DbContexts;
-using Eva.Infra.Tools.Extentions;
+using Eva.Infra.Tools.Extensions;
 using Eva.Infra.Tools.Serialization;
 using Microsoft.EntityFrameworkCore;
 
