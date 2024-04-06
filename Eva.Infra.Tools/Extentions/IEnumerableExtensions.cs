@@ -2,7 +2,7 @@
 using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.Enums;
 
-namespace Eva.Infra.Tools.Extentions
+namespace Eva.Infra.Tools.Extensions
 {
     public static class IEnumerableExtensions
     {
