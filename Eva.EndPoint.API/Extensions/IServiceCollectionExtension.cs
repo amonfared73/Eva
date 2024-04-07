@@ -6,11 +6,12 @@ using Eva.Core.ApplicationService.Services.Authenticators;
 using Eva.Core.ApplicationService.TokenGenerators;
 using Eva.Core.ApplicationService.TokenValidators;
 using Eva.Core.ApplicationService.Validators;
-using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.Attributes.LifeTimeCycle;
 using Eva.Core.Domain.BaseModels;
 using Eva.EndPoint.API.Authorization;
 using Eva.Infra.EntityFramework.DbContexts;
 using Eva.Infra.EntityFramework.Interceptors;
+using Eva.Infra.Tools.Extensions;
 using Eva.Infra.Tools.Reflections;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -18,6 +19,7 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 using System.Text;
 
 namespace Eva.EndPoint.API.Extensions
@@ -199,7 +201,7 @@ namespace Eva.EndPoint.API.Extensions
             return services;
         }
         /// <summary>
-        /// Adding serives required for Encryption in <see href="https://github.com/amonfared73/Eva">Eva</see>
+        /// Adding services required for Encryption in <see href="https://github.com/amonfared73/Eva">Eva</see>
         /// </summary>
         /// <param name="services"></param>
         /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
@@ -213,7 +215,7 @@ namespace Eva.EndPoint.API.Extensions
         }
         /// <summary>
         /// Registering <see href="https://github.com/amonfared73/Eva">Eva</see> business logic application services through Reflection
-        /// Classes being decorated with <see cref="RegistrationRequiredAttribute" /> will be automatically registered as singleton
+        /// Classes being decorated with <see cref="RegistrationRequiredAttribute" /> will be automatically registered with respect to its registration type
         /// </summary>
         /// <param name="services"></param>
         /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
@@ -223,13 +225,20 @@ namespace Eva.EndPoint.API.Extensions
             services.AddSingleton(typeof(IBaseService<,>), typeof(BaseService<,>));
 
             // Get all services corresponding to Registration Required Attribute
-            var repositoryTypes = Assemblies.GetEvaTypes(typeof(IBaseService<,>)).Where(t => t.IsDefined(typeof(RegistrationRequiredAttribute), true));
+            var types = Assemblies.GetEvaTypes(typeof(IBaseService<,>)).Where(t => t.IsDefined(typeof(RegistrationRequiredAttribute), true));
 
             // Register each service
-            foreach (var repositoryType in repositoryTypes)
+            foreach (var type in types)
             {
-                var repositoryInterface = repositoryType.GetInterfaces().Where(i => !i.IsGenericType).FirstOrDefault();
-                services.AddSingleton(repositoryInterface, repositoryType);
+                var repositoryInterface = type.GetInterfaces().Where(i => !i.IsGenericType).FirstOrDefault();
+
+                if (type.IsSingleton())
+                    services.AddSingleton(repositoryInterface, type);
+                else if(type.IsTransient())
+                    services.AddTransient(repositoryInterface, type);
+                else if(type.IsScoped())
+                    services.AddScoped(repositoryInterface, type);
+
             }
 
             // Return extension method value
