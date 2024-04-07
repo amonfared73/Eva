@@ -6,7 +6,7 @@ using Eva.Core.ApplicationService.Services.Authenticators;
 using Eva.Core.ApplicationService.TokenGenerators;
 using Eva.Core.ApplicationService.TokenValidators;
 using Eva.Core.ApplicationService.Validators;
-using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.Attributes.LifeTimeCycle;
 using Eva.Core.Domain.BaseModels;
 using Eva.EndPoint.API.Authorization;
 using Eva.Infra.EntityFramework.DbContexts;

@@ -1,6 +1,6 @@
 ﻿using Eva.Core.ApplicationService.Encryptors;
 using Eva.Core.ApplicationService.Services;
-using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.Attributes.LifeTimeCycle;
 using Eva.Core.Domain.Models.Cryptography;
 using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContexts;

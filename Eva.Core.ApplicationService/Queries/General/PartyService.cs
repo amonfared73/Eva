@@ -1,5 +1,5 @@
 ﻿using Eva.Core.ApplicationService.Services.General;
-using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.Attributes.LifeTimeCycle;
 using Eva.Core.Domain.Models.General;
 using Eva.Core.Domain.ViewModels.General;
 using Eva.Infra.EntityFramework.DbContexts;

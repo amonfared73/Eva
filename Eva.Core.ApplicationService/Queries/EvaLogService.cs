@@ -1,5 +1,5 @@
 ﻿using Eva.Core.ApplicationService.Services;
-using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.Attributes.LifeTimeCycle;
 using Eva.Core.Domain.Responses;
 using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.Models;
