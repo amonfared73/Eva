@@ -215,7 +215,7 @@ namespace Eva.EndPoint.API.Extensions
         }
         /// <summary>
         /// Registering <see href="https://github.com/amonfared73/Eva">Eva</see> business logic application services through Reflection
-        /// Classes being decorated with <see cref="RegistrationRequiredAttribute" /> will be automatically registered as singleton
+        /// Classes being decorated with <see cref="RegistrationRequiredAttribute" /> will be automatically registered with respect to its registration type
         /// </summary>
         /// <param name="services"></param>
         /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
