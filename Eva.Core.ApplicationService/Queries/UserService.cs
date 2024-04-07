@@ -1,8 +1,9 @@
 ﻿using Eva.Core.ApplicationService.Services;
 using Eva.Core.ApplicationService.Validators;
-using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.Attributes.LifeTimeCycle;
 using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.DTOs;
+using Eva.Core.Domain.Enums;
 using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.Responses;
@@ -17,7 +18,7 @@ using Newtonsoft.Json;
 
 namespace Eva.Core.ApplicationService.Queries
 {
-    [RegistrationRequired]
+    [RegistrationRequired(RegistrationType.Singleton)]
     public class UserService : BaseService<User, UserViewModel>, IUserService
     {
         private readonly IEvaDbContextFactory _contextFactory;

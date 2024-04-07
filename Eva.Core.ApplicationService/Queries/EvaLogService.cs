@@ -1,19 +1,20 @@
 ﻿using Eva.Core.ApplicationService.Services;
-using Eva.Core.Domain.Attributes;
-using Eva.Core.Domain.Responses;
+using Eva.Core.Domain.Attributes.LifeTimeCycle;
+using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.BaseViewModels;
+using Eva.Core.Domain.Enums;
+using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Models;
+using Eva.Core.Domain.Responses;
 using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContexts;
 using Eva.Infra.Tools.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Eva.Core.Domain.Exceptions;
-using Eva.Core.Domain.BaseModels;
 
 namespace Eva.Core.ApplicationService.Queries
 {
-    [RegistrationRequired]
+    [RegistrationRequired(RegistrationType.Singleton)]
     public class EvaLogService : BaseService<EvaLog, EvaLogViewModel>, IEvaLogService
     {
         private readonly IEvaDbContextFactory _contextFactory;
