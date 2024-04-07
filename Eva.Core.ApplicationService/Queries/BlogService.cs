@@ -4,11 +4,12 @@ using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.ViewModels;
+using Eva.Core.Domain.Enums;
 using Eva.Infra.EntityFramework.DbContexts;
 
 namespace Eva.Core.ApplicationService.Queries
 {
-    [RegistrationRequired]
+    [RegistrationRequired(RegistrationType.Singleton)]
     public class BlogService : BaseService<Blog, BlogViewModel>, IBlogService
     {
         private readonly IEvaDbContextFactory _dbContextFactory;

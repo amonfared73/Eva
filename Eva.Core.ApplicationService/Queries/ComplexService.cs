@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Eva.Core.ApplicationService.Queries
 {
-    [RegistrationRequired]
+    [RegistrationRequired(RegistrationType.Singleton)]
     public class ComplexService : BaseService<Complex, ComplexViewModel>, IComplexService
     {
         private readonly IEvaDbContextFactory _contextFactory;

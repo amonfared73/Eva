@@ -1,6 +1,7 @@
 ﻿using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.Attributes.LifeTimeCycle;
 using Eva.Core.Domain.BaseViewModels;
+using Eva.Core.Domain.Enums;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContexts;
@@ -8,7 +9,7 @@ using OfficeOpenXml;
 
 namespace Eva.Core.ApplicationService.Queries
 {
-    [RegistrationRequired]
+    [RegistrationRequired(RegistrationType.Singleton)]
     public class InstrumentService : BaseService<Instrument, InstrumentViewModel>, IInstrumentService
     {
         private readonly IEvaDbContextFactory _contextFactory;

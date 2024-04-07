@@ -5,22 +5,21 @@ using Eva.Core.Domain.DTOs;
 using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Models;
 using Eva.Infra.EntityFramework.DbContexts;
+using Eva.Core.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Eva.Core.Domain.Responses;
 using Eva.Core.Domain.ViewModels;
 
 namespace Eva.Core.ApplicationService.Queries
 {
-    [RegistrationRequired]
+    [RegistrationRequired(RegistrationType.Singleton)]
     public class UserRoleMappingService : BaseService<UserRoleMapping, UserRoleMappingViewModel>, IUserRoleMappingService
     {
         private readonly IEvaDbContextFactory _contextFactory;
-
         public UserRoleMappingService(IEvaDbContextFactory contextFactory) : base(contextFactory)
         {
             _contextFactory = contextFactory;
         }
-
         public async Task<ActionResultViewModel<UserRoleMapping>> AddRoleToUserAsync(UserRoleMappingDto request)
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
