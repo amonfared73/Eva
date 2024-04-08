@@ -1,7 +1,7 @@
 ﻿using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.BaseViewModels;
 
-namespace Eva.Infra.Tools.Extentions
+namespace Eva.Infra.Tools.Extensions
 {
     public static class PaginationRequestExtensions
     {

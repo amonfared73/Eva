@@ -8,5 +8,6 @@ namespace Eva.Core.ApplicationService.Services
     public interface IComplexService : IBaseService<Complex, ComplexViewModel>
     {
         Task<ActionResultViewModel<Complex>> AddNewComplexNumberAsync(ComplexNumberDto complexNumberDto);
+        Task<ActionResultViewModel<Complex>> UpdateComplexNumberAsync(UpdateComplexNumberDto complexNumberDto);
     }
 }

@@ -1,6 +1,10 @@
-﻿namespace Eva.Core.Domain.BaseModels
+﻿using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.BaseInterfaces;
+
+namespace Eva.Core.Domain.BaseModels
 {
-    public class RsaCryptographyConfiguration
+    [ConfigurationRequired]
+    public class RsaCryptographyConfiguration : IEvaEntityConfiguration
     {
         public int KeySize { get; set; }
         public string PrivateKey { get; set; } = string.Empty;

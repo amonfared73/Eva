@@ -1,16 +1,17 @@
 ﻿using Eva.Core.ApplicationService.Services;
-using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.Attributes.LifeTimeCycle;
 using Eva.Core.Domain.BaseViewModels;
+using Eva.Core.Domain.Enums;
 using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContexts;
-using Eva.Infra.Tools.Extentions;
+using Eva.Infra.Tools.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Eva.Core.ApplicationService.Queries
 {
-    [RegistrationRequired]
+    [RegistrationRequired(RegistrationType.Singleton)]
     public class PostService : BaseService<Post, PostViewModel>, IPostService
     {
         private readonly IEvaDbContextFactory _dbContextFactory;

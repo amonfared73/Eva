@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eva.Infra.Tools.Extentions
+namespace Eva.Infra.Tools.Extensions
 {
     public static class StringExtensions
     {

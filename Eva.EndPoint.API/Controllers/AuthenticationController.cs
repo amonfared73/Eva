@@ -4,6 +4,7 @@ using Eva.Core.ApplicationService.TokenValidators;
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.DTOs;
+using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.Responses;
 using Eva.Core.Domain.ViewModels;
@@ -58,7 +59,8 @@ namespace Eva.EndPoint.API.Controllers
             var registrationUser = new User()
             {
                 Username = userDto.Username,
-                PasswordHash = passwordHash
+                PasswordHash = passwordHash,
+                Email = userDto.Email,
             };
 
             await _userService.InsertAsync(registrationUser);
@@ -91,7 +93,7 @@ namespace Eva.EndPoint.API.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> RefreshAsync(RefreshReuqest refreshReuqest)
+        public async Task<IActionResult> RefreshAsync(RefreshReuqest refreshRequest)
         {
             // Check validity
             if (!ModelState.IsValid)
@@ -100,13 +102,13 @@ namespace Eva.EndPoint.API.Controllers
                 return BadRequest(new ResponseMessage(messages));
             }
 
-            bool isValidRefreshToken = _refreshTokenValidator.Validate(refreshReuqest.RefreshToken);
+            bool isValidRefreshToken = _refreshTokenValidator.Validate(refreshRequest.RefreshToken);
             if (!isValidRefreshToken)
             {
                 return BadRequest(new ResponseMessage("Invalid refresh token!"));
             }
 
-            RefreshToken refreshTokenDTO = await _refreshTokenRepository.GetByToken(refreshReuqest.RefreshToken);
+            RefreshToken refreshTokenDTO = await _refreshTokenRepository.GetByToken(refreshRequest.RefreshToken);
             if (refreshTokenDTO == null)
             {
                 return NotFound(new ResponseMessage("Invalid refresh token!"));
@@ -123,7 +125,43 @@ namespace Eva.EndPoint.API.Controllers
             AuthenticatedUserResponse response = await _authenticator.Authenticate(user);
             return Ok(response);
         }
+        [HttpPut]
+        public async Task<IActionResult> ChangePasswordAsync(PasswordChangeViewModel request)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(request.CurrentPassword))
+                    throw new EvaRequiredPropertyException("Please enter your current password");
 
+                if (string.IsNullOrEmpty(request.NewPassword))
+                    throw new EvaRequiredPropertyException("Please enter your new password");
+
+                var rawUserId = HttpContext.User.FindFirstValue(CustomClaims.UserId);
+                if (!int.TryParse(rawUserId, out int userId))
+                    return Unauthorized();
+
+                var result = await _userService.GetByIdAsync(userId);
+                var user = result.Entity as User;
+                if (user is null)
+                    throw new Exception("User not found");
+
+                bool isCorrectPassword = PasswordHasher.Verify(request.CurrentPassword, user.PasswordHash);
+                if (!isCorrectPassword)
+                    throw new Exception("Your current password is incorrect");
+
+                await _userService.ChangePasswordAsync(userId, request);
+                return Ok(result);
+            }
+            catch (EvaRequiredPropertyException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
         [HttpDelete]
         public async Task<IActionResult> LogoutAsync()
         {

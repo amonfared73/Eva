@@ -1,14 +1,15 @@
 ﻿using Eva.Core.ApplicationService.Services;
 using Eva.Core.ApplicationService.Validators;
-using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.Attributes.LifeTimeCycle;
 using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.DTOs;
+using Eva.Core.Domain.Enums;
 using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.Responses;
 using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContexts;
-using Eva.Infra.Tools.Extentions;
+using Eva.Infra.Tools.Extensions;
 using Eva.Infra.Tools.Hashers;
 using Eva.Infra.Tools.Serialization;
 using Microsoft.AspNetCore.Http;
@@ -17,7 +18,7 @@ using Newtonsoft.Json;
 
 namespace Eva.Core.ApplicationService.Queries
 {
-    [RegistrationRequired]
+    [RegistrationRequired(RegistrationType.Singleton)]
     public class UserService : BaseService<User, UserViewModel>, IUserService
     {
         private readonly IEvaDbContextFactory _contextFactory;
@@ -89,6 +90,8 @@ namespace Eva.Core.ApplicationService.Queries
         {
             var loginViewModel = JsonConvert.DeserializeObject<LoginRequestViewModel>(requestBody);
             var user = await GetByUsername(loginViewModel.Username);
+            if (user == null)
+                throw new Exception("User not found");
             return user.Id;
         }
 
@@ -243,6 +246,19 @@ namespace Eva.Core.ApplicationService.Queries
                     IsValid = isValidUserResponse.IsValid,
                     ResponseMessage = isValidUserResponse.ResponseMessage,
                 };
+            }
+        }
+
+        public async Task ChangePasswordAsync(int userId, PasswordChangeViewModel request)
+        {
+            using (EvaDbContext context = _contextFactory.CreateDbContext())
+            {
+                var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+                if(user is null)
+                    throw new EvaNotFoundException("User not found", typeof(User));
+
+                user.PasswordHash = PasswordHasher.Hash(request.NewPassword);
+                await context.SaveChangesAsync();
             }
         }
     }
