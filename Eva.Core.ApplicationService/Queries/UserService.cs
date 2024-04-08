@@ -90,6 +90,8 @@ namespace Eva.Core.ApplicationService.Queries
         {
             var loginViewModel = JsonConvert.DeserializeObject<LoginRequestViewModel>(requestBody);
             var user = await GetByUsername(loginViewModel.Username);
+            if (user == null)
+                throw new Exception("User not found");
             return user.Id;
         }
 
@@ -244,6 +246,19 @@ namespace Eva.Core.ApplicationService.Queries
                     IsValid = isValidUserResponse.IsValid,
                     ResponseMessage = isValidUserResponse.ResponseMessage,
                 };
+            }
+        }
+
+        public async Task ChangePasswordAsync(int userId, PasswordChangeViewModel request)
+        {
+            using (EvaDbContext context = _contextFactory.CreateDbContext())
+            {
+                var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+                if(user is null)
+                    throw new EvaNotFoundException("User not found", typeof(User));
+
+                user.PasswordHash = PasswordHasher.Hash(request.NewPassword);
+                await context.SaveChangesAsync();
             }
         }
     }
