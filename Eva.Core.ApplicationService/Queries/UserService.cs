@@ -246,5 +246,18 @@ namespace Eva.Core.ApplicationService.Queries
                 };
             }
         }
+
+        public async Task ChangePasswordAsync(int userId, PasswordChangeViewModel request)
+        {
+            using (EvaDbContext context = _contextFactory.CreateDbContext())
+            {
+                var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+                if(user is null)
+                    throw new EvaNotFoundException("User not found", typeof(User));
+
+                user.PasswordHash = PasswordHasher.Hash(request.NewPassword);
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }
