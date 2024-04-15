@@ -9,6 +9,7 @@ using Eva.Core.ApplicationService.Validators;
 using Eva.Core.Domain.Attributes.LifeTimeCycle;
 using Eva.Core.Domain.BaseModels;
 using Eva.EndPoint.API.Authorization;
+using Eva.EndPoint.API.Configurations;
 using Eva.Infra.EntityFramework.DbContexts;
 using Eva.Infra.EntityFramework.Interceptors;
 using Eva.Infra.Tools.Extensions;
@@ -242,6 +243,13 @@ namespace Eva.EndPoint.API.Extensions
             }
 
             // Return extension method value
+            return services;
+        }
+
+        public static IServiceCollection AddEvaServiceConfigurations(this IServiceCollection services, Action<EvaOptions> configuration)
+        {
+            var evaOptions = new EvaOptions();
+            configuration?.Invoke(evaOptions);
             return services;
         }
     }
