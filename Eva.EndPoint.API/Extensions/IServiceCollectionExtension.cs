@@ -9,6 +9,8 @@ using Eva.Core.ApplicationService.Validators;
 using Eva.Core.Domain.Attributes.LifeTimeCycle;
 using Eva.Core.Domain.BaseModels;
 using Eva.EndPoint.API.Authorization;
+using Eva.EndPoint.API.Configurations;
+using Eva.EndPoint.API.Conventions;
 using Eva.Infra.EntityFramework.DbContexts;
 using Eva.Infra.EntityFramework.Interceptors;
 using Eva.Infra.Tools.Extensions;
@@ -140,12 +142,16 @@ namespace Eva.EndPoint.API.Extensions
         /// <param name="services"></param>
         /// <param name="conventions"></param>
         /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
-        public static IServiceCollection AddEvaControllers(this IServiceCollection services, params IControllerModelConvention[] conventions)
+        public static IServiceCollection AddEvaControllers(this IServiceCollection services, EvaConventions evaConventions)
         {
-            foreach (var convention in conventions)
+            services.AddControllers(s =>
             {
-                services.AddControllers(s => s.Conventions.Add(convention));
-            }
+                if (evaConventions.ApplicationModelConvention != null) s.Conventions.Add(evaConventions.ApplicationModelConvention);
+                if (evaConventions.ControllerModelConvention != null) s.Conventions.Add(evaConventions.ControllerModelConvention);
+                if (evaConventions.ActionModelConvention != null) s.Conventions.Add(evaConventions.ActionModelConvention);
+                if (evaConventions.ParameterModelConvention != null) s.Conventions.Add(evaConventions.ParameterModelConvention);
+            });
+
             return services;
         }
         /// <summary>
@@ -234,14 +240,44 @@ namespace Eva.EndPoint.API.Extensions
 
                 if (type.IsSingleton())
                     services.AddSingleton(repositoryInterface, type);
-                else if(type.IsTransient())
+                else if (type.IsTransient())
                     services.AddTransient(repositoryInterface, type);
-                else if(type.IsScoped())
+                else if (type.IsScoped())
                     services.AddScoped(repositoryInterface, type);
 
             }
 
             // Return extension method value
+            return services;
+        }
+
+        /// <summary>
+        /// Wraps all needed service registration in a single extension method
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
+        public static IServiceCollection AddEvaServiceConfigurations(this IServiceCollection services, Action<EvaOptions> configuration)
+        {
+            var evaOptions = new EvaOptions();
+            configuration?.Invoke(evaOptions);
+
+            services
+                .AddEvaAuthenticationConfiguration(evaOptions.EvaAuthenticationConfiguration)
+                .AddEvaConfigurationEntities(evaOptions.EvaConfiguration)
+                .AddEvaControllers(evaOptions.EvaConventions)
+                .AddEvaAuthentication(evaOptions.EvaAuthenticationConfiguration)
+                .AddEndpointsApiExplorer()
+                .AddEvaSwagger()
+                .AddEvaExternalServices()
+                .AddHttpContextAccessor()
+                .AddEvaUserContext()
+                .AddEvaDbContext(evaOptions.EvaConnectionString)
+                .AddEvaAccessTokenGenerator()
+                .AddEvaEntityValidators()
+                .AddEvaCryptographyServices()
+                .AddEvaRoleBasedAuthorization()
+                .AddEvaServices();
+
             return services;
         }
     }
