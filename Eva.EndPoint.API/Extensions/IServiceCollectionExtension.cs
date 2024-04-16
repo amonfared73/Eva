@@ -10,6 +10,7 @@ using Eva.Core.Domain.Attributes.LifeTimeCycle;
 using Eva.Core.Domain.BaseModels;
 using Eva.EndPoint.API.Authorization;
 using Eva.EndPoint.API.Configurations;
+using Eva.EndPoint.API.Conventions;
 using Eva.Infra.EntityFramework.DbContexts;
 using Eva.Infra.EntityFramework.Interceptors;
 using Eva.Infra.Tools.Extensions;
@@ -235,9 +236,9 @@ namespace Eva.EndPoint.API.Extensions
 
                 if (type.IsSingleton())
                     services.AddSingleton(repositoryInterface, type);
-                else if(type.IsTransient())
+                else if (type.IsTransient())
                     services.AddTransient(repositoryInterface, type);
-                else if(type.IsScoped())
+                else if (type.IsScoped())
                     services.AddScoped(repositoryInterface, type);
 
             }
@@ -246,10 +247,33 @@ namespace Eva.EndPoint.API.Extensions
             return services;
         }
 
+        /// <summary>
+        /// Wraps all needed service registration in a single extension method
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
         public static IServiceCollection AddEvaServiceConfigurations(this IServiceCollection services, Action<EvaOptions> configuration)
         {
             var evaOptions = new EvaOptions();
             configuration?.Invoke(evaOptions);
+
+            services
+                .AddEvaAuthenticationConfiguration(evaOptions.AuthenticationConfiguration)
+                .AddEvaConfigurationEntities(evaOptions.EvaConfiguration)
+                .AddEvaControllers(new EvaControllerModelConvention())
+                .AddEvaAuthentication(evaOptions.AuthenticationConfiguration)
+                .AddEndpointsApiExplorer()
+                .AddEvaSwagger()
+                .AddEvaExternalServices()
+                .AddHttpContextAccessor()
+                .AddEvaUserContext()
+                .AddEvaDbContext(evaOptions.ConnectionString)
+                .AddEvaAccessTokenGenerator()
+                .AddEvaEntityValidators()
+                .AddEvaCryptographyServices()
+                .AddEvaRoleBasedAuthorization()
+                .AddEvaServices();
+
             return services;
         }
     }

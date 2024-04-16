@@ -23,22 +23,12 @@ namespace Eva.EndPoint.API.Extensions
             var authenticationConfiguration = configuration.GetEvaAuthenticationConfiguration();
 
             // Add Eva required services
-            builder.Services
-                .AddEvaAuthenticationConfiguration(authenticationConfiguration)
-                .AddEvaConfigurationEntities(configuration)
-                .AddEvaControllers(new EvaControllerModelConvention())
-                .AddEvaAuthentication(authenticationConfiguration)
-                .AddEndpointsApiExplorer()
-                .AddEvaSwagger()
-                .AddEvaExternalServices()
-                .AddHttpContextAccessor()
-                .AddEvaUserContext()
-                .AddEvaDbContext(connectionString)
-                .AddEvaAccessTokenGenerator()
-                .AddEvaEntityValidators()
-                .AddEvaCryptographyServices()
-                .AddEvaRoleBasedAuthorization()
-                .AddEvaServices();
+            builder.Services.AddEvaServiceConfigurations(evaOptions =>
+            {
+                evaOptions.EvaConfiguration = configuration;
+                evaOptions.ConnectionString = connectionString;
+                evaOptions.AuthenticationConfiguration = authenticationConfiguration;
+            });
 
             // Build Eva application
             app = builder.Build();
