@@ -142,12 +142,16 @@ namespace Eva.EndPoint.API.Extensions
         /// <param name="services"></param>
         /// <param name="conventions"></param>
         /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
-        public static IServiceCollection AddEvaControllers(this IServiceCollection services, params IControllerModelConvention[] conventions)
+        public static IServiceCollection AddEvaControllers(this IServiceCollection services, EvaConventions evaConventions)
         {
-            foreach (var convention in conventions)
+            services.AddControllers(s =>
             {
-                services.AddControllers(s => s.Conventions.Add(convention));
-            }
+                if (evaConventions.ApplicationModelConvention != null) s.Conventions.Add(evaConventions.ApplicationModelConvention);
+                if (evaConventions.ControllerModelConvention != null) s.Conventions.Add(evaConventions.ControllerModelConvention);
+                if (evaConventions.ActionModelConvention != null) s.Conventions.Add(evaConventions.ActionModelConvention);
+                if (evaConventions.ParameterModelConvention != null) s.Conventions.Add(evaConventions.ParameterModelConvention);
+            });
+
             return services;
         }
         /// <summary>
@@ -258,16 +262,16 @@ namespace Eva.EndPoint.API.Extensions
             configuration?.Invoke(evaOptions);
 
             services
-                .AddEvaAuthenticationConfiguration(evaOptions.AuthenticationConfiguration)
+                .AddEvaAuthenticationConfiguration(evaOptions.EvaAuthenticationConfiguration)
                 .AddEvaConfigurationEntities(evaOptions.EvaConfiguration)
-                .AddEvaControllers(new EvaControllerModelConvention())
-                .AddEvaAuthentication(evaOptions.AuthenticationConfiguration)
+                .AddEvaControllers(evaOptions.EvaConventions)
+                .AddEvaAuthentication(evaOptions.EvaAuthenticationConfiguration)
                 .AddEndpointsApiExplorer()
                 .AddEvaSwagger()
                 .AddEvaExternalServices()
                 .AddHttpContextAccessor()
                 .AddEvaUserContext()
-                .AddEvaDbContext(evaOptions.ConnectionString)
+                .AddEvaDbContext(evaOptions.EvaConnectionString)
                 .AddEvaAccessTokenGenerator()
                 .AddEvaEntityValidators()
                 .AddEvaCryptographyServices()

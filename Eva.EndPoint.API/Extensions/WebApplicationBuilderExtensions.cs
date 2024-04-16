@@ -26,8 +26,12 @@ namespace Eva.EndPoint.API.Extensions
             builder.Services.AddEvaServiceConfigurations(evaOptions =>
             {
                 evaOptions.EvaConfiguration = configuration;
-                evaOptions.ConnectionString = connectionString;
-                evaOptions.AuthenticationConfiguration = authenticationConfiguration;
+                evaOptions.EvaConnectionString = connectionString;
+                evaOptions.EvaAuthenticationConfiguration = authenticationConfiguration;
+                evaOptions.EvaConventions = new EvaConventions()
+                {
+                    ControllerModelConvention = new EvaControllerModelConvention()
+                };
             });
 
             // Build Eva application
