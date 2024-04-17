@@ -10,6 +10,7 @@ using Eva.Core.Domain.Attributes.LifeTimeCycle;
 using Eva.Core.Domain.BaseModels;
 using Eva.EndPoint.API.Authorization;
 using Eva.EndPoint.API.Conventions;
+using Eva.Core.Domain.Enums;
 using Eva.Infra.EntityFramework.DbContexts;
 using Eva.Infra.EntityFramework.Interceptors;
 using Eva.Infra.Tools.Extensions;
@@ -218,7 +219,7 @@ namespace Eva.EndPoint.API.Extensions
         }
         /// <summary>
         /// Registering <see href="https://github.com/amonfared73/Eva">Eva</see> business logic application services through Reflection
-        /// Classes being decorated with <see cref="RegistrationRequiredAttribute" /> will be automatically registered with respect to its registration type
+        /// Classes being decorated with <see cref="RegistrationRequiredAttribute" /> will be automatically registered with respect to its <see cref="RegistrationType" />
         /// </summary>
         /// <param name="services"></param>
         /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
