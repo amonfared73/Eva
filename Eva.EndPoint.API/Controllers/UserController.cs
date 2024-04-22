@@ -44,7 +44,7 @@ namespace Eva.EndPoint.API.Controllers
             }
         }
 
-        // Assign all available roles to a particullar user
+        // Assign all available roles to a particular user
         // Only user with SystemDeveloper Role are allowed to use this endpoint
         [HttpPost]
         [HasRole(ActiveRoles.SystemDeveloper)]
@@ -76,7 +76,7 @@ namespace Eva.EndPoint.API.Controllers
 
 
         // Users must be registered through authentication controller
-        // So insert action must be disbaled
+        // So insert action must be disabled
         [NonAction]
         public override Task<ActionResultViewModel<User>> InsertAsync(User entity)
         {

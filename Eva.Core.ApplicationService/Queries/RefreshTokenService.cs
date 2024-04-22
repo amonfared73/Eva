@@ -1,15 +1,16 @@
 ﻿using Eva.Core.ApplicationService.Services;
-using Eva.Core.Domain.Attributes;
+using Eva.Core.Domain.Attributes.LifeTimeCycle;
 using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.Responses;
 using Eva.Core.Domain.ViewModels;
+using Eva.Core.Domain.Enums;
 using Eva.Infra.EntityFramework.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
 namespace Eva.Core.ApplicationService.Queries
 {
-    [RegistrationRequired]
+    [RegistrationRequired(RegistrationType.Singleton)]
     public class RefreshTokenService : BaseService<RefreshToken, RefreshTokenViewModel>, IRefreshTokenService
     {
         private readonly IEvaDbContextFactory _contextFactory;
