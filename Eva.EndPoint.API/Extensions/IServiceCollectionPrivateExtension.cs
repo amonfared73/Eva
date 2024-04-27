@@ -21,6 +21,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Eva.EndPoint.API.Extensions
 {
@@ -148,7 +149,8 @@ namespace Eva.EndPoint.API.Extensions
                 if (evaConventions.ControllerModelConvention != null) s.Conventions.Add(evaConventions.ControllerModelConvention);
                 if (evaConventions.ActionModelConvention != null) s.Conventions.Add(evaConventions.ActionModelConvention);
                 if (evaConventions.ParameterModelConvention != null) s.Conventions.Add(evaConventions.ParameterModelConvention);
-            });
+            })
+                .AddJsonOptions(j => j.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
             return services;
         }

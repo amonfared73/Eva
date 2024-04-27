@@ -15,15 +15,32 @@ namespace Eva.EndPoint.API.Controllers
         {
             _accountService = accountService;
         }
-        [NonAction] 
+        [NonAction]
         public override Task<ActionResultViewModel<Account>> InsertAsync(Account entity)
         {
             return base.InsertAsync(entity);
         }
         [HttpPost]
-        public async Task<ActionResultViewModel<Account>> CreateRootAccount(RootAccountDto accountDto)
+        public async Task<ActionResultViewModel<Account>> CreateRootAccount(AccountDto accountDto)
         {
             return await _accountService.CreateRootAccount(accountDto);
+        }
+        [HttpPost]
+        public async Task<ActionResultViewModel<Account>> AppendAccount(AppendAccountViewModel model)
+        {
+            try
+            {
+                return await _accountService.AppendAccount(model);
+            }
+            catch (Exception ex)
+            {
+                return new ActionResultViewModel<Account>()
+                {
+                    Entity = null,
+                    HasError = true,
+                    ResponseMessage = new Core.Domain.Responses.ResponseMessage(ex.Message)
+                };
+            }
         }
     }
 }
