@@ -8,9 +8,9 @@ namespace Eva.Core.Domain.Models
     public class Account : ModelBase
     {
         public string Name { get; set; } = string.Empty;
-        public int ParentId { get; set; }
-        public Account Parent { get; set; }
-        public IEnumerable<Account> Accounts { get; set; }
+        public int? ParentId { get; set; }
+        public Account? Parent { get; set; }
+        public IEnumerable<Account>? Accounts { get; set; }
         /// <summary>
         /// Implicit conversion for converting a <see cref="RootAccountDto"/> to an Account model
         /// This conversion is used to create a top level account with no parent

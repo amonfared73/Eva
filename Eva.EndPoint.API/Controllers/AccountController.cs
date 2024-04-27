@@ -3,7 +3,8 @@ using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.DTOs;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.ViewModels;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace Eva.EndPoint.API.Controllers
 {
@@ -14,7 +15,7 @@ namespace Eva.EndPoint.API.Controllers
         {
             _accountService = accountService;
         }
-        [NonAction]
+        [NonAction] 
         public override Task<ActionResultViewModel<Account>> InsertAsync(Account entity)
         {
             return base.InsertAsync(entity);
