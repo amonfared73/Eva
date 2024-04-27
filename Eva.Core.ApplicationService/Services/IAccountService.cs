@@ -7,6 +7,6 @@ namespace Eva.Core.ApplicationService.Services
 {
     public interface IAccountService : IBaseService<Account, AccountViewModel>
     {
-        Task<ActionResultViewModel<Account>> CreateRootAccount(RootAccountDto account);
+        Task<ActionResultViewModel<Account>> CreateRootAccount(RootAccountDto accountDto);
     }
 }

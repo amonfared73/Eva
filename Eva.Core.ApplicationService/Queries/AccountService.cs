@@ -17,14 +17,11 @@ namespace Eva.Core.ApplicationService.Queries
         {
             _dbContextFactory = dbContextFactory;
         }
-        public async Task<ActionResultViewModel<Account>> CreateRootAccount(RootAccountDto account)
+        public async Task<ActionResultViewModel<Account>> CreateRootAccount(RootAccountDto accountDto)
         {
             using(var context = _dbContextFactory.CreateDbContext())
             {
-                var acc = new Account()
-                {
-                    Name = account.Name
-                };
+                Account acc = accountDto;
                 await context.Accounts.AddAsync(acc);
                 await context.SaveChangesAsync();
                 return new ActionResultViewModel<Account>()

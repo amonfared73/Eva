@@ -20,9 +20,9 @@ namespace Eva.EndPoint.API.Controllers
             return base.InsertAsync(entity);
         }
         [HttpPost]
-        public async Task<ActionResultViewModel<Account>> CreateRootAccount(RootAccountDto account)
+        public async Task<ActionResultViewModel<Account>> CreateRootAccount(RootAccountDto accountDto)
         {
-            return await _accountService.CreateRootAccount(account);
+            return await _accountService.CreateRootAccount(accountDto);
         }
     }
 }

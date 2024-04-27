@@ -1,5 +1,6 @@
 ﻿using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.BaseModels;
+using Eva.Core.Domain.DTOs;
 
 namespace Eva.Core.Domain.Models
 {
@@ -10,5 +11,12 @@ namespace Eva.Core.Domain.Models
         public int ParentId { get; set; }
         public Account Parent { get; set; }
         public IEnumerable<Account> Accounts { get; set; }
+        public static implicit operator Account(RootAccountDto accountDto)
+        {
+            return new Account()
+            {
+                Name = accountDto.Name,
+            };
+        }
     }
 }

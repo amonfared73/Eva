@@ -1,4 +1,6 @@
-﻿namespace Eva.Core.Domain.DTOs
+﻿using Eva.Core.Domain.Models;
+
+namespace Eva.Core.Domain.DTOs
 {
     public class RootAccountDto
     {
