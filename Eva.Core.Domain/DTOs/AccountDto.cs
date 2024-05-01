@@ -2,7 +2,7 @@
 
 namespace Eva.Core.Domain.DTOs
 {
-    public class RootAccountDto
+    public class AccountDto
     {
         public string Name { get; set; }
     }
