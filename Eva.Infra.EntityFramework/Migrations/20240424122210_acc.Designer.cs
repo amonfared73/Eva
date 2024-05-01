@@ -3,6 +3,7 @@ using System;
 using Eva.Infra.EntityFramework.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eva.Infra.EntityFramework.Migrations
 {
     [DbContext(typeof(EvaDbContext))]
-    partial class EvaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240424122210_acc")]
+    partial class acc
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.26");
@@ -82,7 +84,7 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("ParentId")
+                    b.Property<int>("ParentId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("StateCode")
@@ -1035,12 +1037,12 @@ namespace Eva.Infra.EntityFramework.Migrations
                         {
                             Id = 1,
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2024, 4, 27, 10, 6, 11, 327, DateTimeKind.Local).AddTicks(3566),
+                            CreatedOn = new DateTime(2024, 4, 24, 15, 52, 10, 113, DateTimeKind.Local).AddTicks(1880),
                             Email = "eva@eva.com",
                             IsAdmin = true,
                             IsDeleted = false,
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2024, 4, 27, 10, 6, 11, 327, DateTimeKind.Local).AddTicks(3574),
+                            ModifiedOn = new DateTime(2024, 4, 24, 15, 52, 10, 113, DateTimeKind.Local).AddTicks(1888),
                             PasswordHash = "$2a$11$GHlqmnSc71fIgIAi5d.d.eC5TyKpR2Z56.vU2vr/M36iLDHx8QhNy",
                             StateCode = 1,
                             Username = "eva"
