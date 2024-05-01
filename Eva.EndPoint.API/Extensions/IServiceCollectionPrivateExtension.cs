@@ -8,15 +8,16 @@ using Eva.Core.ApplicationService.TokenValidators;
 using Eva.Core.ApplicationService.Validators;
 using Eva.Core.Domain.Attributes.LifeTimeCycle;
 using Eva.Core.Domain.BaseModels;
+using Eva.Core.Domain.Enums;
 using Eva.EndPoint.API.Authorization;
 using Eva.EndPoint.API.Conventions;
-using Eva.Core.Domain.Enums;
 using Eva.Infra.EntityFramework.DbContexts;
 using Eva.Infra.EntityFramework.Interceptors;
 using Eva.Infra.Tools.Extensions;
 using Eva.Infra.Tools.Reflections;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -150,7 +151,7 @@ namespace Eva.EndPoint.API.Extensions
                 if (evaConventions.ActionModelConvention != null) s.Conventions.Add(evaConventions.ActionModelConvention);
                 if (evaConventions.ParameterModelConvention != null) s.Conventions.Add(evaConventions.ParameterModelConvention);
             })
-                .AddJsonOptions(j => j.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+                .AddJsonOptions(j => j.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
             return services;
         }
