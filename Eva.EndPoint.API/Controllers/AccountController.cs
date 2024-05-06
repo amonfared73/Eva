@@ -23,7 +23,19 @@ namespace Eva.EndPoint.API.Controllers
         [HttpPost]
         public async Task<ActionResultViewModel<Account>> CreateRootAccount(AccountDto accountDto)
         {
-            return await _accountService.CreateRootAccount(accountDto);
+            try
+            {
+                return await _accountService.CreateRootAccount(accountDto);
+            }
+            catch (Exception ex)
+            {
+                return new ActionResultViewModel<Account>()
+                {
+                    Entity = null,
+                    HasError = true,
+                    ResponseMessage = new Core.Domain.Responses.ResponseMessage(ex.Message)
+                };
+            }
         }
         [HttpPost]
         public async Task<ActionResultViewModel<Account>> AppendAccount(AppendAccountViewModel model)
@@ -40,6 +52,20 @@ namespace Eva.EndPoint.API.Controllers
                     HasError = true,
                     ResponseMessage = new Core.Domain.Responses.ResponseMessage(ex.Message)
                 };
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AccountGetAll()
+        {
+            try
+            {
+                var result = await _accountService.AccountGetAll();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
             }
         }
     }
