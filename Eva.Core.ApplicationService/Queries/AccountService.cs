@@ -56,7 +56,7 @@ namespace Eva.Core.ApplicationService.Queries
                 //if (context.Accounts.Any(a => a.ParentId == null))
                 //    throw new EvaInvalidException("An account with null parent already exists! Please consider assigning a parent");
 
-                _validator.Validate(context);
+                _validator.Validate(context.Accounts);
 
                 await context.Accounts.AddAsync(acc);
                 await context.SaveChangesAsync();
