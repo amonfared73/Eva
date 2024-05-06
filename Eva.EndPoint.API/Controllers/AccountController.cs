@@ -54,5 +54,19 @@ namespace Eva.EndPoint.API.Controllers
                 };
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AccountGetAll()
+        {
+            try
+            {
+                var result = await _accountService.AccountGetAll();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
     }
 }
