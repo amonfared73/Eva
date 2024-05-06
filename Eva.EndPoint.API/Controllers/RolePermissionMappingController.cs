@@ -27,5 +27,11 @@ namespace Eva.EndPoint.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost]
+        public async Task<IEnumerable<string>> ExtractUserPermissions(int userId)
+        {
+            return await _rolePermissionMappingService.ExtractUserPermissions(userId);
+        }
     }
 }
