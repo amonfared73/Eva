@@ -2,6 +2,7 @@
 using Eva.Core.Domain.Attributes;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Eva.EndPoint.API.Controllers
 {
@@ -12,6 +13,19 @@ namespace Eva.EndPoint.API.Controllers
         public RolePermissionMappingController(IRolePermissionMappingService rolePermissionMappingService) : base(rolePermissionMappingService)
         {
             _rolePermissionMappingService = rolePermissionMappingService;
+        }
+        [HttpPost]
+        public async Task<IActionResult> AppendPermmsionToRole(AppendPermissionToRoleViewModel appendDto)
+        {
+            try
+            {
+                var result = await _rolePermissionMappingService.AppendPermissionToRole(appendDto);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
