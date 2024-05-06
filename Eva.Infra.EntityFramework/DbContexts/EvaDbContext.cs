@@ -120,6 +120,8 @@ namespace Eva.Infra.EntityFramework.DbContexts
         public DbSet<Authentication> Authentications { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<EvaEndPoint> EvaEndPoints { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
+        public DbSet<RolePermissionMapping> RolePermissionMappings { get; set; }
         #endregion
 
         #region Cryptographic entities
