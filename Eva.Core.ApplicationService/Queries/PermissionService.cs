@@ -1,5 +1,6 @@
 ﻿using Eva.Core.ApplicationService.Services;
 using Eva.Core.Domain.Attributes.LifeTimeCycle;
+using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.Enums;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.ViewModels;
@@ -14,6 +15,22 @@ namespace Eva.Core.ApplicationService.Queries
         public PermissionService(IEvaDbContextFactory dbContextFactory) : base(dbContextFactory)
         {
             _dbContextFactory = dbContextFactory;
+        }
+
+        public async Task<CustomResultViewModel<PermissionViewModel>> CreatePermission(CreatePermissionViewModel model)
+        {
+            using (var context = _dbContextFactory.CreateDbContext())
+            {
+                Permission permission = model;
+                await context.Permissions.AddAsync(permission);
+                await context.SaveChangesAsync();
+                return new CustomResultViewModel<PermissionViewModel>()
+                {
+                    Entity = new PermissionViewModel() { Name = model.Name },
+                    HasError = false,
+                    ResponseMessage = new Domain.Responses.ResponseMessage("Permission created successfully")
+                };
+            }
         }
     }
 }
