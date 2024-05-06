@@ -4,16 +4,9 @@ using Eva.Core.Domain.Responses;
 
 namespace Eva.Core.ApplicationService.Validators
 {
-    public class UserValidator
+    public class UserValidator : EntityValidator
     {
-        private bool _isValid;
-        private List<string> _messages;
-        public UserValidator()
-        {
-            _isValid = true;
-            _messages = new List<string>();
-        }
-        public UserValidatorResponseViewModel Validate(User user)
+        public ValidationResponse Validate(User user)
         {
             _messages.Clear();
 
@@ -29,7 +22,7 @@ namespace Eva.Core.ApplicationService.Validators
                 _messages.Add("User's signature is empty");
             }
 
-            return new UserValidatorResponseViewModel()
+            return new ValidationResponse()
             {
                 IsValid = _isValid,
                 ResponseMessage = new ResponseMessage(_messages)
