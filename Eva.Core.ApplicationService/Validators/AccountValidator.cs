@@ -1,11 +1,7 @@
-﻿using Eva.Core.Domain.Models;
+﻿using Eva.Core.Domain.Exceptions;
 using Eva.Core.Domain.Responses;
 using Eva.Core.Domain.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Eva.Infra.EntityFramework.DbContexts;
 
 namespace Eva.Core.ApplicationService.Validators
 {
@@ -13,12 +9,17 @@ namespace Eva.Core.ApplicationService.Validators
     {
         private bool _isValid;
         private List<string> _messages;
-        public AccountValidatorResponseViewModel Validate(Account user)
+        public AccountValidator()
+        {
+            _isValid = true;
+            _messages = new List<string>();
+        }
+        public AccountValidatorResponseViewModel Validate(EvaDbContext context)
         {
             _messages.Clear();
 
-            
-
+            if (context.Accounts.Any(a => a.ParentId == null))
+                throw new EvaInvalidException("An account with null parent already exists! Please consider assigning a parent");
 
             return new AccountValidatorResponseViewModel()
             {

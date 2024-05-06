@@ -164,7 +164,10 @@ namespace Eva.EndPoint.API.Extensions
         private static IServiceCollection AddEvaDbContext(this IServiceCollection services, string connectionString)
         {
             services.AddSingleton<IEvaDbContextFactory, EvaDbContextFactory>();
-            services.AddDbContextFactory<EvaDbContext>(options => options.UseSqlite(connectionString).AddInterceptors(new SoftDeleteInterceptor()));
+            services.AddDbContextFactory<EvaDbContext>(options =>
+            {
+                options.UseSqlite(connectionString).AddInterceptors(new SoftDeleteInterceptor());
+            });
             return services;
         }
         /// <summary>
@@ -205,6 +208,7 @@ namespace Eva.EndPoint.API.Extensions
         private static IServiceCollection AddEvaEntityValidators(this IServiceCollection services)
         {
             services.AddSingleton<UserValidator>();
+            services.AddSingleton<AccountValidator>();
             return services;
         }
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using Eva.Core.ApplicationService.Services;
+using Eva.Core.ApplicationService.Validators;
 using Eva.Core.Domain.Attributes.LifeTimeCycle;
 using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.DTOs;
@@ -15,9 +16,11 @@ namespace Eva.Core.ApplicationService.Queries
     public class AccountService : BaseService<Account, AccountViewModel>, IAccountService
     {
         private readonly IEvaDbContextFactory _dbContextFactory;
-        public AccountService(IEvaDbContextFactory dbContextFactory) : base(dbContextFactory)
+        private readonly AccountValidator _validator;
+        public AccountService(IEvaDbContextFactory dbContextFactory, AccountValidator validator) : base(dbContextFactory)
         {
             _dbContextFactory = dbContextFactory;
+            _validator = validator;
         }
 
         public async Task<ActionResultViewModel<Account>> AppendAccount(AppendAccountViewModel model)
@@ -49,6 +52,12 @@ namespace Eva.Core.ApplicationService.Queries
             using(var context = _dbContextFactory.CreateDbContext())
             {
                 Account acc = accountDto;
+
+                //if (context.Accounts.Any(a => a.ParentId == null))
+                //    throw new EvaInvalidException("An account with null parent already exists! Please consider assigning a parent");
+
+                _validator.Validate(context);
+
                 await context.Accounts.AddAsync(acc);
                 await context.SaveChangesAsync();
                 return new ActionResultViewModel<Account>()
