@@ -4,7 +4,7 @@ using Eva.Core.Domain.Responses;
 
 namespace Eva.Core.ApplicationService.Validators
 {
-    public class AccountValidator : EntityValidator
+    public class AccountValidator : EntityValidator<Account>
     {
         public ValidationResponse Validate(IQueryable<Account> accounts)
         {

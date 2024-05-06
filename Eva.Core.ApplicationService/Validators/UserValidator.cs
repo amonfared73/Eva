@@ -1,12 +1,11 @@
 ﻿using Eva.Core.Domain.Models;
-using Eva.Core.Domain.ViewModels;
 using Eva.Core.Domain.Responses;
 
 namespace Eva.Core.ApplicationService.Validators
 {
-    public class UserValidator : EntityValidator
+    public class UserValidator : EntityValidator<User>
     {
-        public ValidationResponse Validate(User user)
+        public override ValidationResponse Validate(User user)
         {
             _messages.Clear();
 
