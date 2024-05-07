@@ -48,13 +48,18 @@ namespace Eva.Core.ApplicationService.Queries
         {
             using (var context = _dbContextFactory.CreateDbContext())
             {
-                var userRoles = await context.UserRoleMappings.Where(ur => ur.UserId == userId).Select(ur => new { ur.UserId, ur.RoleId }).ToListAsync();
-                var permissions = await context.RolePermissionMappings.Include(p => p.Permission).Select(p => new { p.RoleId, p.PermissionId, p.Permission.Name }).ToListAsync();
-
-                var userPermissions = (from userRole in userRoles
-                                       join permission in permissions on userRole.RoleId equals permission.RoleId
-                                       select permission.Name).Distinct();
-                return userPermissions;
+                var permissions = await context
+                    .UserRoleMappings
+                    .Include(e => e.Role)
+                    .ThenInclude(e => e.RolePermissionMappings)
+                    .ThenInclude(e => e.Permission)
+                    .Where(e => e.UserId == userId)
+                    .Select(e => e.Role)
+                    .SelectMany(e => e.RolePermissionMappings)
+                    .Select(e => e.Permission.Name)
+                    .Distinct()
+                    .ToListAsync();
+                return permissions;
             }
         }
     }
