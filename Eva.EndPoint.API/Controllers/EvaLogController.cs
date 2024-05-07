@@ -20,13 +20,13 @@ namespace Eva.EndPoint.API.Controllers
             _logService = logService;
         }
         [HttpGet]
-        [HasRole(ActiveRoles.SystemDeveloper)]
+        [HasPermission(ActiveRoles.SystemDeveloper)]
         public async Task<IEnumerable<EvaLog>> ViewAllLogsAsync()
         {
             return await _logService.ViewAllLogsAsync();
         }
         [HttpPost]
-        [HasRole(ActiveRoles.SystemDeveloper)]
+        [HasPermission(ActiveRoles.SystemDeveloper)]
         public async Task<PagedResultViewModel<EvaLogReportOutputViewModel>> EvaLogReportAsync(EvaLogReportInputViewModel request)
         {
             try
@@ -57,7 +57,7 @@ namespace Eva.EndPoint.API.Controllers
             return await _logService.SimpleUserLogReport();
         }
         [HttpDelete]
-        [HasRole(ActiveRoles.SystemDeveloper)]
+        [HasPermission(ActiveRoles.SystemDeveloper)]
         public async Task<ActionResultViewModel<EvaLog>> ClearAllLogsAsync()
         {
             try

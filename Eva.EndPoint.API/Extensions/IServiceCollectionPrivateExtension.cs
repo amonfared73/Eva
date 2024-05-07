@@ -177,8 +177,8 @@ namespace Eva.EndPoint.API.Extensions
         /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
         private static IServiceCollection AddEvaRoleBasedAuthorization(this IServiceCollection services)
         {
-            services.AddSingleton<IAuthorizationHandler, RoleAuthorizationHandler>();
-            services.AddSingleton<IAuthorizationPolicyProvider, RoleAuthorizationPolicyProvider>();
+            services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
             return services;
         }
         /// <summary>
