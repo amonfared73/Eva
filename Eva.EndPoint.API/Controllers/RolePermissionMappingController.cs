@@ -15,7 +15,7 @@ namespace Eva.EndPoint.API.Controllers
             _rolePermissionMappingService = rolePermissionMappingService;
         }
         [HttpPost]
-        public async Task<IActionResult> AppendPermmsionToRole(AppendPermissionToRoleViewModel appendDto)
+        public async Task<IActionResult> AppendPermissionToRole(AppendPermissionToRoleViewModel appendDto)
         {
             try
             {

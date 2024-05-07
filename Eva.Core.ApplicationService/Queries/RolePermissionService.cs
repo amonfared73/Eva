@@ -44,7 +44,7 @@ namespace Eva.Core.ApplicationService.Queries
             }
         }
 
-        public async Task<IEnumerable<string>> ExtractUserPermissions(int userId)
+        public async Task<HashSet<string>> ExtractUserPermissions(int userId)
         {
             using (var context = _dbContextFactory.CreateDbContext())
             {
@@ -59,7 +59,8 @@ namespace Eva.Core.ApplicationService.Queries
                     .Select(e => e.Permission.Name)
                     .Distinct()
                     .ToListAsync();
-                return permissions;
+
+                return permissions.ToHashSet();
             }
         }
     }
