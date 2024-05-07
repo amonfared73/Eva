@@ -3,9 +3,9 @@
 namespace Eva.EndPoint.API.Authorization
 {
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, Inherited = true, AllowMultiple = true)]
-    public sealed class HasRoleAttribute : AuthorizeAttribute
+    public sealed class HasPermissionAttribute : AuthorizeAttribute
     {
-        public HasRoleAttribute(string policy) : base(policy)
+        public HasPermissionAttribute(string policy) : base(policy)
         {
         }
     }

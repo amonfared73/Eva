@@ -19,7 +19,7 @@ namespace Eva.EndPoint.API.Controllers
             _service = service;
         }
         [HttpDelete]
-        [HasRole(ActiveRoles.SystemDeveloper)]
+        [HasPermission(ActivePermissions.Encrypt)]
         public async Task<ActionResultViewModel<RefreshToken>> ClearAllRefreshTokens()
         {
             try
