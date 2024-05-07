@@ -4,11 +4,11 @@ namespace Eva.EndPoint.API.Authorization
 {
     public class PermissionRequirement : IAuthorizationRequirement
     {
-        public string Role { get; }
+        public string Permission { get; }
 
-        public PermissionRequirement(string role)
+        public PermissionRequirement(string permission)
         {
-            Role = role;
+            Permission = permission;
         }
     }
 }

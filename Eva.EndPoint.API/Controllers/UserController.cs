@@ -19,7 +19,7 @@ namespace Eva.EndPoint.API.Controllers
         }
 
         [HttpPut]
-        [HasPermission(ActiveRoles.Admin)]
+        [HasPermission(ActivePermissions.Encrypt)]
         public async Task<ActionResultViewModel<User>> AlterAdminStateAsync(int userId)
         {
             try
@@ -47,7 +47,7 @@ namespace Eva.EndPoint.API.Controllers
         // Assign all available roles to a particular user
         // Only user with SystemDeveloper Role are allowed to use this endpoint
         [HttpPost]
-        [HasPermission(ActiveRoles.SystemDeveloper)]
+        [HasPermission(ActivePermissions.Encrypt)]
         public async Task<ActionResultViewModel<User>> AssignAllMissingRolesAsync(int userId)
         {
             try
