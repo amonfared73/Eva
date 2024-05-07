@@ -29,9 +29,9 @@ namespace Eva.EndPoint.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IEnumerable<string>> ExtractUserPermissions(int userId)
+        public async Task<IEnumerable<string>> GetUserPermissions(int userId)
         {
-            return await _rolePermissionMappingService.ExtractUserPermissions(userId);
+            return await _rolePermissionMappingService.GetUserPermissions(userId);
         }
     }
 }

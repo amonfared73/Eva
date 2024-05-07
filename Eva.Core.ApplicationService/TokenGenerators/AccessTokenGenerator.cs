@@ -30,7 +30,7 @@ namespace Eva.Core.ApplicationService.TokenGenerators
                 new Claim(CustomClaims.Signature, user.Signature ?? ""),
             };
 
-            HashSet<string> permissions = await _rolePermissionMappingService.ExtractUserPermissions(user.Id);
+            HashSet<string> permissions = await _rolePermissionMappingService.GetUserPermissions(user.Id);
 
             foreach (var permission in permissions)
             {
