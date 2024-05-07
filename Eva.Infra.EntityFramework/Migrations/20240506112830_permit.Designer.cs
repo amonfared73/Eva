@@ -3,6 +3,7 @@ using System;
 using Eva.Infra.EntityFramework.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eva.Infra.EntityFramework.Migrations
 {
     [DbContext(typeof(EvaDbContext))]
-    partial class EvaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240506112830_permit")]
+    partial class permit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.26");
@@ -1054,8 +1056,7 @@ namespace Eva.Infra.EntityFramework.Migrations
 
                     b.HasIndex("PermissionId");
 
-                    b.HasIndex("RoleId", "PermissionId")
-                        .IsUnique();
+                    b.HasIndex("RoleId");
 
                     b.ToTable("RolePermissionMappings");
                 });
@@ -1113,12 +1114,12 @@ namespace Eva.Infra.EntityFramework.Migrations
                         {
                             Id = 1,
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2024, 5, 6, 15, 9, 37, 589, DateTimeKind.Local).AddTicks(4846),
+                            CreatedOn = new DateTime(2024, 5, 6, 14, 58, 29, 738, DateTimeKind.Local).AddTicks(7111),
                             Email = "eva@eva.com",
                             IsAdmin = true,
                             IsDeleted = false,
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2024, 5, 6, 15, 9, 37, 589, DateTimeKind.Local).AddTicks(4855),
+                            ModifiedOn = new DateTime(2024, 5, 6, 14, 58, 29, 738, DateTimeKind.Local).AddTicks(7120),
                             PasswordHash = "$2a$11$GHlqmnSc71fIgIAi5d.d.eC5TyKpR2Z56.vU2vr/M36iLDHx8QhNy",
                             StateCode = 1,
                             Username = "eva"

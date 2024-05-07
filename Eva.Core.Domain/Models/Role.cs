@@ -11,6 +11,8 @@ namespace Eva.Core.Domain.Models
         public string Name { get; set; } = string.Empty;
         [JsonIgnore]
         public ICollection<UserRoleMapping> UserRoleMappings { get; set; }
+        [JsonIgnore]
+        public ICollection<RolePermissionMapping> RolePermissionMappings { get; set; }
         public override string ToString()
         {
             return Name;

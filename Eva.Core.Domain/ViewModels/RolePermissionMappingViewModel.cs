@@ -2,8 +2,8 @@
 
 namespace Eva.Core.Domain.ViewModels
 {
-    public class RoleViewModel : ViewModelBase
+    public class RolePermissionMappingViewModel : ViewModelBase
     {
-        public string Name { get; set; }
+
     }
 }
