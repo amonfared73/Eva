@@ -11,6 +11,8 @@ namespace Eva.Core.Domain.Models
         public string Name { get; set; }
         [JsonIgnore]
         public ICollection<RolePermissionMapping> RolePermissionMappings { get; set; }
+        [JsonIgnore]
+        public ICollection<PermissionEndPointMapping> PermissionEndPointMappings { get; set; }
 
         public static implicit operator Permission(CreatePermissionViewModel permissionDto)
         {
