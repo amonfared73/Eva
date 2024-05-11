@@ -122,6 +122,7 @@ namespace Eva.Infra.EntityFramework.DbContexts
         public DbSet<EvaEndPoint> EvaEndPoints { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<RolePermissionMapping> RolePermissionMappings { get; set; }
+        public DbSet<PermissionEndPointMapping> PermissionEndPointMappings { get; set; }
         #endregion
 
         #region Cryptographic entities

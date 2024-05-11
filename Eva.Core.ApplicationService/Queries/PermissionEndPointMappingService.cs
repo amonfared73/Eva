@@ -4,6 +4,7 @@ using Eva.Core.Domain.Enums;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Eva.Core.ApplicationService.Queries
 {
@@ -14,6 +15,21 @@ namespace Eva.Core.ApplicationService.Queries
         public PermissionEndPointMappingService(IEvaDbContextFactory dbContextFactory) : base(dbContextFactory)
         {
             _dbContextFactory = dbContextFactory;
+        }
+        public async Task<HashSet<string>> GetAccessibleEndPoints(IEnumerable<string> permissions)
+        {
+            using (var context = _dbContextFactory.CreateDbContext())
+            {
+                var accessibleEndpoints = await context
+                    .PermissionEndPointMappings
+                    .Include(e => e.Permission)
+                    .Include(e => e.EvaEndPoint)
+                    .Where(e => permissions.Contains(e.Permission.Name))
+                    .Select(e => e.EvaEndPoint.Url)
+                    .ToListAsync();
+
+                return accessibleEndpoints.ToHashSet(); ;
+            }
         }
     }
 }
