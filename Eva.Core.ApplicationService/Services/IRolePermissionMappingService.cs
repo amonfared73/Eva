@@ -7,7 +7,7 @@ namespace Eva.Core.ApplicationService.Services
     public interface IRolePermissionMappingService : IBaseService<RolePermissionMapping, RolePermissionMappingViewModel>
     {
         Task<CustomResultViewModel<RoleViewModel>> AppendPermissionToRole(AppendPermissionToRoleViewModel model);
-        Task<HashSet<string>> ExtractUserPermissions(int userId);
+        Task<HashSet<string>> GetUserPermissions(int userId);
     }
 }
     

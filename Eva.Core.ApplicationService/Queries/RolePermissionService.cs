@@ -44,7 +44,7 @@ namespace Eva.Core.ApplicationService.Queries
             }
         }
 
-        public async Task<HashSet<string>> ExtractUserPermissions(int userId)
+        public async Task<HashSet<string>> GetUserPermissions(int userId)
         {
             using (var context = _dbContextFactory.CreateDbContext())
             {
