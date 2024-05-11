@@ -5,7 +5,6 @@ using Eva.Core.Domain.ViewModels;
 using Eva.Infra.Tools.Reflections;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
-using System.Text;
 using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
 
 namespace Eva.EndPoint.API.Controllers
