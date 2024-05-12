@@ -32,5 +32,10 @@ namespace Eva.EndPoint.API.Controllers
                 };
             }
         }
+        [HttpPost]
+        public async Task<HashSet<string>> GetAccessibleEndPoints(IEnumerable<string> permissions)
+        {
+            return await _permissionEndPointMappingService.GetAccessibleEndPoints(permissions);
+        }
     }
 }
