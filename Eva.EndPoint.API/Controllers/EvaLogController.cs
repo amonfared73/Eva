@@ -45,7 +45,7 @@ namespace Eva.EndPoint.API.Controllers
             {
                 return new PagedResultViewModel<EvaLogReportOutputViewModel>()
                 {
-                    ResponseMessage = new ResponseMessage($"Some error occured , {ex.Message}"),
+                    ResponseMessage = new ResponseMessage($"Some error occurred , {ex.Message}"),
                     HasError = true,
                 };
             }
