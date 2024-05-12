@@ -9,5 +9,6 @@ namespace Eva.EndPoint.API.Configurations
         public string EvaConnectionString { get; set; }
         public AuthenticationConfiguration EvaAuthenticationConfiguration { get; set; }
         public EvaConventions EvaConventions { get; set; }
+        public EvaCachingKeys EvaCachingKeys { get; set; }
     }
 }
