@@ -8,6 +8,7 @@ namespace Eva.Core.ApplicationService.Services
     {
         Task<CustomResultViewModel<RoleViewModel>> AppendPermissionToRole(AppendPermissionToRoleViewModel model);
         Task<HashSet<string>> GetUserPermissions(int userId);
+        Task<HashSet<string>> GetAccessiblePermissions(IEnumerable<string> roles);
     }
 }
     
