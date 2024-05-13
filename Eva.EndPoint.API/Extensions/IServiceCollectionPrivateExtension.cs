@@ -66,6 +66,17 @@ namespace Eva.EndPoint.API.Extensions
             return services;
         }
         /// <summary>
+        /// Creating an <see href="https://github.com/amonfared73/Eva">Eva</see> <see cref="EvaCachingKeys" /> instance for generating cach related configurations
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns><see cref="IServiceCollection" /> of <see href="https://github.com/amonfared73/Eva">Eva</see> services</returns>
+        private static IServiceCollection AddEvaCachingConfiguration(this IServiceCollection services, EvaCachingKeys keys)
+        {
+            services.AddSingleton(keys);
+            return services;
+        }
+        /// <summary>
         /// Registering <see href="https://github.com/amonfared73/Eva">Eva</see> External services
         /// </summary>
         /// <param name="services"></param>
