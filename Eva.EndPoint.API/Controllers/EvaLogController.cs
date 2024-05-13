@@ -26,7 +26,7 @@ namespace Eva.EndPoint.API.Controllers
             return await _logService.ViewAllLogsAsync();
         }
         [HttpPost]
-        [HasPermission(ActivePermissions.Encrypt)]
+        [HasPermission(nameof(EvaLogReportAsync))]
         public async Task<PagedResultViewModel<EvaLogReportOutputViewModel>> EvaLogReportAsync(EvaLogReportInputViewModel request)
         {
             try

@@ -38,7 +38,7 @@ namespace Eva.EndPoint.API.Authorization
                 _memoryCache.Set(_keys.AccessibleEndPoints, accessibleEndPoints, TimeSpan.FromMinutes(_authenticationConfiguration.AccessTokenExpirationMinutes));
             }
 
-            if (permissions.Contains(requirement.Permission))
+            if (accessibleEndPoints.Any(uri => uri.Contains(requirement.Permission)))
                 context.Succeed(requirement);
         }
     }
