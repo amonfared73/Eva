@@ -9,13 +9,13 @@ namespace Eva.Core.ApplicationService.TokenGenerators
     {
         private readonly AuthenticationConfiguration _configuration;
         private readonly TokenGenerator _tokenGenerator;
-        private readonly IRolePermissionMappingService _rolePermissionMappingService;
+        private readonly IUserRoleMappingService _userRoleMappingService;
 
-        public AccessTokenGenerator(AuthenticationConfiguration configuration, TokenGenerator tokenGenerator, IRolePermissionMappingService rolePermissionMappingService)
+        public AccessTokenGenerator(AuthenticationConfiguration configuration, TokenGenerator tokenGenerator, IUserRoleMappingService userRoleMappingService)
         {
             _configuration = configuration;
             _tokenGenerator = tokenGenerator;
-            _rolePermissionMappingService = rolePermissionMappingService;
+            _userRoleMappingService = userRoleMappingService;
         }
 
         public async Task<string> GenerateTokenAsync(User user)
@@ -30,11 +30,11 @@ namespace Eva.Core.ApplicationService.TokenGenerators
                 new Claim(CustomClaims.Signature, user.Signature ?? ""),
             };
 
-            HashSet<string> permissions = await _rolePermissionMappingService.GetUserPermissions(user.Id);
+            HashSet<string> roles = await _userRoleMappingService.GetRolesForUserAsync(user.Id);
 
-            foreach (var permission in permissions)
+            foreach (var role in roles)
             {
-                claims.Add(new Claim(CustomClaims.ActivePermissions, permission));
+                claims.Add(new Claim(CustomClaims.ActiveRoles, role));
             }
 
             return _tokenGenerator.GenerateToken(

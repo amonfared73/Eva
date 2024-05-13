@@ -44,6 +44,22 @@ namespace Eva.Core.ApplicationService.Queries
             }
         }
 
+        public async Task<HashSet<string>> GetAccessiblePermissions(IEnumerable<string> roles)
+        {
+            using (var context = _dbContextFactory.CreateDbContext())
+            {
+                var accessibleRoles = await context
+                    .RolePermissionMappings
+                    .Include(e => e.Permission)
+                    .Where(e => roles.Contains(e.Role.Name))
+                    .Select(e => e.Permission.Name)
+                    .Distinct()
+                    .ToListAsync();
+
+                return accessibleRoles.ToHashSet();
+            }
+        }
+
         public async Task<HashSet<string>> GetUserPermissions(int userId)
         {
             using (var context = _dbContextFactory.CreateDbContext())
