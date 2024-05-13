@@ -15,7 +15,7 @@ namespace Eva.EndPoint.API.Authorization
             {
                 return policy;
             }
-            return new AuthorizationPolicyBuilder().AddRequirements(new PermissionRequirement(policyName)).Build();
+            return new AuthorizationPolicyBuilder().AddRequirements(new AccessRequirement(policyName)).Build();
         }
     }
 }
