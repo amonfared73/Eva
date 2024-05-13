@@ -42,6 +42,7 @@ namespace Eva.EndPoint.API.Authorization
                 _memoryCache.Set(desiredCacheKey, accessibleEndPoints, TimeSpan.FromMinutes(_authenticationConfiguration.AccessTokenExpirationMinutes));
             }
 
+            // True if the user has the required permission or the desired endpoint exists in at least of the user's permissions
             bool hasAccess = accessibleEndPoints.Any(uri => uri.Contains(requirement.Permission)) || permissions.Contains(requirement.Permission);
 
             if (hasAccess)
