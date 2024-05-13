@@ -59,6 +59,7 @@ namespace Eva.Core.ApplicationService.Queries
                     .Include(e => e.EvaEndPoint)
                     .Where(e => permissions.Contains(e.Permission.Name))
                     .Select(e => e.EvaEndPoint.Url)
+                    .Distinct()
                     .ToListAsync();
 
                 return accessibleEndpoints.ToHashSet(); ;
