@@ -20,13 +20,13 @@ namespace Eva.EndPoint.API.Controllers
             _logService = logService;
         }
         [HttpGet]
-        [HasPermission(ActivePermissions.Encrypt)]
+        [HasAccess(ActivePermissions.Encrypt)]
         public async Task<IEnumerable<EvaLog>> ViewAllLogsAsync()
         {
             return await _logService.ViewAllLogsAsync();
         }
         [HttpPost]
-        [HasPermission(nameof(EvaLogReportAsync))]
+        [HasAccess(nameof(EvaLogReportAsync))]
         public async Task<PagedResultViewModel<EvaLogReportOutputViewModel>> EvaLogReportAsync(EvaLogReportInputViewModel request)
         {
             try
@@ -57,7 +57,7 @@ namespace Eva.EndPoint.API.Controllers
             return await _logService.SimpleUserLogReport();
         }
         [HttpDelete]
-        [HasPermission(ActivePermissions.Encrypt)]
+        [HasAccess(ActivePermissions.Encrypt)]
         public async Task<ActionResultViewModel<EvaLog>> ClearAllLogsAsync()
         {
             try
