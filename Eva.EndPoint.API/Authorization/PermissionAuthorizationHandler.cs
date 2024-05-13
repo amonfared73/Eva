@@ -7,20 +7,20 @@ namespace Eva.EndPoint.API.Authorization
 {
     public class PermissionAuthorizationHandler : AuthorizationHandler<AccessRequirement>
     {
-        private readonly IUserContext _userContext;
-        private readonly IPermissionEndPointMappingService _permissionEndPointMappingService;
-        private readonly IRolePermissionMappingService _rolePermissionMappingService;
-        private readonly IMemoryCache _memoryCache;
-        private readonly AuthenticationConfiguration _authenticationConfiguration;
         private readonly EvaCachingKeys _keys;
+        private readonly IMemoryCache _memoryCache;
+        private readonly IUserContext _userContext;
+        private readonly AuthenticationConfiguration _authenticationConfiguration;
+        private readonly IRolePermissionMappingService _rolePermissionMappingService;
+        private readonly IPermissionEndPointMappingService _permissionEndPointMappingService;
         public PermissionAuthorizationHandler(IPermissionEndPointMappingService permissionEndPointMappingService, IMemoryCache memoryCache, AuthenticationConfiguration authenticationConfiguration, EvaCachingKeys keys, IUserContext userContext, IRolePermissionMappingService rolePermissionMappingService)
         {
-            _permissionEndPointMappingService = permissionEndPointMappingService;
-            _memoryCache = memoryCache;
-            _authenticationConfiguration = authenticationConfiguration;
             _keys = keys;
+            _memoryCache = memoryCache;
             _userContext = userContext;
+            _authenticationConfiguration = authenticationConfiguration;
             _rolePermissionMappingService = rolePermissionMappingService;
+            _permissionEndPointMappingService = permissionEndPointMappingService;
         }
         protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, AccessRequirement requirement)
         {
@@ -61,7 +61,7 @@ namespace Eva.EndPoint.API.Authorization
             bool hasPermission = permissions.Any(p => p.Contains(requirement.Access));
             bool hasEndPoint = endPoints.Any(e => e.Contains(requirement.Access));
 
-            // True if the user has the required permission or the desired endpoint exists in at least of the user's permissions
+            // True if the user has the required role, permission or the desired endpoint exists in at least of the user's permissions
             bool hasAccess = hasRole || hasPermission || hasEndPoint;
 
             if (hasAccess)
