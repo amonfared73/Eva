@@ -13,7 +13,14 @@ namespace Eva.EndPoint.API.Authorization
         private readonly AuthenticationConfiguration _authenticationConfiguration;
         private readonly IRolePermissionMappingService _rolePermissionMappingService;
         private readonly IPermissionEndPointMappingService _permissionEndPointMappingService;
-        public PermissionAuthorizationHandler(IPermissionEndPointMappingService permissionEndPointMappingService, IMemoryCache memoryCache, AuthenticationConfiguration authenticationConfiguration, EvaCachingKeys keys, IUserContext userContext, IRolePermissionMappingService rolePermissionMappingService)
+        public PermissionAuthorizationHandler(
+            EvaCachingKeys keys, 
+            IMemoryCache memoryCache, 
+            IUserContext userContext, 
+            AuthenticationConfiguration authenticationConfiguration, 
+            IRolePermissionMappingService rolePermissionMappingService,
+            IPermissionEndPointMappingService permissionEndPointMappingService
+            )
         {
             _keys = keys;
             _memoryCache = memoryCache;
