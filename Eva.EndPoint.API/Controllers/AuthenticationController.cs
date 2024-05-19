@@ -179,6 +179,7 @@ namespace Eva.EndPoint.API.Controllers
             }
             await _refreshTokenRepository.DeleteAllUserTokens(userId);
             _memoryCache.Remove($"{_keys.AccessiblePermissions} {_userContext.UserId}");
+            _memoryCache.Remove($"{_keys.AccessibleEndPoints} {_userContext.UserId}");
             return NoContent();
         }
     }
