@@ -10,6 +10,6 @@ namespace Eva.Core.ApplicationService.Services
     {
         Task<ActionResultViewModel<Account>> CreateRootAccount(AccountDto accountDto);
         Task<ActionResultViewModel<Account>> AppendAccount(AppendAccountViewModel model);
-        Task<IEnumerable<AccountViewModel>> AccountGetAll();
+        Task<Account> AccountGetById(int accountId);
     }
 }

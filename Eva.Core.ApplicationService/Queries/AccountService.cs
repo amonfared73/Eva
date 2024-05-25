@@ -24,18 +24,17 @@ namespace Eva.Core.ApplicationService.Queries
             _validator = validator;
         }
 
-        public async Task<IEnumerable<AccountViewModel>> AccountGetAll()
+        public async Task<Account> AccountGetById(int accountId)
         {
             using (var context = _dbContextFactory.CreateDbContext())
             {
-                var query = await context
+                var account = await context
                     .Accounts
-                    .Where(a => a.Parent == null)
-                    .Select(GetAccountsProjection(2, 0))
-                    .OrderBy(a => a.Id)
-                    .ToListAsync();
+                    .Include(a => a.Accounts)
+                    .FirstOrDefaultAsync(a => a.Id == accountId);
+                await LoadChildAccounts(account);
 
-                return query;
+                return account;
             }
         }
 
@@ -82,20 +81,23 @@ namespace Eva.Core.ApplicationService.Queries
             }
         }
 
-        private static Expression<Func<Account, AccountViewModel>> GetAccountsProjection(int maxDepth, int currentDepth = 0)
+        private async Task LoadChildAccounts(Account account)
         {
-            currentDepth++;
-            Expression<Func<Account, AccountViewModel>> result = account => new AccountViewModel()
+            using (var context = _dbContextFactory.CreateDbContext())
             {
-                ParentId = account.ParentId,
-                Name = account.Name,
-                ChildAccounts = currentDepth == maxDepth
-                    ? new List<AccountViewModel>()
-                    : account.Accounts.AsQueryable()
-                    .Select(GetAccountsProjection(maxDepth, currentDepth))
-                    .OrderBy(x => x.Id).ToList()
-            };
-            return result;
+                var childAccounts = await context
+                    .Accounts
+                    .Where(a => a.ParentId == account.Id)
+                    .Include(a => a.Accounts)
+                    .ToListAsync();
+
+                account.Accounts = childAccounts;
+
+                foreach (var childAccount in childAccounts)
+                {
+                    await LoadChildAccounts(childAccount);
+                }
+            }
         }
     }
 }
