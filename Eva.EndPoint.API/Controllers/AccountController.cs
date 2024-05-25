@@ -16,10 +16,21 @@ namespace Eva.EndPoint.API.Controllers
             _accountService = accountService;
         }
         [NonAction]
+        public override Task<PagedResultViewModel<Account>> GetAllAsync(BaseRequestViewModel request)
+        {
+            return base.GetAllAsync(request);
+        }
+        [NonAction]
         public override Task<ActionResultViewModel<Account>> InsertAsync(Account entity)
         {
             return base.InsertAsync(entity);
         }
+        [NonAction]
+        public override Task<SingleResultViewModel<Account>> GetByIdAsync(int id)
+        {
+            return base.GetByIdAsync(id);
+        }
+
         [HttpPost]
         public async Task<ActionResultViewModel<Account>> CreateRootAccount(AccountDto accountDto)
         {
@@ -56,11 +67,11 @@ namespace Eva.EndPoint.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AccountGetAll()
+        public async Task<IActionResult> AccountGetById(int accountId)
         {
             try
             {
-                var result = await _accountService.AccountGetAll();
+                var result = await _accountService.AccountGetById(accountId);
                 return Ok(result);
             }
             catch (Exception ex)
