@@ -26,6 +26,9 @@ namespace Eva.EndPoint.API.Extensions
             // Get Eva Authentication Configuration
             var authenticationConfiguration = configuration.GetEvaAuthenticationConfiguration();
 
+            // Get external API uris
+            var evaExternalApis = configuration.GetEvaExternalApiUris();
+
             // Add Eva required services
             builder.Services.AddEvaServiceConfigurations(evaOptions =>
             {
@@ -33,6 +36,7 @@ namespace Eva.EndPoint.API.Extensions
                 evaOptions.EvaConnectionString = connectionString;
                 evaOptions.EvaAuthenticationConfiguration = authenticationConfiguration;
                 evaOptions.EvaCachingKeys = cachingKeys;
+                evaOptions.ExternalServicesUri = evaExternalApis;
                 evaOptions.EvaConventions = new EvaConventions()
                 {
                     ControllerModelConvention = new EvaControllerModelConvention()

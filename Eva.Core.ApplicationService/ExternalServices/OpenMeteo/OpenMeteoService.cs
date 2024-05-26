@@ -1,8 +1,8 @@
 ﻿using Eva.Core.Domain.Attributes;
-using Eva.Core.Domain.Models;
+using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.ViewModels;
-using Newtonsoft.Json;
-using System;
+using Flurl;
+using Flurl.Http;
 
 namespace Eva.Core.ApplicationService.ExternalServices.OpenMeteo
 {
@@ -10,19 +10,27 @@ namespace Eva.Core.ApplicationService.ExternalServices.OpenMeteo
     public class OpenMeteoService : IOpenMeteoService
     {
         private readonly HttpClient _httpClient;
-        public OpenMeteoService(HttpClient httpClient)
+        private readonly ExternalServicesUri _externalServicesUri;
+        public OpenMeteoService(HttpClient httpClient, ExternalServicesUri externalServicesUri)
         {
             _httpClient = httpClient;
+            _externalServicesUri = externalServicesUri;
         }
         public async Task<WeatherForcastResultViewModel> ForcastAsync(WeatherForcastInput reqeust)
         {
-            var url = $"{WeatherForcast.WeatherForcastUrl}?latitude={reqeust.Latitude.ToString()}&longitude={reqeust.Longitude.ToString()}&hourly=temperature_2m";
-            var response = await _httpClient.GetAsync(url);
-
             try
             {
-                var json = await response.Content.ReadAsStringAsync();
-                var forecasts = JsonConvert.DeserializeObject<WeatherForcastResultViewModel>(json);
+                var forecasts = await _externalServicesUri
+                    .WeatherForcast
+                    .AppendQueryParam(new
+                    {
+                        latitude = reqeust.Latitude,
+                        longitude = reqeust.Longitude,
+                        hourly = "temperature_2m"
+                    })
+                    .GetAsync()
+                    .ReceiveJson<WeatherForcastResultViewModel>();
+
                 return forecasts;
             } 
             catch (Exception ex)

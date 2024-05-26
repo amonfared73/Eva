@@ -18,6 +18,7 @@ namespace Eva.EndPoint.API.Extensions
                 .AddMemoryCache()
                 .AddEvaAuthenticationConfiguration(evaOptions.EvaAuthenticationConfiguration)
                 .AddEvaCachingConfiguration(evaOptions.EvaCachingKeys)
+                .AddEvaExternalApiConfiguration(evaOptions.ExternalServicesUri)
                 .AddEvaConfigurationEntities(evaOptions.EvaConfiguration)
                 .AddEvaControllers(evaOptions.EvaConventions)
                 .AddEvaAuthentication(evaOptions.EvaAuthenticationConfiguration)
