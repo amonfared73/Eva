@@ -1,10 +1,8 @@
 ﻿using Eva.Core.Domain.Attributes;
-using Eva.Core.Domain.Models;
+using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.ViewModels;
 using Flurl;
 using Flurl.Http;
-using Newtonsoft.Json;
-using System;
 
 namespace Eva.Core.ApplicationService.ExternalServices.OpenMeteo
 {
@@ -12,17 +10,17 @@ namespace Eva.Core.ApplicationService.ExternalServices.OpenMeteo
     public class OpenMeteoService : IOpenMeteoService
     {
         private readonly HttpClient _httpClient;
-        public OpenMeteoService(HttpClient httpClient)
+        private readonly ExternalServicesUri _externalServicesUri;
+        public OpenMeteoService(HttpClient httpClient, ExternalServicesUri externalServicesUri)
         {
             _httpClient = httpClient;
+            _externalServicesUri = externalServicesUri;
         }
         public async Task<WeatherForcastResultViewModel> ForcastAsync(WeatherForcastInput reqeust)
         {
-            var url = $"{WeatherForcast.WeatherForcastUrl}?latitude={reqeust.Latitude.ToString()}&longitude={reqeust.Longitude.ToString()}&hourly=temperature_2m";
-
             try
             {
-                var forecasts = await "https://api.open-meteo.com/v1/forecast"
+                var forecasts = await _externalServicesUri.WeatherForcast
                     .AppendQueryParam(new
                     {
                         latitude = reqeust.Latitude,

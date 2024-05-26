@@ -29,5 +29,9 @@ namespace Eva.EndPoint.API.Configurations
         /// Represent <see href="https://github.com/amonfared73/Eva">Eva</see> caching keys to store in cache
         /// </summary>
         public EvaCachingKeys EvaCachingKeys { get; set; }
+        /// <summary>
+        /// Represents the external APIs consumed in <see href="https://github.com/amonfared73/Eva">Eva</see>
+        /// </summary>
+        public ExternalServicesUri ExternalServicesUri { get; set; }
     }
 }
