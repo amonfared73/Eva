@@ -20,7 +20,8 @@ namespace Eva.Core.ApplicationService.ExternalServices.OpenMeteo
         {
             try
             {
-                var forecasts = await _externalServicesUri.WeatherForcast
+                var forecasts = await _externalServicesUri
+                    .WeatherForcast
                     .AppendQueryParam(new
                     {
                         latitude = reqeust.Latitude,
