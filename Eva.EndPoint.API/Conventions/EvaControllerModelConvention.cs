@@ -23,6 +23,7 @@ namespace Eva.EndPoint.API.Conventions
                 var crudActions = controller.Actions.Where(a => _baseOperations.Contains(a.ActionName));
                 foreach (var action in crudActions)
                 {
+                    controller.Actions.Remove(action);
                     action.ApiExplorer.IsVisible = false;
                     action.ActionName += "_DisabledEndpoint";
                     action.Selectors.Clear();
