@@ -32,6 +32,13 @@ namespace Eva.Infra.Tools.Extensions
             return result;
         }
 
+        public static async Task<EvaResult<TIn>> TapAsync<TIn>(this EvaResult<TIn> result, Func<TIn, Task> actionAsync)
+        {
+            if (result.IsSuccess)
+                await actionAsync(result.Value);
+            return result;
+        }
+
         public static TOut Match<TIn, TOut>(this EvaResult<TIn> result, Func<TIn, TOut> onSuccess, Func<Error, TOut> onFailure)
         {
             return result.IsSuccess ?
