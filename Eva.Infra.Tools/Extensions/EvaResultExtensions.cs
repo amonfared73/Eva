@@ -11,6 +11,13 @@ namespace Eva.Infra.Tools.Extensions
                 EvaResult<TOut>.Failure(result.Error);
         }
 
+        public static async Task<EvaResult<TOut>> BindAsync<TIn, TOut>(this EvaResult<TIn> result, Func<TIn, Task<EvaResult<TOut>>> bindAsync)
+        {
+            return result.IsSuccess ?
+                await bindAsync(result.Value) :
+                EvaResult<TOut>.Failure(result.Error);
+        }
+
         public static EvaResult<TOut> TryCatch<TIn, TOut>(this EvaResult<TIn> result, Func<TIn, TOut> func, Error error)
         {
             try
