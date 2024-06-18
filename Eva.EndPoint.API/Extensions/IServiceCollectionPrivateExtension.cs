@@ -232,6 +232,7 @@ namespace Eva.EndPoint.API.Extensions
         {
             services.AddSingleton<UserValidator>();
             services.AddSingleton<AccountValidator>();
+            services.AddSingleton<CommentValidator>();
             return services;
         }
         /// <summary>
