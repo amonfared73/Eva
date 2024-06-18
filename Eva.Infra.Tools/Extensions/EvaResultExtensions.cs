@@ -32,6 +32,20 @@ namespace Eva.Infra.Tools.Extensions
             }
         }
 
+        public static async Task<EvaResult<TOut>> TryCatchAsync<TIn, TOut>(this EvaResult<TIn> result, Func<TIn, Task<TOut>> funcAsync, Error error)
+        {
+            try
+            {
+                return result.IsSuccess ?
+                    EvaResult<TOut>.Success(await funcAsync(result.Value)) :
+                    EvaResult<TOut>.Failure(result.Error);
+            }
+            catch
+            {
+                return EvaResult<TOut>.Failure(error);
+            }
+        }
+
         public static EvaResult<TIn> Tap<TIn>(this EvaResult<TIn> result, Action<TIn> action)
         {
             if (result.IsSuccess)
