@@ -66,5 +66,12 @@ namespace Eva.Infra.Tools.Extensions
                 onSuccess(result.Value) :
                 onFailure(result.Error);
         }
+
+        public static async Task<TOut> MatchAsync<TIn, TOut>(this EvaResult<TIn> result, Func<TIn, Task<TOut>> onSuccessAsync, Func<Error, Task<TOut>> onFailureAsync)
+        {
+            return result.IsSuccess ?
+                await onSuccessAsync(result.Value) :
+                await onFailureAsync(result.Error);
+        }
     }
 }
