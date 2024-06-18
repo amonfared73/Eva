@@ -8,6 +8,8 @@ using Eva.Infra.EntityFramework.DbContexts;
 using Eva.Core.Domain.Enums;
 using Eva.Infra.Tools.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Eva.Core.ApplicationService.Validators;
+using Eva.Core.Domain.BaseModels;
 
 namespace Eva.Core.ApplicationService.Queries
 {
@@ -15,9 +17,11 @@ namespace Eva.Core.ApplicationService.Queries
     public class CommentService : BaseService<Comment, CommentViewModel>, ICommentService
     {
         private readonly IEvaDbContextFactory _dbContextFactory;
-        public CommentService(IEvaDbContextFactory dbContextFactory) : base(dbContextFactory)
+        private readonly CommentValidator _commentValidator;
+        public CommentService(IEvaDbContextFactory dbContextFactory, CommentValidator commentValidator) : base(dbContextFactory)
         {
             _dbContextFactory = dbContextFactory;
+            _commentValidator = commentValidator;
         }
         public async Task<CustomResultViewModel<string>> CreateComment(CommentCreationViewModel commentCreationViewModel)
         {
