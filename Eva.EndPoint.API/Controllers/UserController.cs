@@ -155,5 +155,23 @@ namespace Eva.EndPoint.API.Controllers
         {
             return await _service.ValidateUserAsync(userId);
         }
+
+        [HttpPost]
+        public async Task<ActionResultViewModel<User>> CheckAndAssignUserRole(string username)
+        {
+            try
+            {
+                return await _service.CheckAndAssignUserRole(username);
+            }
+            catch (Exception ex)
+            {
+                return new ActionResultViewModel<User>()
+                {
+                    Entity = null,
+                    HasError = true,
+                    ResponseMessage = new ResponseMessage(ex.Message)
+                };
+            }
+        }
     }
 }
