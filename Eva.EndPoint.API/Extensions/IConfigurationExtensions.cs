@@ -26,6 +26,20 @@ namespace Eva.EndPoint.API.Extensions
         {
             return configuration.GetConnectionString(CurrentDb);
         }
+        public static EvaCachingKeys GetEvaCachingKeys(this IConfiguration configuration)
+        {
+            var cachingKeys = new EvaCachingKeys();
+            configuration.Bind("EvaCachingKeys", cachingKeys);
+            return cachingKeys;
+        }
+
+        public static ExternalServicesUri GetEvaExternalApiUris(this IConfiguration configuration)
+        {
+            var externalUris = new ExternalServicesUri();
+            configuration.Bind("ExternalServicesUri", externalUris);
+            return externalUris;
+        }
+
         public static IEnumerable<IEvaEntityConfiguration> GetEvaEntityConfigurations(this IConfiguration configuration)
         {
             var types = typeof(IEvaEntityConfiguration).Assembly.GetTypes().Where(t => typeof(IEvaEntityConfiguration).IsAssignableFrom(t) && t.IsClass);

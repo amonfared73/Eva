@@ -3,9 +3,9 @@ using Microsoft.Extensions.Options;
 
 namespace Eva.EndPoint.API.Authorization
 {
-    public class RoleAuthorizationPolicyProvider : DefaultAuthorizationPolicyProvider
+    public class PermissionAuthorizationPolicyProvider : DefaultAuthorizationPolicyProvider
     {
-        public RoleAuthorizationPolicyProvider(IOptions<AuthorizationOptions> options) : base(options)
+        public PermissionAuthorizationPolicyProvider(IOptions<AuthorizationOptions> options) : base(options)
         {
         }
         public override async Task<AuthorizationPolicy?> GetPolicyAsync(string policyName)
@@ -15,7 +15,7 @@ namespace Eva.EndPoint.API.Authorization
             {
                 return policy;
             }
-            return new AuthorizationPolicyBuilder().AddRequirements(new RoleRequirement(policyName)).Build();
+            return new AuthorizationPolicyBuilder().AddRequirements(new AccessRequirement(policyName)).Build();
         }
     }
 }

@@ -61,9 +61,6 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("AccountId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("CreatedBy")
                         .HasColumnType("INTEGER");
 
@@ -85,12 +82,15 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("StateCode")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Accounts");
                 });
@@ -903,6 +903,84 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.ToTable("Transactions");
                 });
 
+            modelBuilder.Entity("Eva.Core.Domain.Models.Permission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("StateCode")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Permissions");
+                });
+
+            modelBuilder.Entity("Eva.Core.Domain.Models.PermissionEndPointMapping", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("EvaEndPointId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PermissionId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StateCode")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EvaEndPointId");
+
+                    b.HasIndex("PermissionId", "EvaEndPointId")
+                        .IsUnique();
+
+                    b.ToTable("PermissionEndPointMappings");
+                });
+
             modelBuilder.Entity("Eva.Core.Domain.Models.Post", b =>
                 {
                     b.Property<int>("Id")
@@ -982,6 +1060,49 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.ToTable("Roles");
                 });
 
+            modelBuilder.Entity("Eva.Core.Domain.Models.RolePermissionMapping", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PermissionId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StateCode")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PermissionId");
+
+                    b.HasIndex("RoleId", "PermissionId")
+                        .IsUnique();
+
+                    b.ToTable("RolePermissionMappings");
+                });
+
             modelBuilder.Entity("Eva.Core.Domain.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -1028,19 +1149,19 @@ namespace Eva.Infra.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", "master");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2024, 3, 31, 9, 44, 44, 776, DateTimeKind.Local).AddTicks(9891),
+                            CreatedOn = new DateTime(2024, 5, 11, 13, 58, 57, 302, DateTimeKind.Local).AddTicks(8712),
                             Email = "eva@eva.com",
                             IsAdmin = true,
                             IsDeleted = false,
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2024, 3, 31, 9, 44, 44, 776, DateTimeKind.Local).AddTicks(9923),
+                            ModifiedOn = new DateTime(2024, 5, 11, 13, 58, 57, 302, DateTimeKind.Local).AddTicks(8720),
                             PasswordHash = "$2a$11$GHlqmnSc71fIgIAi5d.d.eC5TyKpR2Z56.vU2vr/M36iLDHx8QhNy",
                             StateCode = 1,
                             Username = "eva"
@@ -1124,9 +1245,11 @@ namespace Eva.Infra.EntityFramework.Migrations
 
             modelBuilder.Entity("Eva.Core.Domain.Models.Account", b =>
                 {
-                    b.HasOne("Eva.Core.Domain.Models.Account", null)
+                    b.HasOne("Eva.Core.Domain.Models.Account", "Parent")
                         .WithMany("Accounts")
-                        .HasForeignKey("AccountId");
+                        .HasForeignKey("ParentId");
+
+                    b.Navigation("Parent");
                 });
 
             modelBuilder.Entity("Eva.Core.Domain.Models.Comment", b =>
@@ -1217,6 +1340,25 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Navigation("Transaction");
                 });
 
+            modelBuilder.Entity("Eva.Core.Domain.Models.PermissionEndPointMapping", b =>
+                {
+                    b.HasOne("Eva.Core.Domain.Models.EvaEndPoint", "EvaEndPoint")
+                        .WithMany("PermissionEndPointMappings")
+                        .HasForeignKey("EvaEndPointId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Eva.Core.Domain.Models.Permission", "Permission")
+                        .WithMany("PermissionEndPointMappings")
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EvaEndPoint");
+
+                    b.Navigation("Permission");
+                });
+
             modelBuilder.Entity("Eva.Core.Domain.Models.Post", b =>
                 {
                     b.HasOne("Eva.Core.Domain.Models.Blog", "Blog")
@@ -1226,6 +1368,25 @@ namespace Eva.Infra.EntityFramework.Migrations
                         .IsRequired();
 
                     b.Navigation("Blog");
+                });
+
+            modelBuilder.Entity("Eva.Core.Domain.Models.RolePermissionMapping", b =>
+                {
+                    b.HasOne("Eva.Core.Domain.Models.Permission", "Permission")
+                        .WithMany("RolePermissionMappings")
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Eva.Core.Domain.Models.Role", "Role")
+                        .WithMany("RolePermissionMappings")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Permission");
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Eva.Core.Domain.Models.UserRoleMapping", b =>
@@ -1267,9 +1428,21 @@ namespace Eva.Infra.EntityFramework.Migrations
                     b.Navigation("Employees");
                 });
 
+            modelBuilder.Entity("Eva.Core.Domain.Models.EvaEndPoint", b =>
+                {
+                    b.Navigation("PermissionEndPointMappings");
+                });
+
             modelBuilder.Entity("Eva.Core.Domain.Models.Inv.InventoryDocumentHeader", b =>
                 {
                     b.Navigation("InventoryDocumentDetails");
+                });
+
+            modelBuilder.Entity("Eva.Core.Domain.Models.Permission", b =>
+                {
+                    b.Navigation("PermissionEndPointMappings");
+
+                    b.Navigation("RolePermissionMappings");
                 });
 
             modelBuilder.Entity("Eva.Core.Domain.Models.Post", b =>
@@ -1279,6 +1452,8 @@ namespace Eva.Infra.EntityFramework.Migrations
 
             modelBuilder.Entity("Eva.Core.Domain.Models.Role", b =>
                 {
+                    b.Navigation("RolePermissionMappings");
+
                     b.Navigation("UserRoleMappings");
                 });
 

@@ -1,4 +1,5 @@
-﻿using Eva.EndPoint.API.Conventions;
+﻿using Eva.Core.Domain.BaseModels;
+using Eva.EndPoint.API.Conventions;
 using Eva.EndPoint.API.Middlewares;
 
 namespace Eva.EndPoint.API.Extensions
@@ -19,8 +20,14 @@ namespace Eva.EndPoint.API.Extensions
             // Get Connection string
             var connectionString = configuration.GetEvaConnectionString();
 
+            // Get caching keys
+            var cachingKeys = configuration.GetEvaCachingKeys();
+
             // Get Eva Authentication Configuration
             var authenticationConfiguration = configuration.GetEvaAuthenticationConfiguration();
+
+            // Get external API uris
+            var evaExternalApis = configuration.GetEvaExternalApiUris();
 
             // Add Eva required services
             builder.Services.AddEvaServiceConfigurations(evaOptions =>
@@ -28,6 +35,8 @@ namespace Eva.EndPoint.API.Extensions
                 evaOptions.EvaConfiguration = configuration;
                 evaOptions.EvaConnectionString = connectionString;
                 evaOptions.EvaAuthenticationConfiguration = authenticationConfiguration;
+                evaOptions.EvaCachingKeys = cachingKeys;
+                evaOptions.ExternalServicesUri = evaExternalApis;
                 evaOptions.EvaConventions = new EvaConventions()
                 {
                     ControllerModelConvention = new EvaControllerModelConvention()

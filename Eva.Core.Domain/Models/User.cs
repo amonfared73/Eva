@@ -20,5 +20,6 @@ namespace Eva.Core.Domain.Models
         [JsonIgnore]
         public ICollection<EvaLog> EvaLogs { get; set; }
         public override string ToString() => Username;
+        public static implicit operator string(User user) => user.Username;
     }
 }

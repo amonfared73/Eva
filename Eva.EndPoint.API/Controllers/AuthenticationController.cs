@@ -10,6 +10,7 @@ using Eva.Core.Domain.Responses;
 using Eva.Core.Domain.ViewModels;
 using Eva.Infra.Tools.Hashers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using System.Security.Claims;
 using AllowAnonymousAttribute = Microsoft.AspNetCore.Authorization.AllowAnonymousAttribute;
 using HttpDeleteAttribute = Microsoft.AspNetCore.Mvc.HttpDeleteAttribute;
@@ -25,14 +26,20 @@ namespace Eva.EndPoint.API.Controllers
         private readonly IRefreshTokenService _refreshTokenRepository;
         private readonly RefreshTokenValidator _refreshTokenValidator;
         private readonly Authenticator _authenticator;
+        private readonly IMemoryCache _memoryCache;
+        private readonly EvaCachingKeys _keys;
+        private readonly IUserContext _userContext;
 
-        public AuthenticationController(IAuthenticationService service, IUserService userService, IRefreshTokenService refreshTokenRepository, RefreshTokenValidator refreshTokenValidator, Authenticator authenticator) : base(service)
+        public AuthenticationController(IAuthenticationService service, IUserService userService, IRefreshTokenService refreshTokenRepository, RefreshTokenValidator refreshTokenValidator, Authenticator authenticator, IMemoryCache memoryCache, EvaCachingKeys keys, IUserContext userContext) : base(service)
         {
             _service = service;
             _userService = userService;
             _refreshTokenRepository = refreshTokenRepository;
             _refreshTokenValidator = refreshTokenValidator;
             _authenticator = authenticator;
+            _memoryCache = memoryCache;
+            _keys = keys;
+            _userContext = userContext;
         }
 
         [HttpPost]
@@ -171,6 +178,8 @@ namespace Eva.EndPoint.API.Controllers
                 return Unauthorized();
             }
             await _refreshTokenRepository.DeleteAllUserTokens(userId);
+            _memoryCache.Remove($"{_keys.AccessiblePermissions} {_userContext.UserId}");
+            _memoryCache.Remove($"{_keys.AccessibleEndPoints} {_userContext.UserId}");
             return NoContent();
         }
     }

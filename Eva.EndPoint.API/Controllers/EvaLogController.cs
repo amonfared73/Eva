@@ -20,13 +20,13 @@ namespace Eva.EndPoint.API.Controllers
             _logService = logService;
         }
         [HttpGet]
-        [HasRole(ActiveRoles.SystemDeveloper)]
+        [HasAccess(ActivePermissions.Encrypt)]
         public async Task<IEnumerable<EvaLog>> ViewAllLogsAsync()
         {
             return await _logService.ViewAllLogsAsync();
         }
         [HttpPost]
-        [HasRole(ActiveRoles.SystemDeveloper)]
+        [HasAccess(nameof(EvaLogReportAsync))]
         public async Task<PagedResultViewModel<EvaLogReportOutputViewModel>> EvaLogReportAsync(EvaLogReportInputViewModel request)
         {
             try
@@ -45,7 +45,7 @@ namespace Eva.EndPoint.API.Controllers
             {
                 return new PagedResultViewModel<EvaLogReportOutputViewModel>()
                 {
-                    ResponseMessage = new ResponseMessage($"Some error occured , {ex.Message}"),
+                    ResponseMessage = new ResponseMessage($"Some error occurred , {ex.Message}"),
                     HasError = true,
                 };
             }
@@ -57,7 +57,7 @@ namespace Eva.EndPoint.API.Controllers
             return await _logService.SimpleUserLogReport();
         }
         [HttpDelete]
-        [HasRole(ActiveRoles.SystemDeveloper)]
+        [HasAccess(ActivePermissions.Encrypt)]
         public async Task<ActionResultViewModel<EvaLog>> ClearAllLogsAsync()
         {
             try
