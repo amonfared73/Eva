@@ -34,7 +34,7 @@ namespace Eva.Core.ApplicationService.Queries
             }
         }
 
-        public async Task<IEnumerable<string>> GetUserPermissions(int userId)
+        public async Task<IQueryable<string>> GetUserPermissions(int userId)
         {
             using (var context = _dbContextFactory.CreateDbContext())
             {
@@ -68,7 +68,7 @@ namespace Eva.Core.ApplicationService.Queries
                     .Distinct()
                     .ToListAsync();
 
-                return permissions;
+                return permissions.AsQueryable();
             }
         }
     }
