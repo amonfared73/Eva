@@ -20,5 +20,11 @@ namespace Eva.EndPoint.API.Controllers
             var result = await _permissionService.CreatePermission(permissionDto);
             return Ok(result);
         }
+
+        [HttpPost]
+        public async Task<IEnumerable<string>> GetUserPermissions(int userId)
+        {
+            return await _permissionService.GetUserPermissions(userId);
+        }
     }
 }

@@ -24,13 +24,15 @@ namespace Eva.Core.ApplicationService.Queries
         private readonly IEvaDbContextFactory _contextFactory;
         private readonly IUserRoleMappingService _userRoleMappingService;
         private readonly IRsaCryptographyService _rsaCryptographyService;
+        private readonly IPermissionService _permissionService;
         private readonly UserValidator _userValidator;
-        public UserService(IEvaDbContextFactory contextFactory, IUserRoleMappingService userRoleMappingService, IRsaCryptographyService rsaCryptographyService, UserValidator userValidator) : base(contextFactory)
+        public UserService(IEvaDbContextFactory contextFactory, IUserRoleMappingService userRoleMappingService, IRsaCryptographyService rsaCryptographyService, UserValidator userValidator, IPermissionService permissionService) : base(contextFactory)
         {
             _contextFactory = contextFactory;
             _userRoleMappingService = userRoleMappingService;
             _rsaCryptographyService = rsaCryptographyService;
             _userValidator = userValidator;
+            _permissionService = permissionService;
         }
         public async Task<User> GetByUsername(string username)
         {
@@ -269,6 +271,9 @@ namespace Eva.Core.ApplicationService.Queries
                 var user = await context.Users.FirstOrDefaultAsync(u => u.Username == username);
                 if (user is null)
                     throw new EvaNotFoundException("User not found", typeof(User));
+
+                var permissions = await _permissionService.GetUserPermissions(user.Id);
+
                 return new ActionResultViewModel<User>()
                 {
                     Entity = user,

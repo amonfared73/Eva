@@ -28,7 +28,7 @@ namespace Eva.Core.ApplicationService.Queries
 
                 var permission = await context.Permissions.FirstOrDefaultAsync(p => p.Id == model.PermissionId);
                 if (permission == null)
-                    throw new EvaNotFoundException("Role not found", typeof(Permission));
+                    throw new EvaNotFoundException("Permission not found", typeof(Permission));
 
                 RolePermissionMapping rolePermissionMapping = model;
 

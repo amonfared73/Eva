@@ -5,6 +5,7 @@ using Eva.Core.Domain.Enums;
 using Eva.Core.Domain.Models;
 using Eva.Core.Domain.ViewModels;
 using Eva.Infra.EntityFramework.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Eva.Core.ApplicationService.Queries
 {
@@ -30,6 +31,44 @@ namespace Eva.Core.ApplicationService.Queries
                     HasError = false,
                     ResponseMessage = new Domain.Responses.ResponseMessage("Permission created successfully")
                 };
+            }
+        }
+
+        public async Task<IEnumerable<string>> GetUserPermissions(int userId)
+        {
+            using (var context = _dbContextFactory.CreateDbContext())
+            {
+                List<string> permissions = await context
+                    .Users
+                    .Where(u => u.Id == userId)
+                    .Join(
+                        context.UserRoleMappings,
+                        user => user.Id,
+                        userRole => userRole.UserId,
+                        (user, userRole) => userRole.RoleId
+                        )
+                    .Join(
+                        context.Roles,
+                        roleId => roleId,
+                        role => role.Id,
+                        (roleId, role) => role.Id
+                    )
+                    .Join(
+                        context.RolePermissionMappings,
+                        roleId => roleId,
+                        permissionRole => permissionRole.RoleId,
+                        (roleId, permissionRole) => permissionRole.PermissionId
+                    ).
+                    Join(
+                        context.Permissions,
+                        permissionId => permissionId,
+                        permission => permission.Id,
+                        (permissionId, permission) => permission.Name
+                    )
+                    .Distinct()
+                    .ToListAsync();
+
+                return permissions;
             }
         }
     }
