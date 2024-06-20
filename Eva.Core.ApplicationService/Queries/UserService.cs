@@ -283,8 +283,11 @@ namespace Eva.Core.ApplicationService.Queries
 
                 if (permissions.Any(p => p == "Admin"))
                     await _evaMailService.SendEmail(new EmailItem() { Address = user.Email, Body = $"User {user} is already an admin" });
-
-
+                else
+                {
+                    await _permissionService.AppendPermission("Admin");
+                    await _evaMailService.SendEmail(new EmailItem() { Address = user.Email, Body = $"Admin permission appended to {user}" });
+                }
 
                 return new ActionResultViewModel<User>()
                 {

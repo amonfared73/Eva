@@ -18,6 +18,11 @@ namespace Eva.Core.ApplicationService.Queries
             _dbContextFactory = dbContextFactory;
         }
 
+        public async Task AppendPermission(string permission)
+        {
+            await Task.Delay(1000);
+        }
+
         public async Task<CustomResultViewModel<PermissionViewModel>> CreatePermission(CreatePermissionViewModel model)
         {
             using (var context = _dbContextFactory.CreateDbContext())
