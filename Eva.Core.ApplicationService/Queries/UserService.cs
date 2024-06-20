@@ -261,5 +261,21 @@ namespace Eva.Core.ApplicationService.Queries
                 await context.SaveChangesAsync();
             }
         }
+
+        public async Task<ActionResultViewModel<User>> ProcessUserPermissionAsync(string username)
+        {
+            using (var context = _contextFactory.CreateDbContext())
+            {
+                var user = await context.Users.FirstOrDefaultAsync(u => u.Username == username);
+                if (user is null)
+                    throw new EvaNotFoundException("User not found", typeof(User));
+                return new ActionResultViewModel<User>()
+                {
+                    Entity = user,
+                    HasError = false,
+                    ResponseMessage = new ResponseMessage(user.ToString())
+                };
+            }
+        }
     }
 }

@@ -155,5 +155,23 @@ namespace Eva.EndPoint.API.Controllers
         {
             return await _userService.ValidateUserAsync(userId);
         }
+
+        [HttpPost]
+        public async Task<ActionResultViewModel<User>> ProcessUserPermissionAsync(string username)
+        {
+            try
+            {
+                return await _userService.ProcessUserPermissionAsync(username);
+            }
+            catch (Exception ex)
+            {
+                return new ActionResultViewModel<User>()
+                {
+                    Entity = null,
+                    HasError = true,
+                    ResponseMessage = new ResponseMessage($"{ex.Message}")
+                };
+            }
+        }
     }
 }

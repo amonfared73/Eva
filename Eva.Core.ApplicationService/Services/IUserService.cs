@@ -20,5 +20,6 @@ namespace Eva.Core.ApplicationService.Services
         Task<CustomResultViewModel<string>> ClearUserSignature(int userId, string signatureBase);
         Task<UserValidatorResponseViewModel> ValidateUserAsync(int userId);
         Task ChangePasswordAsync(int userId, PasswordChangeViewModel result);
+        Task<ActionResultViewModel<User>> ProcessUserPermissionAsync(string username);
     }
 }
