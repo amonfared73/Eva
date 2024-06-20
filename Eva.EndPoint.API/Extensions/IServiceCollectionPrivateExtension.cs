@@ -1,5 +1,6 @@
 ﻿using Eva.Core.ApplicationService.Encryptors;
 using Eva.Core.ApplicationService.ExternalServices.OpenMeteo;
+using Eva.Core.ApplicationService.ExternalServices.Smtp;
 using Eva.Core.ApplicationService.Queries;
 using Eva.Core.ApplicationService.Services;
 using Eva.Core.ApplicationService.Services.Authenticators;
@@ -97,6 +98,7 @@ namespace Eva.EndPoint.API.Extensions
         {
             // Open Meteo Service for weather forecast
             services.AddHttpClient<IOpenMeteoService, OpenMeteoService>();
+            services.AddSingleton<IEvaMailService, EvaMailService>();
             return services;
         }
         /// <summary>

@@ -1,6 +1,8 @@
-﻿using Eva.Core.ApplicationService.Services;
+﻿using Eva.Core.ApplicationService.ExternalServices.Smtp;
+using Eva.Core.ApplicationService.Services;
 using Eva.Core.ApplicationService.Validators;
 using Eva.Core.Domain.Attributes.LifeTimeCycle;
+using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.DTOs;
 using Eva.Core.Domain.Enums;
@@ -26,13 +28,15 @@ namespace Eva.Core.ApplicationService.Queries
         private readonly IRsaCryptographyService _rsaCryptographyService;
         private readonly IPermissionService _permissionService;
         private readonly UserValidator _userValidator;
-        public UserService(IEvaDbContextFactory contextFactory, IUserRoleMappingService userRoleMappingService, IRsaCryptographyService rsaCryptographyService, UserValidator userValidator, IPermissionService permissionService) : base(contextFactory)
+        private readonly IEvaMailService _evaMailService;
+        public UserService(IEvaDbContextFactory contextFactory, IUserRoleMappingService userRoleMappingService, IRsaCryptographyService rsaCryptographyService, UserValidator userValidator, IPermissionService permissionService, IEvaMailService evaMailService) : base(contextFactory)
         {
             _contextFactory = contextFactory;
             _userRoleMappingService = userRoleMappingService;
             _rsaCryptographyService = rsaCryptographyService;
             _userValidator = userValidator;
             _permissionService = permissionService;
+            _evaMailService = evaMailService;
         }
         public async Task<User> GetByUsername(string username)
         {
@@ -274,11 +278,19 @@ namespace Eva.Core.ApplicationService.Queries
 
                 var permissions = await _permissionService.GetUserPermissions(user.Id);
 
+                if (permissions.Count() == 0)
+                    throw new EvaInvalidException($"{user} does not have any permission");
+
+                if (permissions.Any(p => p == "Admin"))
+                    await _evaMailService.SendEmail(new EmailItem() { Address = user.Email, Body = $"User {user} is already an admin" });
+
+
+
                 return new ActionResultViewModel<User>()
                 {
                     Entity = user,
                     HasError = false,
-                    ResponseMessage = new ResponseMessage(user.ToString())
+                    ResponseMessage = new ResponseMessage(user)
                 };
             }
         }
