@@ -12,10 +12,10 @@ namespace Eva.EndPoint.API.Controllers
 {
     public class UserController : EvaControllerBase<User, UserViewModel>
     {
-        private readonly IUserService _service;
-        public UserController(IUserService service) : base(service)
+        private readonly IUserService _userService;
+        public UserController(IUserService userService) : base(userService)
         {
-            _service = service;
+            _userService = userService;
         }
 
         [HttpPut]
@@ -24,7 +24,7 @@ namespace Eva.EndPoint.API.Controllers
         {
             try
             {
-                return await _service.AlterAdminStateAsync(userId);
+                return await _userService.AlterAdminStateAsync(userId);
             }
             catch (EvaNotFoundException ex)
             {
@@ -52,7 +52,7 @@ namespace Eva.EndPoint.API.Controllers
         {
             try
             {
-                return await _service.AssignAllMissingRolesAsync(userId);
+                return await _userService.AssignAllMissingRolesAsync(userId);
             }
             catch (EvaNotFoundException ex)
             {
@@ -99,7 +99,7 @@ namespace Eva.EndPoint.API.Controllers
                 if (userId is null)
                     throw new EvaNotFoundException($"Unable to find current user", typeof(User));
                 int.TryParse(userId, out int parsedUserId);
-                return await _service.CreateUserSignature(parsedUserId, signatureBase);
+                return await _userService.CreateUserSignature(parsedUserId, signatureBase);
             }
             catch (EvaNotFoundException ex)
             {
@@ -129,7 +129,7 @@ namespace Eva.EndPoint.API.Controllers
                 if (userId is null)
                     throw new EvaNotFoundException($"Unable to find current user", typeof(User));
                 int.TryParse(userId, out int parsedUserId);
-                return await _service.ClearUserSignature(parsedUserId, signatureBase);
+                return await _userService.ClearUserSignature(parsedUserId, signatureBase);
             }
             catch (EvaNotFoundException ex)
             {
@@ -153,7 +153,7 @@ namespace Eva.EndPoint.API.Controllers
         [HttpPost]
         public async Task<UserValidatorResponseViewModel> ValidateUserAsync(int userId)
         {
-            return await _service.ValidateUserAsync(userId);
+            return await _userService.ValidateUserAsync(userId);
         }
     }
 }
