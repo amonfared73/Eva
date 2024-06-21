@@ -11,11 +11,11 @@ namespace Eva.Infra.Tools.Extensions
                 EvaResult<TOut>.Failure(result.Error);
         }
 
-        public static async Task<EvaResult<TOut>> BindAsync<TIn, TOut>(this EvaResult<TIn> result, Func<TIn, Task<EvaResult<TOut>>> bindAsync)
+        public static async Task<EvaResult<TOut>> BindAsync<TIn, TOut>(this Task<EvaResult<TIn>> result, Func<TIn, Task<EvaResult<TOut>>> bindAsync)
         {
-            return result.IsSuccess ?
-                await bindAsync(result.Value) :
-                EvaResult<TOut>.Failure(result.Error);
+            return result.Result.IsSuccess ?
+                await bindAsync(result.Result.Value) :
+                EvaResult<TOut>.Failure(result.Result.Error);
         }
 
         public static EvaResult<TOut> TryCatch<TIn, TOut>(this EvaResult<TIn> result, Func<TIn, TOut> func, Error error)
@@ -32,13 +32,13 @@ namespace Eva.Infra.Tools.Extensions
             }
         }
 
-        public static async Task<EvaResult<TOut>> TryCatchAsync<TIn, TOut>(this EvaResult<TIn> result, Func<TIn, Task<TOut>> funcAsync, Error error)
+        public static async Task<EvaResult<TOut>> TryCatchAsync<TIn, TOut>(this Task<EvaResult<TIn>> result, Func<TIn, Task<TOut>> funcAsync, Error error)
         {
             try
             {
-                return result.IsSuccess ?
-                    EvaResult<TOut>.Success(await funcAsync(result.Value)) :
-                    EvaResult<TOut>.Failure(result.Error);
+                return result.Result.IsSuccess ?
+                    EvaResult<TOut>.Success(await funcAsync(result.Result.Value)) :
+                    EvaResult<TOut>.Failure(result.Result.Error);
             }
             catch
             {
@@ -53,11 +53,11 @@ namespace Eva.Infra.Tools.Extensions
             return result;
         }
 
-        public static async Task<EvaResult<TIn>> TapAsync<TIn>(this EvaResult<TIn> result, Func<TIn, Task> actionAsync)
+        public static async Task<EvaResult<TIn>> TapAsync<TIn>(this Task<EvaResult<TIn>> result, Func<TIn, Task> actionAsync)
         {
-            if (result.IsSuccess)
-                await actionAsync(result.Value);
-            return result;
+            if (result.Result.IsSuccess)
+                await actionAsync(result.Result.Value);
+            return result.Result;
         }
 
         public static TOut Match<TIn, TOut>(this EvaResult<TIn> result, Func<TIn, TOut> onSuccess, Func<Error, TOut> onFailure)
@@ -67,11 +67,11 @@ namespace Eva.Infra.Tools.Extensions
                 onFailure(result.Error);
         }
 
-        public static async Task<TOut> MatchAsync<TIn, TOut>(this EvaResult<TIn> result, Func<TIn, Task<TOut>> onSuccessAsync, Func<Error, Task<TOut>> onFailureAsync)
+        public static async Task<TOut> MatchAsync<TIn, TOut>(this Task<EvaResult<TIn>> result, Func<TIn, Task<TOut>> onSuccessAsync, Func<Error, Task<TOut>> onFailureAsync)
         {
-            return result.IsSuccess ?
-                await onSuccessAsync(result.Value) :
-                await onFailureAsync(result.Error);
+            return result.Result.IsSuccess ?
+                await onSuccessAsync(result.Result.Value) :
+                await onFailureAsync(result.Result.Error);
         }
     }
 }

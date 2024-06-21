@@ -45,5 +45,10 @@ namespace Eva.Infra.Tools.Extensions
             }
             return false;
         }
+
+        public static async Task<bool> HasMember<T>(this IEnumerable<T> source)
+        {
+            return await Task.FromResult(source.Any());
+        }
     }
 }
