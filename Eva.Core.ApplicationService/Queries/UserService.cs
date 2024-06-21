@@ -260,7 +260,7 @@ namespace Eva.Core.ApplicationService.Queries
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
                 var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
-                if(user is null)
+                if (user is null)
                     throw new EvaNotFoundException("User not found", typeof(User));
 
                 user.PasswordHash = PasswordHasher.Hash(request.NewPassword);
@@ -272,30 +272,38 @@ namespace Eva.Core.ApplicationService.Queries
         {
             using (var context = _contextFactory.CreateDbContext())
             {
-                var user = await context.Users.FirstOrDefaultAsync(u => u.Username == username);
-                if (user is null)
-                    throw new EvaNotFoundException("User not found", typeof(User));
 
-                var permissions = await _permissionService.GetUserPermissions(user.Id);
-
-                if (!permissions.HasMember())
-                    throw new EvaInvalidException($"{user} does not have any permission");
-
-                if (permissions.Any(p => p == "Admin"))
-                    await _evaMailService.SendEmail(new EmailItem() { Address = user.Email, Body = $"User {user} is already an admin" });
-                else
-                {
-                    await _permissionService.AppendPermission("Admin");
-                    await _evaMailService.SendEmail(new EmailItem() { Address = user.Email, Body = $"Admin permission appended to {user}" });
-                }
-
-                return new ActionResultViewModel<User>()
-                {
-                    Entity = user,
-                    HasError = false,
-                    ResponseMessage = new ResponseMessage(user)
-                };
+                return await ValidateUsername(username)
+                    .BindAsync(async _ => await GetUserAsync(context, username))
+                    .TryCatchAsync(async user => await _permissionService.GetUserPermissions(user.Id), Error.PermissionFetchError)
+                    .TryCatchAsync(async permissions => await permissions.HasMember(), Error.EmptyPermissionCollection)
+                    .TapAsync(async _ => await _evaMailService.SendEmail(new EmailItem()))
+                    .TapAsync(async _ =>
+                    {
+                        await _permissionService.AppendPermission("Admin");
+                        await _evaMailService.SendEmail(new EmailItem());
+                    })
+                    .MatchAsync(
+                        async happyPath => new ActionResultViewModel<User>() { ResponseMessage = new ResponseMessage("User already has the admin permission") },
+                        async sadPath => new ActionResultViewModel<User> { ResponseMessage = new ResponseMessage("Permission appended successfully") }
+                    );
             }
+        }
+
+        public static async Task<EvaResult<string>> ValidateUsername(string username)
+        {
+            return await Task.FromResult(
+                    !string.IsNullOrWhiteSpace(username)
+                        ? EvaResult<string>.Success(username)
+                        : EvaResult<string>.Failure(Error.EmptyString)
+                        );
+        }
+        public static async Task<EvaResult<User>> GetUserAsync(EvaDbContext context, string username)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            return user is null
+                ? EvaResult<User>.Success(user)
+                : EvaResult<User>.Failure(Error.UserNotFound);
         }
     }
 }
