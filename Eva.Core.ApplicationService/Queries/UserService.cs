@@ -278,7 +278,7 @@ namespace Eva.Core.ApplicationService.Queries
 
                 var permissions = await _permissionService.GetUserPermissions(user.Id);
 
-                if (permissions.Count() == 0)
+                if (!permissions.HasMember())
                     throw new EvaInvalidException($"{user} does not have any permission");
 
                 if (permissions.Any(p => p == "Admin"))

@@ -45,5 +45,7 @@ namespace Eva.Infra.Tools.Extensions
             }
             return false;
         }
+
+        public static bool HasMember<T>(this IEnumerable<T> source) => source.Count() > 0;
     }
 }
