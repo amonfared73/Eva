@@ -3,7 +3,7 @@ using Eva.Core.Domain.ViewModels.Inv;
 
 namespace Eva.Core.ApplicationService.Services.Inv
 {
-    public interface IInventoryService : IBaseService<Inventory, InventoryViewModel>
+    public interface IInventoryService : IEvaBaseService<Inventory, InventoryViewModel>
     {
     }
 }

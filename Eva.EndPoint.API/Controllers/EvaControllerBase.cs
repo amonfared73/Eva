@@ -13,8 +13,8 @@ namespace Eva.EndPoint.API.Controllers
     [Authorize]
     public class EvaControllerBase<TModel, TViewModel> : ControllerBase where TModel : ModelBase where TViewModel : ViewModelBase
     {
-        private readonly IBaseService<TModel, TViewModel> _baseService;
-        public EvaControllerBase(IBaseService<TModel, TViewModel> baseService)
+        private readonly IEvaBaseService<TModel, TViewModel> _baseService;
+        public EvaControllerBase(IEvaBaseService<TModel, TViewModel> baseService)
         {
             _baseService = baseService;
         }

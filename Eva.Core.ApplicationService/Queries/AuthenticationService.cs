@@ -8,7 +8,7 @@ using Eva.Core.Domain.Enums;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class AuthenticationService : BaseService<Authentication, AuthenticationViewModel>, IAuthenticationService
+    public class AuthenticationService : EvaBaseService<Authentication, AuthenticationViewModel>, IAuthenticationService
     {
         private readonly IEvaDbContextFactory _contextFactory;
         public AuthenticationService(IEvaDbContextFactory contextFactory) : base(contextFactory)

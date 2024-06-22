@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class PermissionEndPointMappingService : BaseService<PermissionEndPointMapping, PermissionEndPointMappingViewModel>, IPermissionEndPointMappingService
+    public class PermissionEndPointMappingService : EvaBaseService<PermissionEndPointMapping, PermissionEndPointMappingViewModel>, IPermissionEndPointMappingService
     {
         private readonly IEvaDbContextFactory _dbContextFactory;
         public PermissionEndPointMappingService(IEvaDbContextFactory dbContextFactory) : base(dbContextFactory)

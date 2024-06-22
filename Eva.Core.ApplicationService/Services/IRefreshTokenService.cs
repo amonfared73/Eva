@@ -4,7 +4,7 @@ using Eva.Core.Domain.ViewModels;
 
 namespace Eva.Core.ApplicationService.Services
 {
-    public interface IRefreshTokenService : IBaseService<RefreshToken, RefreshTokenViewModel>
+    public interface IRefreshTokenService : IEvaBaseService<RefreshToken, RefreshTokenViewModel>
     {
         Task<RefreshToken> GetByToken(string token);
         Task CreateToken(RefreshToken refreshToken);

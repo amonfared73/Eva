@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class RefreshTokenService : BaseService<RefreshToken, RefreshTokenViewModel>, IRefreshTokenService
+    public class RefreshTokenService : EvaBaseService<RefreshToken, RefreshTokenViewModel>, IRefreshTokenService
     {
         private readonly IEvaDbContextFactory _contextFactory;
 

@@ -4,7 +4,7 @@ using Eva.Core.Domain.ViewModels;
 
 namespace Eva.Core.ApplicationService.Services
 {
-    public interface IRoleService : IBaseService<Role, RoleViewModel>
+    public interface IRoleService : IEvaBaseService<Role, RoleViewModel>
     {
         Task<ActionResultViewModel<Role>> CreateRole(string name);
     }

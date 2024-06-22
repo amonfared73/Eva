@@ -8,7 +8,7 @@ using Eva.Infra.EntityFramework.DbContexts;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class EmployeeService : BaseService<Employee, EmployeeViewModel>, IEmployeeService
+    public class EmployeeService : EvaBaseService<Employee, EmployeeViewModel>, IEmployeeService
     {
         private readonly IEvaDbContextFactory _contextFactory;
         public EmployeeService(IEvaDbContextFactory contextFactory) : base(contextFactory)

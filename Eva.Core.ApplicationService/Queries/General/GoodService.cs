@@ -8,7 +8,7 @@ using Eva.Infra.EntityFramework.DbContexts;
 namespace Eva.Core.ApplicationService.Queries.General
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class GoodService : BaseService<Good, GoodViewModel>, IGoodService
+    public class GoodService : EvaBaseService<Good, GoodViewModel>, IGoodService
     {
         private readonly IEvaDbContextFactory _dbContextFactory;
         public GoodService(IEvaDbContextFactory dbContextFactory) : base(dbContextFactory)

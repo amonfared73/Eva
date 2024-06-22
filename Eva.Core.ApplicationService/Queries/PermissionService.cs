@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class PermissionService : BaseService<Permission, PermissionViewModel>, IPermissionService
+    public class PermissionService : EvaBaseService<Permission, PermissionViewModel>, IPermissionService
     {
         private readonly IEvaDbContextFactory _dbContextFactory;
         public PermissionService(IEvaDbContextFactory dbContextFactory) : base(dbContextFactory)

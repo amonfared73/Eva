@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class RolePermissionService : BaseService<RolePermissionMapping, RolePermissionMappingViewModel>, IRolePermissionMappingService
+    public class RolePermissionService : EvaBaseService<RolePermissionMapping, RolePermissionMappingViewModel>, IRolePermissionMappingService
     {
         private readonly IEvaDbContextFactory _dbContextFactory;
         public RolePermissionService(IEvaDbContextFactory dbContextFactory) : base(dbContextFactory)
@@ -28,7 +28,7 @@ namespace Eva.Core.ApplicationService.Queries
 
                 var permission = await context.Permissions.FirstOrDefaultAsync(p => p.Id == model.PermissionId);
                 if (permission == null)
-                    throw new EvaNotFoundException("Permission not found", typeof(Permission));
+                    throw new EvaNotFoundException("Role not found", typeof(Permission));
 
                 RolePermissionMapping rolePermissionMapping = model;
 

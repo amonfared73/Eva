@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class ComplexService : BaseService<Complex, ComplexViewModel>, IComplexService
+    public class ComplexService : EvaBaseService<Complex, ComplexViewModel>, IComplexService
     {
         private readonly IEvaDbContextFactory _contextFactory;
         public ComplexService(IEvaDbContextFactory contextFactory) : base(contextFactory)

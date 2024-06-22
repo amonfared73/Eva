@@ -3,7 +3,7 @@ using Eva.Core.Domain.BaseViewModels;
 
 namespace Eva.Core.ApplicationService.Services
 {
-    public interface IBaseService<TModel, TViewModel> where TModel : ModelBase where TViewModel : ViewModelBase
+    public interface IEvaBaseService<TModel, TViewModel> where TModel : ModelBase where TViewModel : ViewModelBase
     {
         Task<PagedResultViewModel<TModel>> GetAllAsync(BaseRequestViewModel request);
         Task<SingleResultViewModel<TModel>> GetByIdAsync(int id);

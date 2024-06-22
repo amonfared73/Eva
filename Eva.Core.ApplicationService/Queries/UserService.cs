@@ -1,8 +1,6 @@
-﻿using Eva.Core.ApplicationService.ExternalServices.Smtp;
-using Eva.Core.ApplicationService.Services;
+﻿using Eva.Core.ApplicationService.Services;
 using Eva.Core.ApplicationService.Validators;
 using Eva.Core.Domain.Attributes.LifeTimeCycle;
-using Eva.Core.Domain.BaseModels;
 using Eva.Core.Domain.BaseViewModels;
 using Eva.Core.Domain.DTOs;
 using Eva.Core.Domain.Enums;
@@ -21,22 +19,18 @@ using Newtonsoft.Json;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class UserService : BaseService<User, UserViewModel>, IUserService
+    public class UserService : EvaBaseService<User, UserViewModel>, IUserService
     {
         private readonly IEvaDbContextFactory _contextFactory;
         private readonly IUserRoleMappingService _userRoleMappingService;
         private readonly IRsaCryptographyService _rsaCryptographyService;
-        private readonly IPermissionService _permissionService;
         private readonly UserValidator _userValidator;
-        private readonly IEvaMailService _evaMailService;
-        public UserService(IEvaDbContextFactory contextFactory, IUserRoleMappingService userRoleMappingService, IRsaCryptographyService rsaCryptographyService, UserValidator userValidator, IPermissionService permissionService, IEvaMailService evaMailService) : base(contextFactory)
+        public UserService(IEvaDbContextFactory contextFactory, IUserRoleMappingService userRoleMappingService, IRsaCryptographyService rsaCryptographyService, UserValidator userValidator) : base(contextFactory)
         {
             _contextFactory = contextFactory;
             _userRoleMappingService = userRoleMappingService;
             _rsaCryptographyService = rsaCryptographyService;
             _userValidator = userValidator;
-            _permissionService = permissionService;
-            _evaMailService = evaMailService;
         }
         public async Task<User> GetByUsername(string username)
         {
@@ -260,50 +254,12 @@ namespace Eva.Core.ApplicationService.Queries
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
                 var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
-                if (user is null)
+                if(user is null)
                     throw new EvaNotFoundException("User not found", typeof(User));
 
                 user.PasswordHash = PasswordHasher.Hash(request.NewPassword);
                 await context.SaveChangesAsync();
             }
-        }
-
-        public async Task<ActionResultViewModel<User>> ProcessUserPermissionAsync(string username)
-        {
-            using (var context = _contextFactory.CreateDbContext())
-            {
-
-                return await ValidateUsername(username)
-                    .BindAsync(async _ => await GetUserAsync(context, username))
-                    .TryCatchAsync(async user => await _permissionService.GetUserPermissions(user.Id), Error.PermissionFetchError)
-                    .TryCatchAsync(async permissions => await permissions.HasMember(), Error.EmptyPermissionCollection)
-                    .TapAsync(async _ => await _evaMailService.SendEmail(new EmailItem()))
-                    .TapAsync(async _ =>
-                    {
-                        await _permissionService.AppendPermission("Admin");
-                        await _evaMailService.SendEmail(new EmailItem());
-                    })
-                    .MatchAsync(
-                        async happyPath => new ActionResultViewModel<User>() { ResponseMessage = new ResponseMessage("User already has the admin permission") },
-                        async sadPath => new ActionResultViewModel<User> { ResponseMessage = new ResponseMessage("Permission appended successfully") }
-                    );
-            }
-        }
-
-        public static async Task<EvaResult<string>> ValidateUsername(string username)
-        {
-            return await Task.FromResult(
-                    !string.IsNullOrWhiteSpace(username)
-                        ? EvaResult<string>.Success(username)
-                        : EvaResult<string>.Failure(Error.EmptyString)
-                        );
-        }
-        public static async Task<EvaResult<User>> GetUserAsync(EvaDbContext context, string username)
-        {
-            var user = await context.Users.FirstOrDefaultAsync(u => u.Username == username);
-            return user is null
-                ? EvaResult<User>.Success(user)
-                : EvaResult<User>.Failure(Error.UserNotFound);
         }
     }
 }

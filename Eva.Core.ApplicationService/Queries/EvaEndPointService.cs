@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class EvaEndPointService : BaseService<EvaEndPoint, EvaEndPointViewModel>, IEvaEndPointService
+    public class EvaEndPointService : EvaBaseService<EvaEndPoint, EvaEndPointViewModel>, IEvaEndPointService
     {
         private readonly IEvaDbContextFactory _dbContextFactory;
         public EvaEndPointService(IEvaDbContextFactory dbContextFactory) : base(dbContextFactory)

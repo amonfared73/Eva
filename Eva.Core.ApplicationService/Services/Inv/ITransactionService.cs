@@ -3,7 +3,7 @@ using Eva.Core.Domain.ViewModels.Inv;
 
 namespace Eva.Core.ApplicationService.Services.Inv
 {
-    public interface ITransactionService : IBaseService<Transaction, TransactionViewModel>
+    public interface ITransactionService : IEvaBaseService<Transaction, TransactionViewModel>
     {
 
     }

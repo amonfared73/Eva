@@ -3,7 +3,7 @@ using Eva.Core.Domain.ViewModels;
 
 namespace Eva.Core.ApplicationService.Services
 {
-    public interface IDesCryptographyService : IBaseService<DesCryptography, DesCryptographyViewModel>
+    public interface IDesCryptographyService : IEvaBaseService<DesCryptography, DesCryptographyViewModel>
     {
         Task<string> Encrypt(string text);
         Task<string> Decrypt(string cipherText);

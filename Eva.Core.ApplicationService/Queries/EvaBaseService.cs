@@ -11,10 +11,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Eva.Core.ApplicationService.Queries
 {
-    public class BaseService<TModel, TViewModel> : IBaseService<TModel, TViewModel> where TModel : ModelBase where TViewModel : ViewModelBase
+    public class EvaBaseService<TModel, TViewModel> : IEvaBaseService<TModel, TViewModel> where TModel : ModelBase where TViewModel : ViewModelBase
     {
         private readonly IEvaDbContextFactory _contextFactory;
-        public BaseService(IEvaDbContextFactory contextFactory)
+        public EvaBaseService(IEvaDbContextFactory contextFactory)
         {
             _contextFactory = contextFactory;
         }

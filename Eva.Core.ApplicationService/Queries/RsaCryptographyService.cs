@@ -9,7 +9,7 @@ using Eva.Infra.EntityFramework.DbContexts;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class RsaCryptographyService : BaseService<RsaCryptography, RsaCryptographyViewModel>, IRsaCryptographyService
+    public class RsaCryptographyService : EvaBaseService<RsaCryptography, RsaCryptographyViewModel>, IRsaCryptographyService
     {
         private readonly IEvaDbContextFactory _contextFactory;
         private readonly RsaEncryptor _encryptor;

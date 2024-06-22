@@ -5,7 +5,7 @@ using Eva.Core.Domain.ViewModels;
 
 namespace Eva.Core.ApplicationService.Services
 {
-    public interface IUserRoleMappingService : IBaseService<UserRoleMapping, UserRoleMappingViewModel>
+    public interface IUserRoleMappingService : IEvaBaseService<UserRoleMapping, UserRoleMappingViewModel>
     {
         Task<ActionResultViewModel<UserRoleMapping>> AddRoleToUserAsync(UserRoleMappingDto request);
         Task<HashSet<string>> GetRolesForUserAsync(int userId);

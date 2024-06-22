@@ -9,7 +9,7 @@ using Eva.Infra.EntityFramework.DbContexts;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class RoleService : BaseService<Role, RoleViewModel>, IRoleService
+    public class RoleService : EvaBaseService<Role, RoleViewModel>, IRoleService
     {
         private readonly IEvaDbContextFactory _contextFactory;
 

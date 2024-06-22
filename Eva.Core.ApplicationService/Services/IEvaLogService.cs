@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Eva.Core.ApplicationService.Services
 {
-    public interface IEvaLogService : IBaseService<EvaLog, EvaLogViewModel>
+    public interface IEvaLogService : IEvaBaseService<EvaLog, EvaLogViewModel>
     {
         Task LogAsync(HttpContext httpContext, string evaLogType, string requestBody, string responseBody);
         Task<IEnumerable<EvaLog>> ViewAllLogsAsync();

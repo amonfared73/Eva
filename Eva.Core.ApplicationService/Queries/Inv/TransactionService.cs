@@ -8,7 +8,7 @@ using Eva.Infra.EntityFramework.DbContexts;
 namespace Eva.Core.ApplicationService.Queries.Inv
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class TransactionService : BaseService<Transaction, TransactionViewModel>, ITransactionService
+    public class TransactionService : EvaBaseService<Transaction, TransactionViewModel>, ITransactionService
     {
         private readonly IEvaDbContextFactory _dbContextFactory;
         public TransactionService(IEvaDbContextFactory dbContextFactory) : base(dbContextFactory)

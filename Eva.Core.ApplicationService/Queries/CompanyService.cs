@@ -8,7 +8,7 @@ using Eva.Core.Domain.Enums;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class CompanyService : BaseService<Company, CompanyViewModel>, ICompanyService
+    public class CompanyService : EvaBaseService<Company, CompanyViewModel>, ICompanyService
     {
         private readonly IEvaDbContextFactory _contextFactory;
         public CompanyService(IEvaDbContextFactory contextFactory) : base(contextFactory)

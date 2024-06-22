@@ -4,7 +4,7 @@ using Eva.Core.Domain.ViewModels;
 
 namespace Eva.Core.ApplicationService.Services
 {
-    public interface IInstrumentService : IBaseService<Instrument, InstrumentViewModel>
+    public interface IInstrumentService : IEvaBaseService<Instrument, InstrumentViewModel>
     {
         Task<CustomResultViewModel<string>> ImportFromExcel(string filePath);
     }

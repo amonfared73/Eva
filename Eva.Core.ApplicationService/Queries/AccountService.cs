@@ -14,7 +14,7 @@ using System.Linq.Expressions;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class AccountService : BaseService<Account, AccountViewModel>, IAccountService
+    public class AccountService : EvaBaseService<Account, AccountViewModel>, IAccountService
     {
         private readonly IEvaDbContextFactory _dbContextFactory;
         private readonly AccountValidator _validator;

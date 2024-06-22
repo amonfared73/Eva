@@ -3,7 +3,7 @@ using Eva.Core.Domain.ViewModels.General;
 
 namespace Eva.Core.ApplicationService.Services.General
 {
-    public interface IGoodService : IBaseService<Good, GoodViewModel>
+    public interface IGoodService : IEvaBaseService<Good, GoodViewModel>
     {
 
     }

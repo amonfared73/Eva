@@ -3,7 +3,7 @@ using Eva.Core.Domain.ViewModels;
 
 namespace Eva.Core.ApplicationService.Services
 {
-    public interface IRsaCryptographyService : IBaseService<RsaCryptography, RsaCryptographyViewModel>
+    public interface IRsaCryptographyService : IEvaBaseService<RsaCryptography, RsaCryptographyViewModel>
     {
         string Encrypt(string text);
         string Decrypt(string encryptedText);

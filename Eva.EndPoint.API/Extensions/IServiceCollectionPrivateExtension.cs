@@ -1,6 +1,5 @@
 ﻿using Eva.Core.ApplicationService.Encryptors;
 using Eva.Core.ApplicationService.ExternalServices.OpenMeteo;
-using Eva.Core.ApplicationService.ExternalServices.Smtp;
 using Eva.Core.ApplicationService.Queries;
 using Eva.Core.ApplicationService.Services;
 using Eva.Core.ApplicationService.Services.Authenticators;
@@ -98,7 +97,6 @@ namespace Eva.EndPoint.API.Extensions
         {
             // Open Meteo Service for weather forecast
             services.AddHttpClient<IOpenMeteoService, OpenMeteoService>();
-            services.AddSingleton<IEvaMailService, EvaMailService>();
             return services;
         }
         /// <summary>
@@ -259,10 +257,10 @@ namespace Eva.EndPoint.API.Extensions
         private static IServiceCollection AddEvaServices(this IServiceCollection services)
         {
             // Register base services
-            services.AddSingleton(typeof(IBaseService<,>), typeof(BaseService<,>));
+            services.AddSingleton(typeof(IEvaBaseService<,>), typeof(EvaBaseService<,>));
 
             // Get all services corresponding to Registration Required Attribute
-            var types = Assemblies.GetEvaTypes(typeof(IBaseService<,>)).Where(t => t.IsDefined(typeof(RegistrationRequiredAttribute), true));
+            var types = Assemblies.GetEvaTypes(typeof(IEvaBaseService<,>)).Where(t => t.IsDefined(typeof(RegistrationRequiredAttribute), true));
 
             // Register each service
             foreach (var type in types)

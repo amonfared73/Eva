@@ -3,7 +3,7 @@ using Eva.Core.Domain.ViewModels;
 
 namespace Eva.Core.ApplicationService.Services
 {
-    public interface IEvaEndPointService : IBaseService<EvaEndPoint, EvaEndPointViewModel>
+    public interface IEvaEndPointService : IEvaBaseService<EvaEndPoint, EvaEndPointViewModel>
     {
         Task<EvaEndPoint> GetEndPointByName(string currentEndpointName);
     }

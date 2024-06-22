@@ -10,7 +10,7 @@ using OfficeOpenXml;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class InstrumentService : BaseService<Instrument, InstrumentViewModel>, IInstrumentService
+    public class InstrumentService : EvaBaseService<Instrument, InstrumentViewModel>, IInstrumentService
     {
         private readonly IEvaDbContextFactory _contextFactory;
         public InstrumentService(IEvaDbContextFactory contextFactory) : base(contextFactory)

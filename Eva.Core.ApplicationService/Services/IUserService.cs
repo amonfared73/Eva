@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Eva.Core.ApplicationService.Services
 {
-    public interface IUserService : IBaseService<User, UserViewModel>
+    public interface IUserService : IEvaBaseService<User, UserViewModel>
     {
         Task<ActionResultViewModel<User>> AlterAdminStateAsync(int userId);
         Task<User> GetByUsername(string username);
@@ -20,6 +20,5 @@ namespace Eva.Core.ApplicationService.Services
         Task<CustomResultViewModel<string>> ClearUserSignature(int userId, string signatureBase);
         Task<UserValidatorResponseViewModel> ValidateUserAsync(int userId);
         Task ChangePasswordAsync(int userId, PasswordChangeViewModel result);
-        Task<ActionResultViewModel<User>> ProcessUserPermissionAsync(string username);
     }
 }

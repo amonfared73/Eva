@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class PostService : BaseService<Post, PostViewModel>, IPostService
+    public class PostService : EvaBaseService<Post, PostViewModel>, IPostService
     {
         private readonly IEvaDbContextFactory _dbContextFactory;
         public PostService(IEvaDbContextFactory dbContextFactory) : base(dbContextFactory)

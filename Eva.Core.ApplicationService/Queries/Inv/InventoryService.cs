@@ -8,7 +8,7 @@ using Eva.Infra.EntityFramework.DbContexts;
 namespace Eva.Core.ApplicationService.Queries.Inv
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class InventoryService : BaseService<Inventory, InventoryViewModel>, IInventoryService
+    public class InventoryService : EvaBaseService<Inventory, InventoryViewModel>, IInventoryService
     {
         private readonly IEvaDbContextFactory _dbContextFactory;
         public InventoryService(IEvaDbContextFactory dbContextFactory) : base(dbContextFactory)

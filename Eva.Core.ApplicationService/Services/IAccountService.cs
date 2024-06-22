@@ -6,7 +6,7 @@ using Eva.Core.Domain.ViewModels;
 
 namespace Eva.Core.ApplicationService.Services
 {
-    public interface IAccountService : IBaseService<Account, AccountViewModel>
+    public interface IAccountService : IEvaBaseService<Account, AccountViewModel>
     {
         Task<ActionResultViewModel<Account>> CreateRootAccount(AccountDto accountDto);
         Task<ActionResultViewModel<Account>> AppendAccount(AppendAccountViewModel model);

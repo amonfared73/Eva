@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class EvaLogService : BaseService<EvaLog, EvaLogViewModel>, IEvaLogService
+    public class EvaLogService : EvaBaseService<EvaLog, EvaLogViewModel>, IEvaLogService
     {
         private readonly IEvaDbContextFactory _contextFactory;
         private readonly IUserService _userService;

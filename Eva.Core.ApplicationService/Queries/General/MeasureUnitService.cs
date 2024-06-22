@@ -8,7 +8,7 @@ using Eva.Infra.EntityFramework.DbContexts;
 namespace Eva.Core.ApplicationService.Queries.General
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class MeasureUnitService : BaseService<MeasureUnit, MeasureUnitViewModel>, IMeasureUnitService
+    public class MeasureUnitService : EvaBaseService<MeasureUnit, MeasureUnitViewModel>, IMeasureUnitService
     {
         private readonly IEvaDbContextFactory _dbContextFactory;
         public MeasureUnitService(IEvaDbContextFactory dbContextFactory) : base(dbContextFactory)

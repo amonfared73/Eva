@@ -8,7 +8,7 @@ using Eva.Infra.EntityFramework.DbContexts;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class DepartmentService : BaseService<Department, DepartmentViewModel>, IDepartmentService
+    public class DepartmentService : EvaBaseService<Department, DepartmentViewModel>, IDepartmentService
     {
         private readonly IEvaDbContextFactory _contextFactory;
         public DepartmentService(IEvaDbContextFactory contextFactory) : base(contextFactory)

@@ -10,7 +10,7 @@ using Eva.Infra.EntityFramework.DbContexts;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class BlogService : BaseService<Blog, BlogViewModel>, IBlogService
+    public class BlogService : EvaBaseService<Blog, BlogViewModel>, IBlogService
     {
         private readonly IEvaDbContextFactory _dbContextFactory;
         public BlogService(IEvaDbContextFactory dbContextFactory) : base(dbContextFactory)

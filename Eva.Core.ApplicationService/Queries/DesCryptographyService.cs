@@ -9,7 +9,7 @@ using Eva.Infra.EntityFramework.DbContexts;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class DesCryptographyService : BaseService<DesCryptography, DesCryptographyViewModel>, IDesCryptographyService
+    public class DesCryptographyService : EvaBaseService<DesCryptography, DesCryptographyViewModel>, IDesCryptographyService
     {
         private readonly IEvaDbContextFactory _contextFactory;
         private readonly DesEncryptor _encryptor;

@@ -13,7 +13,7 @@ using Eva.Core.Domain.ViewModels;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class UserRoleMappingService : BaseService<UserRoleMapping, UserRoleMappingViewModel>, IUserRoleMappingService
+    public class UserRoleMappingService : EvaBaseService<UserRoleMapping, UserRoleMappingViewModel>, IUserRoleMappingService
     {
         private readonly IEvaDbContextFactory _contextFactory;
         public UserRoleMappingService(IEvaDbContextFactory contextFactory) : base(contextFactory)

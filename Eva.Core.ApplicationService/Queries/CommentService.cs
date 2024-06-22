@@ -14,7 +14,7 @@ using Eva.Core.Domain.BaseModels;
 namespace Eva.Core.ApplicationService.Queries
 {
     [RegistrationRequired(RegistrationType.Singleton)]
-    public class CommentService : BaseService<Comment, CommentViewModel>, ICommentService
+    public class CommentService : EvaBaseService<Comment, CommentViewModel>, ICommentService
     {
         private readonly IEvaDbContextFactory _dbContextFactory;
         private readonly CommentValidator _commentValidator;

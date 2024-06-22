@@ -3,7 +3,7 @@ using Eva.Core.Domain.ViewModels;
 
 namespace Eva.Core.ApplicationService.Services
 {
-    public interface ICompanyService : IBaseService<Company, CompanyViewModel>
+    public interface ICompanyService : IEvaBaseService<Company, CompanyViewModel>
     {
     }
 }
