@@ -22,13 +22,7 @@ namespace Eva.Core.ApplicationService.Queries
         {
             using (EvaDbContext context = _contextFactory.CreateDbContext())
             {
-                var entities = await context.Set<TModel>().ToListAsync();
-                var result = entities.ApplyBaseRequest(request, out Pagination pagination).AsQueryable();
-                return new PagedResultViewModel<TModel>()
-                {
-                    Data = result,
-                    Pagination = pagination
-                };
+                return await context.Set<TModel>().ToPagedResultViewModelAsync(request);
             }
         }
 
