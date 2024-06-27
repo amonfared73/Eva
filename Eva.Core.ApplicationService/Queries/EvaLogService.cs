@@ -87,7 +87,7 @@ namespace Eva.Core.ApplicationService.Queries
                                     Response = log.Response,
                                     StatusCode = log.StatusCode
                                 };
-                    var filteredQuery = query.ApplyBaseRequest(request, out Pagination pagination);
+                    var filteredQuery = query.ApplyBaseRequest(request, out Pagination pagination).AsQueryable();
 
                     return new PagedResultViewModel<EvaLogReportOutputViewModel>()
                     {
